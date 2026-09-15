@@ -1,166 +1,198 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iris SVM</title>
-    <style>
-        * { box-sizing: border-box; }
+<title>Iris Flower Dashboard</title>
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: #333;
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    .header {
+        text-align: center;
+        color: white;
+        padding: 60px 20px 35px;
+    }
+
+    .header h1 {
+        margin: 0;
+        font-size: 42px;
+    }
+
+    .header p {
+        margin-top: 12px;
+        font-size: 18px;
+        opacity: 0.9;
+    }
+
+    /* =========================
+       FLOWER CARDS
+    ========================= */
+
+    .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: auto;
+        padding-bottom: 50px;
+    }
+
+    .flowers {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+    }
+
+    .flower-card {
+        background: white;
+        border-radius: 22px;
+        overflow: hidden;
+
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+
+        opacity: 0;
+        transform: translateY(80px);
+
+        animation: slideUp 0.8s ease-out forwards;
+
+        transition: transform 0.3s ease,
+                    box-shadow 0.3s ease;
+    }
+
+    /* Card xuất hiện lần lượt */
+
+    .flower-card:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    .flower-card:nth-child(2) {
+        animation-delay: 0.3s;
+    }
+
+    .flower-card:nth-child(3) {
+        animation-delay: 0.5s;
+    }
+
+    /* Animation từ dưới lên */
+
+    @keyframes slideUp {
+
+        from {
+            opacity: 0;
+            transform: translateY(80px);
         }
 
-        .container {
-            width: 90%;
-            max-width: 700px;
-            background: white;
-            padding: 40px;
-            border-radius: 25px;
-            box-shadow: 0 20px 50px rgba(0,0,0,.25);
+        to {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        h1 {
-            text-align: center;
-            color: #4f46e5;
-            margin-bottom: 10px;
+    }
+
+    .flower-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 25px 45px rgba(0, 0, 0, 0.25);
+    }
+
+    /* =========================
+       IMAGE
+    ========================= */
+
+    .flower-image {
+        width: 100%;
+        height: 260px;
+        object-fit: cover;
+
+        transition: transform 0.5s ease;
+    }
+
+    .flower-card:hover .flower-image {
+        transform: scale(1.05);
+    }
+
+    /* =========================
+       CONTENT
+    ========================= */
+
+    .flower-content {
+        padding: 25px;
+    }
+
+    .flower-content h2 {
+        margin-top: 0;
+        color: #5b4bc4;
+    }
+
+    .flower-content p {
+        line-height: 1.6;
+        color: #666;
+    }
+
+    .feature {
+        display: inline-block;
+        margin-top: 8px;
+        padding: 7px 12px;
+        background: #f0efff;
+        color: #5b4bc4;
+        border-radius: 20px;
+        font-size: 13px;
+    }
+
+    /* =========================
+       BUTTON
+    ========================= */
+
+    .button-area {
+        text-align: center;
+        margin-top: 45px;
+    }
+
+    .predict-button {
+        display: inline-block;
+        padding: 16px 35px;
+
+        background: white;
+        color: #5b4bc4;
+
+        text-decoration: none;
+
+        border-radius: 30px;
+
+        font-size: 18px;
+        font-weight: bold;
+
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+
+        transition: all 0.3s ease;
+    }
+
+    .predict-button:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        background: #f5f3ff;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 800px) {
+
+        .flowers {
+            grid-template-columns: 1fr;
         }
 
-        .subtitle {
-            text-align: center;
-            color: #777;
-            margin-bottom: 30px;
+        .header h1 {
+            font-size: 32px;
         }
 
-        .form {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 8px;
-            color: #444;
-        }
-
-        input {
-            width: 100%;
-            padding: 13px;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            font-size: 16px;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        button {
-            width: 100%;
-            margin-top: 25px;
-            padding: 15px;
-            border: none;
-            border-radius: 12px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        button:hover {
-            opacity: .9;
-        }
-
-        #result {
-            display: none;
-            margin-top: 25px;
-            padding: 20px;
-            text-align: center;
-            background: #f3f4ff;
-            border-radius: 15px;
-        }
-
-        #prediction {
-            font-size: 28px;
-            font-weight: bold;
-            color: #764ba2;
-        }
-
-        @media(max-width:600px) {
-            .form { grid-template-columns: 1fr; }
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="container">
-    <h1>🌸 Iris Flower Classification</h1>
-    <p class="subtitle">Phân loại hoa Iris bằng mô hình SVM</p>
-
-    <div class="form">
-        <div>
-            <label>Sepal Length</label>
-            <input id="sepal_length" type="number" step="0.1" value="5.1">
-        </div>
-
-        <div>
-            <label>Sepal Width</label>
-            <input id="sepal_width" type="number" step="0.1" value="3.5">
-        </div>
-
-        <div>
-            <label>Petal Length</label>
-            <input id="petal_length" type="number" step="0.1" value="1.4">
-        </div>
-
-        <div>
-            <label>Petal Width</label>
-            <input id="petal_width" type="number" step="0.1" value="0.2">
-        </div>
-    </div>
-
-    <button onclick="predict()">🔍 Dự đoán</button>
-
-    <div id="result">
-        <div>Kết quả:</div>
-        <div id="prediction"></div>
-    </div>
-</div>
-
-<script>
-async function predict() {
-    const data = {
-        sepal_length: Number(document.getElementById("sepal_length").value),
-        sepal_width: Number(document.getElementById("sepal_width").value),
-        petal_length: Number(document.getElementById("petal_length").value),
-        petal_width: Number(document.getElementById("petal_width").value)
-    };
-
-    const response = await fetch("/predict", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(data)
-    });
-
-    const result = await response.json();
-
-    document.getElementById("prediction").innerText =
-        result.prediction.toUpperCase();
-
-    document.getElementById("result").style.display = "block";
-}
-</script>
-
-</body>
-</html>
+    }
+</style>
