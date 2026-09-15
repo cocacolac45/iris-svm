@@ -4,48 +4,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Iris SVM Prediction</title>
 
     <style>
-
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            margin: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
-
             display: flex;
             justify-content: center;
             align-items: center;
-
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #ff4e50, #f9d423);
+            background-attachment: fixed;
+            padding: 20px;
         }
 
         .container {
-            width: 90%;
-            max-width: 700px;
-
-            background: white;
+            width: 100%;
+            max-width: 650px;
+            background: #ffffff;
             padding: 40px;
-            border-radius: 25px;
-
-            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(239, 68, 68, 0.2);
+            transition: transform 0.3s ease;
         }
 
         h1 {
             text-align: center;
-            color: #4f46e5;
-            margin-bottom: 10px;
+            color: #e11d48;
+            font-size: 2rem;
+            margin-bottom: 8px;
+            font-weight: 700;
         }
 
         .subtitle {
             text-align: center;
-            color: #777;
+            color: #9f1239;
             margin-bottom: 30px;
+            font-size: 0.95rem;
+            opacity: 0.8;
         }
 
         .form {
@@ -56,22 +58,28 @@
 
         label {
             display: block;
-            font-weight: bold;
+            font-weight: 600;
             margin-bottom: 8px;
-            color: #444;
+            color: #4c0519;
+            font-size: 0.9rem;
         }
 
         input {
             width: 100%;
-            padding: 13px;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            font-size: 16px;
+            padding: 12px 16px;
+            border: 2px solid #fecdd3;
+            border-radius: 12px;
+            font-size: 15px;
+            color: #881337;
+            background-color: #fff1f2;
+            transition: all 0.3s ease;
         }
 
         input:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #e11d48;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 4px rgba(225, 29, 72, 0.15);
         }
 
         button {
@@ -80,257 +88,181 @@
             padding: 15px;
             border: none;
             border-radius: 12px;
-
-            background: linear-gradient(
-                135deg,
-                #667eea,
-                #764ba2
-            );
-
+            background: linear-gradient(135deg, #e11d48, #ff4d6d);
             color: white;
-            font-size: 18px;
-            font-weight: bold;
+            font-size: 17px;
+            font-weight: 700;
             cursor: pointer;
+            box-shadow: 0 8px 20px rgba(225, 29, 72, 0.3);
+            transition: all 0.3s ease;
         }
 
         button:hover {
-            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(225, 29, 72, 0.4);
+            background: linear-gradient(135deg, #be123c, #fb7185);
+        }
+
+        button:active {
+            transform: translateY(0);
         }
 
         #result {
             display: none;
             margin-top: 25px;
-            padding: 20px;
+            padding: 24px;
             text-align: center;
-            background: #f3f4ff;
-            border-radius: 15px;
+            background: #fff1f2;
+            border: 1px solid #ffe4e6;
+            border-radius: 16px;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        #result > div:first-child {
+            color: #9f1239;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         #prediction {
-            font-size: 28px;
-            font-weight: bold;
-            color: #764ba2;
-            margin-top: 8px;
+            font-size: 26px;
+            font-weight: 800;
+            color: #be123c;
+            margin-top: 6px;
         }
 
         #flower-image {
             display: block;
-            width: 250px;
-            height: 250px;
-            object-fit: contain;
-            margin: 15px auto 0;
-            border-radius: 15px;
+            width: 220px;
+            height: 220px;
+            object-fit: cover;
+            margin: 18px auto 0;
+            border-radius: 16px;
+            border: 3px solid #ffffff;
+            box-shadow: 0 8px 20px rgba(190, 18, 60, 0.15);
         }
 
         .back {
-            display: block;
+            display: inline-block;
+            width: 100%;
             text-align: center;
-            margin-top: 20px;
-            color: #667eea;
+            margin-top: 25px;
+            color: #e11d48;
             text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
         }
 
-        @media(max-width:600px) {
+        .back:hover {
+            color: #9f1239;
+            text-decoration: underline;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
             .form {
                 grid-template-columns: 1fr;
             }
         }
-
     </style>
-
 </head>
-
 
 <body>
 
-<div class="container">
+    <div class="container">
+        <h1>🌸 Iris Flower Classification</h1>
+        <p class="subtitle">Phân loại hoa Iris bằng mô hình SVM</p>
 
-    <h1>🌸 Iris Flower Classification</h1>
+        <div class="form">
+            <div>
+                <label>Sepal Length</label>
+                <input id="sepal_length" type="number" step="0.1" value="5.1">
+            </div>
 
-    <p class="subtitle">
-        Phân loại hoa Iris bằng mô hình SVM
-    </p>
+            <div>
+                <label>Sepal Width</label>
+                <input id="sepal_width" type="number" step="0.1" value="3.5">
+            </div>
 
+            <div>
+                <label>Petal Length</label>
+                <input id="petal_length" type="number" step="0.1" value="1.4">
+            </div>
 
-    <div class="form">
-
-        <div>
-            <label>Sepal Length</label>
-
-            <input
-                id="sepal_length"
-                type="number"
-                step="0.1"
-                value="5.1"
-            >
+            <div>
+                <label>Petal Width</label>
+                <input id="petal_width" type="number" step="0.1" value="0.2">
+            </div>
         </div>
 
+        <button onclick="predict()">🔍 Dự đoán</button>
 
-        <div>
-            <label>Sepal Width</label>
-
-            <input
-                id="sepal_width"
-                type="number"
-                step="0.1"
-                value="3.5"
-            >
+        <!-- KẾT QUẢ -->
+        <div id="result">
+            <div>Kết quả:</div>
+            <div id="prediction"></div>
+            <img id="flower-image" src="" alt="Flower">
         </div>
 
-
-        <div>
-            <label>Petal Length</label>
-
-            <input
-                id="petal_length"
-                type="number"
-                step="0.1"
-                value="1.4"
-            >
-        </div>
-
-
-        <div>
-            <label>Petal Width</label>
-
-            <input
-                id="petal_width"
-                type="number"
-                step="0.1"
-                value="0.2"
-            >
-        </div>
-
+        <a href="/" class="back">← Quay lại trang giới thiệu</a>
     </div>
 
+    <script>
+        async function predict() {
+            const data = {
+                sepal_length: Number(document.getElementById("sepal_length").value),
+                sepal_width: Number(document.getElementById("sepal_width").value),
+                petal_length: Number(document.getElementById("petal_length").value),
+                petal_width: Number(document.getElementById("petal_width").value)
+            };
 
-    <button onclick="predict()">
-        🔍 Dự đoán
-    </button>
+            try {
+                const response = await fetch("/predict", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                });
 
+                const result = await response.json();
 
-    <!-- KẾT QUẢ -->
+                if (!response.ok) {
+                    throw new Error(result.detail || "Có lỗi xảy ra");
+                }
 
-    <div id="result">
+                // Hiển thị tên loài
+                document.getElementById("prediction").innerText = result.prediction.toUpperCase();
 
-        <div>Kết quả:</div>
+                // Hiển thị hình tương ứng
+                const image = document.getElementById("flower-image");
+                image.src = "/photo/" + result.prediction + ".jpg";
+                image.alt = result.prediction;
 
-        <div id="prediction"></div>
+                // Hiển thị kết quả
+                document.getElementById("result").style.display = "block";
 
-        <img
-            id="flower-image"
-            src=""
-            alt="Flower"
-        >
-
-    </div>
-
-
-    <a href="/" class="back">
-        ← Quay lại trang giới thiệu
-    </a>
-
-</div>
-
-
-<script>
-
-async function predict() {
-
-    const data = {
-
-        sepal_length:
-            Number(
-                document.getElementById("sepal_length").value
-            ),
-
-        sepal_width:
-            Number(
-                document.getElementById("sepal_width").value
-            ),
-
-        petal_length:
-            Number(
-                document.getElementById("petal_length").value
-            ),
-
-        petal_width:
-            Number(
-                document.getElementById("petal_width").value
-            )
-
-    };
-
-
-    try {
-
-        const response = await fetch("/predict", {
-
-            method: "POST",
-
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify(data)
-
-        });
-
-
-        const result = await response.json();
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                result.detail || "Có lỗi xảy ra"
-            );
-
+            } catch (error) {
+                alert("Không thể kết nối đến API: " + error.message);
+            }
         }
-
-
-        // Hiển thị tên loài
-
-        document.getElementById("prediction").innerText =
-            result.prediction.toUpperCase();
-
-
-        // Hiển thị hình tương ứng
-
-        const image =
-            document.getElementById("flower-image");
-
-
-        image.src =
-            "/photo/" +
-            result.prediction +
-            ".jpg";
-
-
-        image.alt =
-            result.prediction;
-
-
-        // Hiển thị kết quả
-
-        document.getElementById("result").style.display =
-            "block";
-
-    }
-
-
-    catch (error) {
-
-        alert(
-            "Không thể kết nối đến API: " +
-            error.message
-        );
-
-    }
-
-}
-
-</script>
+    </script>
 
 </body>
 
