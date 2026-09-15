@@ -1,198 +1,170 @@
-<title>Iris Flower Dashboard</title>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iris Flower</title>
 
-<style>
-    * {
-        box-sizing: border-box;
-    }
-
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        min-height: 100vh;
-        background: linear-gradient(135deg, #667eea, #764ba2);
-        color: #333;
-    }
-
-    /* =========================
-       HEADER
-    ========================= */
-
-    .header {
-        text-align: center;
-        color: white;
-        padding: 60px 20px 35px;
-    }
-
-    .header h1 {
-        margin: 0;
-        font-size: 42px;
-    }
-
-    .header p {
-        margin-top: 12px;
-        font-size: 18px;
-        opacity: 0.9;
-    }
-
-    /* =========================
-       FLOWER CARDS
-    ========================= */
-
-    .container {
-        width: 90%;
-        max-width: 1200px;
-        margin: auto;
-        padding-bottom: 50px;
-    }
-
-    .flowers {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 25px;
-    }
-
-    .flower-card {
-        background: white;
-        border-radius: 22px;
-        overflow: hidden;
-
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-
-        opacity: 0;
-        transform: translateY(80px);
-
-        animation: slideUp 0.8s ease-out forwards;
-
-        transition: transform 0.3s ease,
-                    box-shadow 0.3s ease;
-    }
-
-    /* Card xuất hiện lần lượt */
-
-    .flower-card:nth-child(1) {
-        animation-delay: 0.1s;
-    }
-
-    .flower-card:nth-child(2) {
-        animation-delay: 0.3s;
-    }
-
-    .flower-card:nth-child(3) {
-        animation-delay: 0.5s;
-    }
-
-    /* Animation từ dưới lên */
-
-    @keyframes slideUp {
-
-        from {
-            opacity: 0;
-            transform: translateY(80px);
+    <style>
+        * {
+            box-sizing: border-box;
         }
 
-        to {
-            opacity: 1;
-            transform: translateY(0);
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea, #764ba2);
         }
 
-    }
+        h1 {
+            text-align: center;
+            color: white;
+            padding-top: 50px;
+        }
 
-    .flower-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 25px 45px rgba(0, 0, 0, 0.25);
-    }
-
-    /* =========================
-       IMAGE
-    ========================= */
-
-    .flower-image {
-        width: 100%;
-        height: 260px;
-        object-fit: cover;
-
-        transition: transform 0.5s ease;
-    }
-
-    .flower-card:hover .flower-image {
-        transform: scale(1.05);
-    }
-
-    /* =========================
-       CONTENT
-    ========================= */
-
-    .flower-content {
-        padding: 25px;
-    }
-
-    .flower-content h2 {
-        margin-top: 0;
-        color: #5b4bc4;
-    }
-
-    .flower-content p {
-        line-height: 1.6;
-        color: #666;
-    }
-
-    .feature {
-        display: inline-block;
-        margin-top: 8px;
-        padding: 7px 12px;
-        background: #f0efff;
-        color: #5b4bc4;
-        border-radius: 20px;
-        font-size: 13px;
-    }
-
-    /* =========================
-       BUTTON
-    ========================= */
-
-    .button-area {
-        text-align: center;
-        margin-top: 45px;
-    }
-
-    .predict-button {
-        display: inline-block;
-        padding: 16px 35px;
-
-        background: white;
-        color: #5b4bc4;
-
-        text-decoration: none;
-
-        border-radius: 30px;
-
-        font-size: 18px;
-        font-weight: bold;
-
-        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-
-        transition: all 0.3s ease;
-    }
-
-    .predict-button:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-        background: #f5f3ff;
-    }
-
-    /* =========================
-       MOBILE
-    ========================= */
-
-    @media (max-width: 800px) {
+        .subtitle {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
 
         .flowers {
-            grid-template-columns: 1fr;
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
         }
 
-        .header h1 {
-            font-size: 32px;
+        .card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+
+            opacity: 0;
+            transform: translateY(80px);
+
+            animation: appear 0.8s ease forwards;
         }
 
-    }
-</style>
+        .card:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .card:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .card:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes appear {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .content h2 {
+            color: #5b4bc4;
+        }
+
+        .content p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .button {
+            display: block;
+            width: fit-content;
+            margin: 40px auto;
+            padding: 15px 30px;
+            background: white;
+            color: #5b4bc4;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 800px) {
+            .flowers {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🌸 Iris Flower</h1>
+
+    <p class="subtitle">
+        Khám phá 3 loài hoa trong bộ dữ liệu Iris
+    </p>
+
+    <div class="flowers">
+
+        <div class="card">
+            <img src="/photo/setosa.jpg" alt="Iris Setosa">
+
+            <div class="content">
+                <h2>Iris Setosa</h2>
+
+                <p>
+                    Iris Setosa là một trong ba loài hoa
+                    được sử dụng trong bộ dữ liệu Iris.
+                </p>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <img src="/photo/versicolor.jpg" alt="Iris Versicolor">
+
+            <div class="content">
+                <h2>Iris Versicolor</h2>
+
+                <p>
+                    Iris Versicolor có kích thước cánh hoa
+                    ở mức trung gian.
+                </p>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <img src="/photo/virginica.jpg" alt="Iris Virginica">
+
+            <div class="content">
+                <h2>Iris Virginica</h2>
+
+                <p>
+                    Iris Virginica thường có cánh hoa
+                    lớn hơn so với hai loài còn lại.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+
+    <a href="/predict-page" class="button">
+        🔍 Bắt đầu dự đoán
+    </a>
+
+</body>
+</html>
