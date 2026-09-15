@@ -113,6 +113,15 @@
             margin-top: 8px;
         }
 
+        #flower-image {
+            display: block;
+            width: 250px;
+            height: 250px;
+            object-fit: contain;
+            margin: 15px auto 0;
+            border-radius: 15px;
+        }
+
         .back {
             display: block;
             text-align: center;
@@ -200,26 +209,22 @@
     </button>
 
 
-    <div id="result">
-
-    <div>Kết quả:</div>
-
-    <div id="prediction"></div>
-
+    <!-- KẾT QUẢ -->
 
     <div id="result">
+
         <div>Kết quả:</div>
+
         <div id="prediction"></div>
+
         <img
             id="flower-image"
             src=""
             alt="Flower"
-            style="width: 250px;height: 250px;object-fit: contain;margin-top: 15px;border-radius: 15px;"
         >
-    
+
     </div>
 
-    
 
     <a href="/" class="back">
         ← Quay lại trang giới thiệu
@@ -235,16 +240,24 @@ async function predict() {
     const data = {
 
         sepal_length:
-            Number(document.getElementById("sepal_length").value),
+            Number(
+                document.getElementById("sepal_length").value
+            ),
 
         sepal_width:
-            Number(document.getElementById("sepal_width").value),
+            Number(
+                document.getElementById("sepal_width").value
+            ),
 
         petal_length:
-            Number(document.getElementById("petal_length").value),
+            Number(
+                document.getElementById("petal_length").value
+            ),
 
         petal_width:
-            Number(document.getElementById("petal_width").value)
+            Number(
+                document.getElementById("petal_width").value
+            )
 
     };
 
@@ -268,27 +281,45 @@ async function predict() {
 
 
         if (!response.ok) {
+
             throw new Error(
                 result.detail || "Có lỗi xảy ra"
             );
+
         }
 
 
+        // Hiển thị tên loài
+
         document.getElementById("prediction").innerText =
             result.prediction.toUpperCase();
-        
-        const image = document.getElementById("flower-image");
-        
-        image.src = "/photo/" + result.prediction + ".jpg";
-        
-        image.alt = result.prediction;
-        
+
+
+        // Hiển thị hình tương ứng
+
+        const image =
+            document.getElementById("flower-image");
+
+
+        image.src =
+            "/photo/" +
+            result.prediction +
+            ".jpg";
+
+
+        image.alt =
+            result.prediction;
+
+
+        // Hiển thị kết quả
+
         document.getElementById("result").style.display =
             "block";
 
+    }
 
 
-    } catch (error) {
+    catch (error) {
 
         alert(
             "Không thể kết nối đến API: " +
