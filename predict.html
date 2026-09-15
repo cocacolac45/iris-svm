@@ -202,12 +202,24 @@
 
     <div id="result">
 
+    <div>Kết quả:</div>
+
+    <div id="prediction"></div>
+
+
+    <div id="result">
         <div>Kết quả:</div>
-
         <div id="prediction"></div>
-
+        <img
+            id="flower-image"
+            src=""
+            alt="Flower"
+            style="width: 250px;height: 250px;object-fit: contain;margin-top: 15px;border-radius: 15px;"
+        >
+    
     </div>
 
+    
 
     <a href="/" class="back">
         ← Quay lại trang giới thiệu
@@ -264,10 +276,16 @@ async function predict() {
 
         document.getElementById("prediction").innerText =
             result.prediction.toUpperCase();
-
-
+        
+        const image = document.getElementById("flower-image");
+        
+        image.src = "/photo/" + result.prediction + ".jpg";
+        
+        image.alt = result.prediction;
+        
         document.getElementById("result").style.display =
             "block";
+
 
 
     } catch (error) {
