@@ -9,6 +9,7 @@ import joblib
 # =========================
 
 model = joblib.load("svm_iris_model.pkl")
+scaler = joblib.load("iris_scaler.pkl")      # THÊM MỚI
 encoder = joblib.load("iris_encoder.pkl")
 
 # =========================
@@ -21,7 +22,6 @@ app = FastAPI(
     version="1.0.0",
 )
 
-# Cho phép website truy cập ảnh trong folder photo
 app.mount("/photo", StaticFiles(directory="photo"), name="photo")
 
 
@@ -37,23 +37,11 @@ class IrisInput(BaseModel):
 
 
 # =========================
-# CLASS
-# =========================
-
-species = {
-    0: "setosa",
-    1: "versicolor",
-    2: "virginica",
-}
-
-
-# =========================
 # TRANG CHỦ
 # =========================
 
 @app.get("/", response_class=HTMLResponse)
 def home():
-
     with open("index.html", "r", encoding="utf-8") as f:
         return f.read()
 
@@ -64,7 +52,6 @@ def home():
 
 @app.get("/predict-page", response_class=HTMLResponse)
 def predict_page():
-
     with open("predict.html", "r", encoding="utf-8") as f:
         return f.read()
 
@@ -75,10 +62,7 @@ def predict_page():
 
 @app.get("/health")
 def health():
-
-    return {
-        "status": "healthy"
-    }
+    return {"status": "healthy"}
 
 
 # =========================
@@ -95,9 +79,13 @@ def predict(data: IrisInput):
         data.petal_width,
     ]]
 
-    prediction = int(model.predict(features)[0])
+    # BẮT BUỘC: scale input giống lúc train
+    features_scaled = scaler.transform(features)
+
+    prediction = model.predict(features_scaled)[0]
+    species_name = encoder.inverse_transform([prediction])[0]
 
     return {
-        "class_id": prediction,
-        "prediction": species[prediction],
+        "class_id": int(prediction),
+        "prediction": species_name,
     }
