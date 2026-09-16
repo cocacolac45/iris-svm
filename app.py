@@ -9,6 +9,7 @@ import joblib
 # =========================
 
 model = joblib.load("svm_iris_model.pkl")
+scaler = joblib.load("iris_scaler.pkl")
 encoder = joblib.load("iris_encoder.pkl")
 
 # =========================
@@ -33,16 +34,6 @@ class IrisInput(BaseModel):
     sepal_width: float
     petal_length: float
     petal_width: float
-
-# =========================
-# CLASS
-# =========================
-
-species = {
-    0: "setosa",
-    1: "versicolor",
-    2: "virginica",
-}
 
 # =========================
 # TRANG CHỦ
@@ -82,6 +73,10 @@ def health():
 @app.post("/predict")
 def predict(data: IrisInput):
 
+    # =========================
+    # TẠO DỮ LIỆU ĐẦU VÀO
+    # =========================
+
     features = [[
         data.sepal_length,
         data.sepal_width,
@@ -89,9 +84,25 @@ def predict(data: IrisInput):
         data.petal_width,
     ]]
 
-    prediction = int(model.predict(features)[0])
+    # =========================
+    # SCALE DỮ LIỆU
+    # =========================
+
+    features_scaled = scaler.transform(features)
+
+    # =========================
+    # DỰ ĐOÁN
+    # =========================
+
+    prediction = int(model.predict(features_scaled)[0])
+
+    # =========================
+    # ĐỔI CLASS ID → TÊN LOÀI
+    # =========================
+
+    predicted_class = encoder.inverse_transform([prediction])[0]
 
     return {
         "class_id": prediction,
-        "prediction": species[prediction],
+        "prediction": predicted_class,
     }
