@@ -14,170 +14,237 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #ff4e50, #f9d423);
+            background: linear-gradient(135deg, #fff0f3 0%, #ffe3e8 50%, #ffd6ff 100%);
             background-attachment: fixed;
-            padding: 20px;
+            padding: 30px 20px;
+            color: #5c3d46;
         }
 
         .container {
             width: 100%;
-            max-width: 650px;
-            background: #ffffff;
+            max-width: 1100px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
             padding: 40px;
-            border-radius: 24px;
-            box-shadow: 0 15px 35px rgba(239, 68, 68, 0.2);
-            transition: transform 0.3s ease;
+            border-radius: 28px;
+            box-shadow: 0 20px 40px rgba(229, 152, 170, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.8);
         }
 
         h1 {
             text-align: center;
-            color: #e11d48;
-            font-size: 2rem;
-            margin-bottom: 8px;
+            color: #d85777;
+            font-size: 2.1rem;
+            margin-bottom: 6px;
             font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         .subtitle {
             text-align: center;
-            color: #9f1239;
-            margin-bottom: 30px;
+            color: #b07283;
+            margin-bottom: 35px;
             font-size: 0.95rem;
-            opacity: 0.8;
+        }
+
+        /* Bố cục nằm ngang chính */
+        .main-content {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            background: #fff;
+            padding: 24px;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(230, 175, 190, 0.12);
+            border: 1px solid #ffe5ec;
+        }
+
+        /* Khối nhập liệu có thanh cuộn ngang */
+        .form-wrapper {
+            flex: 1.5;
+            min-width: 0; /* Đảm bảo scrollbar hoạt động chuẩn trong flexbox */
         }
 
         .form {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            padding: 8px 4px 16px 4px;
+            scroll-behavior: smooth;
+        }
+
+        /* Tùy chỉnh thanh cuộn ngang tone hồng pastel */
+        .form::-webkit-scrollbar {
+            height: 6px;
+        }
+        .form::-webkit-scrollbar-track {
+            background: #fff0f3;
+            border-radius: 10px;
+        }
+        .form::-webkit-scrollbar-thumb {
+            background: #f4abb7;
+            border-radius: 10px;
+        }
+        .form::-webkit-scrollbar-thumb:hover {
+            background: #e88698;
+        }
+
+        .input-group {
+            flex: 0 0 160px;
+            background: #fff8f9;
+            padding: 16px;
+            border-radius: 16px;
+            border: 1px solid #ffe3e8;
+            transition: all 0.25s ease;
+        }
+
+        .input-group:hover {
+            border-color: #f4abb7;
+            transform: translateY(-2px);
         }
 
         label {
             display: block;
             font-weight: 600;
-            margin-bottom: 8px;
-            color: #4c0519;
-            font-size: 0.9rem;
+            margin-bottom: 10px;
+            color: #8c4a5c;
+            font-size: 0.85rem;
+            white-space: nowrap;
         }
 
         input {
             width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #fecdd3;
-            border-radius: 12px;
+            padding: 10px 14px;
+            border: 1.5px solid #f9ccd5;
+            border-radius: 10px;
             font-size: 15px;
-            color: #881337;
-            background-color: #fff1f2;
-            transition: all 0.3s ease;
+            color: #6b3343;
+            background-color: #ffffff;
+            outline: none;
+            transition: all 0.2s ease;
         }
 
         input:focus {
-            outline: none;
-            border-color: #e11d48;
-            background-color: #ffffff;
-            box-shadow: 0 0 0 4px rgba(225, 29, 72, 0.15);
+            border-color: #d85777;
+            box-shadow: 0 0 0 3px rgba(216, 87, 119, 0.15);
+        }
+
+        /* Nút dự đoán đặt ở giữa */
+        .button-wrapper {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
         }
 
         button {
-            width: 100%;
-            margin-top: 25px;
-            padding: 15px;
+            padding: 18px 28px;
             border: none;
-            border-radius: 12px;
-            background: linear-gradient(135deg, #e11d48, #ff4d6d);
+            border-radius: 16px;
+            background: linear-gradient(135deg, #e88698, #d85777);
             color: white;
-            font-size: 17px;
-            font-weight: 700;
+            font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 8px 20px rgba(225, 29, 72, 0.3);
-            transition: all 0.3s ease;
+            box-shadow: 0 6px 18px rgba(216, 87, 119, 0.25);
+            transition: all 0.25s ease;
+            white-space: nowrap;
         }
 
         button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 24px rgba(225, 29, 72, 0.4);
-            background: linear-gradient(135deg, #be123c, #fb7185);
+            transform: scale(1.03);
+            box-shadow: 0 8px 22px rgba(216, 87, 119, 0.35);
+            background: linear-gradient(135deg, #ed94a4, #e06281);
         }
 
         button:active {
-            transform: translateY(0);
+            transform: scale(0.98);
         }
 
+        /* Khối kết quả bên phải */
         #result {
             display: none;
-            margin-top: 25px;
-            padding: 24px;
+            flex: 1;
+            min-width: 220px;
+            padding: 20px;
             text-align: center;
-            background: #fff1f2;
-            border: 1px solid #ffe4e6;
-            border-radius: 16px;
-            animation: fadeIn 0.4s ease-out;
+            background: #fff5f7;
+            border: 1.5px solid #ffe0e6;
+            border-radius: 18px;
+            animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         #result > div:first-child {
-            color: #9f1239;
-            font-size: 0.9rem;
+            color: #b07283;
+            font-size: 0.8rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
         }
 
         #prediction {
-            font-size: 26px;
-            font-weight: 800;
-            color: #be123c;
-            margin-top: 6px;
+            font-size: 20px;
+            font-weight: 700;
+            color: #c94466;
+            margin-top: 4px;
         }
 
         #flower-image {
             display: block;
-            width: 220px;
-            height: 220px;
+            width: 140px;
+            height: 140px;
             object-fit: cover;
-            margin: 18px auto 0;
-            border-radius: 16px;
-            border: 3px solid #ffffff;
-            box-shadow: 0 8px 20px rgba(190, 18, 60, 0.15);
+            margin: 12px auto 0;
+            border-radius: 14px;
+            border: 2px solid #ffffff;
+            box-shadow: 0 6px 16px rgba(201, 68, 102, 0.12);
         }
 
         .back {
-            display: inline-block;
-            width: 100%;
+            display: block;
             text-align: center;
-            margin-top: 25px;
-            color: #e11d48;
+            margin-top: 30px;
+            color: #b07283;
             text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
+            font-weight: 500;
+            font-size: 0.9rem;
             transition: color 0.2s ease;
         }
 
         .back:hover {
-            color: #9f1239;
+            color: #d85777;
             text-decoration: underline;
         }
 
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(10px);
+                transform: translateX(12px);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateX(0);
             }
         }
 
-        @media (max-width: 600px) {
-            .container {
-                padding: 25px;
+        /* Responsive cho màn hình nhỏ */
+        @media (max-width: 900px) {
+            .main-content {
+                flex-direction: column;
+                align-items: stretch;
             }
-            .form {
-                grid-template-columns: 1fr;
+            .form-wrapper {
+                width: 100%;
+            }
+            button {
+                width: 100%;
+            }
+            #result {
+                width: 100%;
             }
         }
     </style>
@@ -189,35 +256,46 @@
         <h1>🌸 Iris Flower Classification</h1>
         <p class="subtitle">Phân loại hoa Iris bằng mô hình SVM</p>
 
-        <div class="form">
-            <div>
-                <label>Sepal Length</label>
-                <input id="sepal_length" type="number" step="0.1" value="5.1">
+        <!-- Bố cục nằm ngang -->
+        <div class="main-content">
+            
+            <!-- Phần nhập liệu (Có thanh cuộn ngang) -->
+            <div class="form-wrapper">
+                <div class="form">
+                    <div class="input-group">
+                        <label>Sepal Length</label>
+                        <input id="sepal_length" type="number" step="0.1" value="5.1">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Sepal Width</label>
+                        <input id="sepal_width" type="number" step="0.1" value="3.5">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Petal Length</label>
+                        <input id="petal_length" type="number" step="0.1" value="1.4">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Petal Width</label>
+                        <input id="petal_width" type="number" step="0.1" value="0.2">
+                    </div>
+                </div>
             </div>
 
-            <div>
-                <label>Sepal Width</label>
-                <input id="sepal_width" type="number" step="0.1" value="3.5">
+            <!-- Nút bấm ở giữa -->
+            <div class="button-wrapper">
+                <button onclick="predict()">🔍 Dự đoán</button>
             </div>
 
-            <div>
-                <label>Petal Length</label>
-                <input id="petal_length" type="number" step="0.1" value="1.4">
+            <!-- Kết quả bên phải -->
+            <div id="result">
+                <div>Kết quả:</div>
+                <div id="prediction"></div>
+                <img id="flower-image" src="" alt="Flower">
             </div>
 
-            <div>
-                <label>Petal Width</label>
-                <input id="petal_width" type="number" step="0.1" value="0.2">
-            </div>
-        </div>
-
-        <button onclick="predict()">🔍 Dự đoán</button>
-
-        <!-- KẾT QUẢ -->
-        <div id="result">
-            <div>Kết quả:</div>
-            <div id="prediction"></div>
-            <img id="flower-image" src="" alt="Flower">
         </div>
 
         <a href="/" class="back">← Quay lại trang giới thiệu</a>
@@ -255,7 +333,7 @@
                 image.src = "/photo/" + result.prediction + ".jpg";
                 image.alt = result.prediction;
 
-                // Hiển thị kết quả
+                // Hiển thị kết quả (Dùng flex để giữ đúng layout ngang)
                 document.getElementById("result").style.display = "block";
 
             } catch (error) {
