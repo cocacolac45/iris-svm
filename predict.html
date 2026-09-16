@@ -276,370 +276,158 @@
 
         <div class="layout-grid">
 
-            <!-- =========================
-                 CỘT TRÁI: NHẬP DỮ LIỆU
-            ========================== -->
-
+            <!-- CỘT TRÁI: NHẬP DỮ LIỆU -->
             <div class="input-section">
-
-                <div class="section-title">
-                    Nhập số liệu
-                </div>
+                <div class="section-title">Nhập số liệu</div>
 
                 <div class="form">
-
                     <!-- Sepal Length -->
                     <div class="form-group">
-
                         <div class="label-row">
-                            <label>Sepal Length</label>
+                            <label for="sepal_length">Sepal Length</label>
                         </div>
-
                         <div class="input-control-wrap">
-
-                            <input
-                                id="sepal_length"
-                                type="number"
-                                step="0.1"
-                                value="5.1"
-                                oninput="syncRange('sepal_length', 'sepal_length_range')"
-                            >
-
-                            <input
-                                id="sepal_length_range"
-                                type="range"
-                                min="0"
-                                max="10"
-                                step="0.1"
-                                value="5.1"
-                                oninput="syncInput('sepal_length', 'sepal_length_range')"
-                            >
-
+                            <input id="sepal_length" type="number" step="0.1" value="5.1"
+                                oninput="syncRange('sepal_length', 'sepal_length_range')">
+                            <input id="sepal_length_range" type="range" min="0" max="10" step="0.1" value="5.1"
+                                oninput="syncInput('sepal_length', 'sepal_length_range')">
                         </div>
-
                     </div>
-
 
                     <!-- Sepal Width -->
                     <div class="form-group">
-
                         <div class="label-row">
-                            <label>Sepal Width</label>
+                            <label for="sepal_width">Sepal Width</label>
                         </div>
-
                         <div class="input-control-wrap">
-
-                            <input
-                                id="sepal_width"
-                                type="number"
-                                step="0.1"
-                                value="3.5"
-                                oninput="syncRange('sepal_width', 'sepal_width_range')"
-                            >
-
-                            <input
-                                id="sepal_width_range"
-                                type="range"
-                                min="0"
-                                max="10"
-                                step="0.1"
-                                value="3.5"
-                                oninput="syncInput('sepal_width', 'sepal_width_range')"
-                            >
-
+                            <input id="sepal_width" type="number" step="0.1" value="3.5"
+                                oninput="syncRange('sepal_width', 'sepal_width_range')">
+                            <input id="sepal_width_range" type="range" min="0" max="10" step="0.1" value="3.5"
+                                oninput="syncInput('sepal_width', 'sepal_width_range')">
                         </div>
-
                     </div>
-
 
                     <!-- Petal Length -->
                     <div class="form-group">
-
                         <div class="label-row">
-                            <label>Petal Length</label>
+                            <label for="petal_length">Petal Length</label>
                         </div>
-
                         <div class="input-control-wrap">
-
-                            <input
-                                id="petal_length"
-                                type="number"
-                                step="0.1"
-                                value="1.4"
-                                oninput="syncRange('petal_length', 'petal_length_range')"
-                            >
-
-                            <input
-                                id="petal_length_range"
-                                type="range"
-                                min="0"
-                                max="10"
-                                step="0.1"
-                                value="1.4"
-                                oninput="syncInput('petal_length', 'petal_length_range')"
-                            >
-
+                            <input id="petal_length" type="number" step="0.1" value="1.4"
+                                oninput="syncRange('petal_length', 'petal_length_range')">
+                            <input id="petal_length_range" type="range" min="0" max="10" step="0.1" value="1.4"
+                                oninput="syncInput('petal_length', 'petal_length_range')">
                         </div>
-
                     </div>
-
 
                     <!-- Petal Width -->
                     <div class="form-group">
-
                         <div class="label-row">
-                            <label>Petal Width</label>
+                            <label for="petal_width">Petal Width</label>
                         </div>
-
                         <div class="input-control-wrap">
-
-                            <input
-                                id="petal_width"
-                                type="number"
-                                step="0.1"
-                                value="0.2"
-                                oninput="syncRange('petal_width', 'petal_width_range')"
-                            >
-
-                            <input
-                                id="petal_width_range"
-                                type="range"
-                                min="0"
-                                max="10"
-                                step="0.1"
-                                value="0.2"
-                                oninput="syncInput('petal_width', 'petal_width_range')"
-                            >
-
+                            <input id="petal_width" type="number" step="0.1" value="0.2"
+                                oninput="syncRange('petal_width', 'petal_width_range')">
+                            <input id="petal_width_range" type="range" min="0" max="10" step="0.1" value="0.2"
+                                oninput="syncInput('petal_width', 'petal_width_range')">
                         </div>
-
                     </div>
-
                 </div>
 
-
-                <button onclick="predict()">
-                    🔍 Dự đoán kết quả
-                </button>
-
+                <button onclick="predict()">🔍 Dự đoán kết quả</button>
             </div>
 
-
-            <!-- =========================
-                 CỘT PHẢI: KẾT QUẢ
-            ========================== -->
-
+            <!-- CỘT PHẢI: KẾT QUẢ -->
             <div class="result-section">
-
-                <div class="section-title">
-                    Kết quả
-                </div>
+                <div class="section-title">Kết quả</div>
 
                 <div id="placeholder" class="placeholder-text">
                     Nhấn "Dự đoán kết quả" để xem chi tiết loài hoa...
                 </div>
 
                 <div id="result">
-
-                    <div class="result-label">
-                        Loài hoa dự đoán:
-                    </div>
-
+                    <div class="result-label">Loài hoa dự đoán:</div>
                     <div id="prediction"></div>
-
                     <div id="confidence"></div>
-
-                    <img
-                        id="flower-image"
-                        src=""
-                        alt="Flower"
-                    >
-
+                    <img id="flower-image" src="" alt="Flower">
                 </div>
-
             </div>
 
         </div>
 
-
-        <a href="/" class="back">
-            ← Quay lại trang giới thiệu
-        </a>
+        <a href="/" class="back">← Quay lại trang giới thiệu</a>
 
     </div>
 
-
     <script>
-
-        // =====================================
-        // ĐỒNG BỘ INPUT VÀ SLIDER
-        // =====================================
-
         function syncRange(inputId, rangeId) {
-
-            document.getElementById(rangeId).value =
-                document.getElementById(inputId).value;
-
+            document.getElementById(rangeId).value = document.getElementById(inputId).value;
         }
-
 
         function syncInput(inputId, rangeId) {
-
-            document.getElementById(inputId).value =
-                document.getElementById(rangeId).value;
-
+            document.getElementById(inputId).value = document.getElementById(rangeId).value;
         }
 
-
-        // =====================================
-        // DỰ ĐOÁN
-        // =====================================
-
         async function predict() {
+            const rawSepalLength = document.getElementById("sepal_length").value;
+            const rawSepalWidth = document.getElementById("sepal_width").value;
+            const rawPetalLength = document.getElementById("petal_length").value;
+            const rawPetalWidth = document.getElementById("petal_width").value;
 
-            const data = {
-
-                sepal_length:
-                    Number(document.getElementById("sepal_length").value),
-
-                sepal_width:
-                    Number(document.getElementById("sepal_width").value),
-
-                petal_length:
-                    Number(document.getElementById("petal_length").value),
-
-                petal_width:
-                    Number(document.getElementById("petal_width").value)
-
-            };
-
-
-            // Kiểm tra dữ liệu
-
-            if (
-                isNaN(data.sepal_length) ||
-                isNaN(data.sepal_width) ||
-                isNaN(data.petal_length) ||
-                isNaN(data.petal_width)
-            ) {
-
+            if (rawSepalLength === "" || rawSepalWidth === "" || rawPetalLength === "" || rawPetalWidth === "") {
                 alert("Vui lòng nhập đầy đủ 4 thông số!");
-
                 return;
             }
 
+            const data = {
+                sepal_length: Number(rawSepalLength),
+                sepal_width: Number(rawSepalWidth),
+                petal_length: Number(rawPetalLength),
+                petal_width: Number(rawPetalWidth)
+            };
 
             try {
-
-                // =====================================
-                // GỌI FASTAPI
-                // =====================================
-
                 const response = await fetch("/predict", {
-
                     method: "POST",
-
                     headers: {
                         "Content-Type": "application/json"
                     },
-
                     body: JSON.stringify(data)
-
                 });
-
 
                 const result = await response.json();
 
-
                 if (!response.ok) {
-
-                    throw new Error(
-                        result.detail || "Có lỗi xảy ra"
-                    );
-
+                    throw new Error(result.detail || "Có lỗi xảy ra");
                 }
 
+                // Hiển thị tên loài
+                const prediction = result.prediction;
+                document.getElementById("prediction").innerText = prediction.toUpperCase();
 
-                // =====================================
-                // HIỂN THỊ TÊN LOÀI
-                // =====================================
+                // Hiển thị hình ảnh tương ứng
+                let imageName = prediction.toLowerCase().replace("iris-", "");
+                const image = document.getElementById("flower-image");
+                image.src = "/photo/" + imageName + ".jpg";
+                image.alt = prediction;
 
-                const prediction =
-                    result.prediction;
-
-                document.getElementById("prediction").innerText =
-                    prediction.toUpperCase();
-
-
-                // =====================================
-                // XỬ LÝ TÊN ẢNH
-                // =====================================
-
-                let imageName = prediction
-                    .toLowerCase()
-                    .replace("iris-", "");
-
-
-                const image =
-                    document.getElementById("flower-image");
-
-                image.src =
-                    "/photo/" + imageName + ".jpg";
-
-                image.alt =
-                    prediction;
-
-
-                // =====================================
-                // HIỂN THỊ CONFIDENCE
-                // =====================================
-
-                const confidence =
-                    document.getElementById("confidence");
-
-
+                // Hiển thị độ tin cậy (nếu backend trả về probability/confidence)
+                const confidence = document.getElementById("confidence");
                 if (result.confidence !== undefined) {
-
-                    confidence.innerText =
-                        "Độ tin cậy: " +
-                        (result.confidence * 100).toFixed(2) +
-                        "%";
-
-                    confidence.style.display =
-                        "block";
-
+                    confidence.innerText = "Độ tin cậy: " + (result.confidence * 100).toFixed(2) + "%";
+                    confidence.style.display = "block";
                 } else {
-
-                    confidence.style.display =
-                        "none";
-
+                    confidence.style.display = "none";
                 }
 
+                // Chuyển UI từ placeholder sang kết quả
+                document.getElementById("placeholder").style.display = "none";
+                document.getElementById("result").style.display = "block";
 
-                // =====================================
-                // HIỂN THỊ KẾT QUẢ
-                // =====================================
-
-                document.getElementById("placeholder")
-                    .style.display = "none";
-
-                document.getElementById("result")
-                    .style.display = "block";
-
+            } catch (error) {
+                alert("Không thể kết nối đến API: " + error.message);
             }
-
-
-            catch (error) {
-
-                alert(
-                    "Không thể kết nối đến API: "
-                    + error.message
-                );
-
-            }
-
         }
-
     </script>
 
 </body>
