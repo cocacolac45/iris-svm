@@ -284,12 +284,12 @@
                     <!-- Sepal Length -->
                     <div class="form-group">
                         <div class="label-row">
-                            <label for="sepal_length">Sepal Length</label>
+                            <label for="sepal_length">Sepal Length (cm)</label>
                         </div>
                         <div class="input-control-wrap">
-                            <input id="sepal_length" type="number" step="0.1" value="5.1"
+                            <input id="sepal_length" type="number" step="0.1" min="0.1" max="10" value="5.1"
                                 oninput="syncRange('sepal_length', 'sepal_length_range')">
-                            <input id="sepal_length_range" type="range" min="0" max="10" step="0.1" value="5.1"
+                            <input id="sepal_length_range" type="range" min="0.1" max="10" step="0.1" value="5.1"
                                 oninput="syncInput('sepal_length', 'sepal_length_range')">
                         </div>
                     </div>
@@ -297,12 +297,12 @@
                     <!-- Sepal Width -->
                     <div class="form-group">
                         <div class="label-row">
-                            <label for="sepal_width">Sepal Width</label>
+                            <label for="sepal_width">Sepal Width (cm)</label>
                         </div>
                         <div class="input-control-wrap">
-                            <input id="sepal_width" type="number" step="0.1" value="3.5"
+                            <input id="sepal_width" type="number" step="0.1" min="0.1" max="10" value="3.5"
                                 oninput="syncRange('sepal_width', 'sepal_width_range')">
-                            <input id="sepal_width_range" type="range" min="0" max="10" step="0.1" value="3.5"
+                            <input id="sepal_width_range" type="range" min="0.1" max="10" step="0.1" value="3.5"
                                 oninput="syncInput('sepal_width', 'sepal_width_range')">
                         </div>
                     </div>
@@ -310,12 +310,12 @@
                     <!-- Petal Length -->
                     <div class="form-group">
                         <div class="label-row">
-                            <label for="petal_length">Petal Length</label>
+                            <label for="petal_length">Petal Length (cm)</label>
                         </div>
                         <div class="input-control-wrap">
-                            <input id="petal_length" type="number" step="0.1" value="1.4"
+                            <input id="petal_length" type="number" step="0.1" min="0.1" max="10" value="1.4"
                                 oninput="syncRange('petal_length', 'petal_length_range')">
-                            <input id="petal_length_range" type="range" min="0" max="10" step="0.1" value="1.4"
+                            <input id="petal_length_range" type="range" min="0.1" max="10" step="0.1" value="1.4"
                                 oninput="syncInput('petal_length', 'petal_length_range')">
                         </div>
                     </div>
@@ -323,12 +323,12 @@
                     <!-- Petal Width -->
                     <div class="form-group">
                         <div class="label-row">
-                            <label for="petal_width">Petal Width</label>
+                            <label for="petal_width">Petal Width (cm)</label>
                         </div>
                         <div class="input-control-wrap">
-                            <input id="petal_width" type="number" step="0.1" value="0.2"
+                            <input id="petal_width" type="number" step="0.1" min="0.1" max="10" value="0.2"
                                 oninput="syncRange('petal_width', 'petal_width_range')">
-                            <input id="petal_width_range" type="range" min="0" max="10" step="0.1" value="0.2"
+                            <input id="petal_width_range" type="range" min="0.1" max="10" step="0.1" value="0.2"
                                 oninput="syncInput('petal_width', 'petal_width_range')">
                         </div>
                     </div>
@@ -374,16 +374,28 @@
             const rawPetalLength = document.getElementById("petal_length").value;
             const rawPetalWidth = document.getElementById("petal_width").value;
 
+            // 1. Kiểm tra trường hợp để trống
             if (rawSepalLength === "" || rawSepalWidth === "" || rawPetalLength === "" || rawPetalWidth === "") {
                 alert("Vui lòng nhập đầy đủ 4 thông số!");
                 return;
             }
 
+            const sl = Number(rawSepalLength);
+            const sw = Number(rawSepalWidth);
+            const pl = Number(rawPetalLength);
+            const pw = Number(rawPetalWidth);
+
+            // 2. Chặn giá trị bằng 0 hoặc nhỏ hơn 0
+            if (sl <= 0 || sw <= 0 || pl <= 0 || pw <= 0) {
+                alert("Kích thước các bộ phận hoa phải lớn hơn 0!");
+                return;
+            }
+
             const data = {
-                sepal_length: Number(rawSepalLength),
-                sepal_width: Number(rawSepalWidth),
-                petal_length: Number(rawPetalLength),
-                petal_width: Number(rawPetalWidth)
+                sepal_length: sl,
+                sepal_width: sw,
+                petal_length: pl,
+                petal_width: pw
             };
 
             try {
@@ -398,10 +410,10 @@
                 const result = await response.json();
 
                 if (!response.ok) {
-                    throw new Error(result.detail || "Có lỗi xảy ra");
+                    throw new Error(result.detail || "Có lỗi xảy ra từ máy chủ");
                 }
 
-                // Hiển thị tên loài
+                // Hiển thị tên loài hoa
                 const prediction = result.prediction;
                 document.getElementById("prediction").innerText = prediction.toUpperCase();
 
@@ -411,7 +423,7 @@
                 image.src = "/photo/" + imageName + ".jpg";
                 image.alt = prediction;
 
-                // Hiển thị độ tin cậy (nếu backend trả về probability/confidence)
+                // Hiển thị độ tin cậy nếu API trả về
                 const confidence = document.getElementById("confidence");
                 if (result.confidence !== undefined) {
                     confidence.innerText = "Độ tin cậy: " + (result.confidence * 100).toFixed(2) + "%";
@@ -420,7 +432,7 @@
                     confidence.style.display = "none";
                 }
 
-                // Chuyển UI từ placeholder sang kết quả
+                // Hiển thị giao diện kết quả
                 document.getElementById("placeholder").style.display = "none";
                 document.getElementById("result").style.display = "block";
 
