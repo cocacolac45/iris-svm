@@ -14,237 +14,248 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #fff0f3 0%, #ffe3e8 50%, #ffd6ff 100%);
+            background: linear-gradient(135deg, #ffe4e6 0%, #fecdd3 50%, #f43f5e 100%);
             background-attachment: fixed;
             padding: 30px 20px;
-            color: #5c3d46;
+            color: #4c0519;
         }
 
         .container {
             width: 100%;
-            max-width: 1100px;
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(10px);
+            max-width: 950px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
             padding: 40px;
-            border-radius: 28px;
-            box-shadow: 0 20px 40px rgba(229, 152, 170, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(225, 29, 72, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.6);
         }
 
         h1 {
             text-align: center;
-            color: #d85777;
+            color: #e11d48;
             font-size: 2.1rem;
             margin-bottom: 6px;
             font-weight: 700;
-            letter-spacing: -0.5px;
         }
 
         .subtitle {
             text-align: center;
-            color: #b07283;
-            margin-bottom: 35px;
+            color: #9f1239;
+            margin-bottom: 30px;
             font-size: 0.95rem;
+            opacity: 0.9;
         }
 
-        /* Bố cục nằm ngang chính */
-        .main-content {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-            background: #fff;
+        /* Layout 2 cột nằm ngang */
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        /* Khối bên trái: Nhập số liệu */
+        .input-section {
+            background: #fff1f2;
             padding: 24px;
             border-radius: 20px;
-            box-shadow: 0 8px 24px rgba(230, 175, 190, 0.12);
-            border: 1px solid #ffe5ec;
+            border: 1px solid #ffe4e6;
         }
 
-        /* Khối nhập liệu có thanh cuộn ngang */
-        .form-wrapper {
-            flex: 1.5;
-            min-width: 0; /* Đảm bảo scrollbar hoạt động chuẩn trong flexbox */
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #be123c;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #fecdd3;
         }
 
-        .form {
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .label-row {
             display: flex;
-            gap: 16px;
-            overflow-x: auto;
-            padding: 8px 4px 16px 4px;
-            scroll-behavior: smooth;
-        }
-
-        /* Tùy chỉnh thanh cuộn ngang tone hồng pastel */
-        .form::-webkit-scrollbar {
-            height: 6px;
-        }
-        .form::-webkit-scrollbar-track {
-            background: #fff0f3;
-            border-radius: 10px;
-        }
-        .form::-webkit-scrollbar-thumb {
-            background: #f4abb7;
-            border-radius: 10px;
-        }
-        .form::-webkit-scrollbar-thumb:hover {
-            background: #e88698;
-        }
-
-        .input-group {
-            flex: 0 0 160px;
-            background: #fff8f9;
-            padding: 16px;
-            border-radius: 16px;
-            border: 1px solid #ffe3e8;
-            transition: all 0.25s ease;
-        }
-
-        .input-group:hover {
-            border-color: #f4abb7;
-            transform: translateY(-2px);
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
         }
 
         label {
-            display: block;
             font-weight: 600;
-            margin-bottom: 10px;
-            color: #8c4a5c;
-            font-size: 0.85rem;
-            white-space: nowrap;
+            color: #881337;
+            font-size: 0.9rem;
         }
 
-        input {
-            width: 100%;
-            padding: 10px 14px;
-            border: 1.5px solid #f9ccd5;
-            border-radius: 10px;
-            font-size: 15px;
-            color: #6b3343;
-            background-color: #ffffff;
-            outline: none;
-            transition: all 0.2s ease;
-        }
-
-        input:focus {
-            border-color: #d85777;
-            box-shadow: 0 0 0 3px rgba(216, 87, 119, 0.15);
-        }
-
-        /* Nút dự đoán đặt ở giữa */
-        .button-wrapper {
-            flex: 0 0 auto;
+        .input-control-wrap {
             display: flex;
             align-items: center;
+            gap: 12px;
         }
 
+        /* Ô nhập số */
+        input[type="number"] {
+            width: 80px;
+            padding: 8px 10px;
+            border: 1.5px solid #fda4af;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #9f1239;
+            background-color: #ffffff;
+            text-align: center;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        input[type="number"]:focus {
+            border-color: #e11d48;
+            box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.15);
+        }
+
+        /* Thanh kéo (Slider) tông đỏ hồng */
+        input[type="range"] {
+            flex: 1;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            border-radius: 5px;
+            background: #fecdd3;
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #e11d48;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(225, 29, 72, 0.4);
+            transition: all 0.15s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            background: #be123c;
+        }
+
+        /* Nút dự đoán đặt ở dưới phần nhập số liệu */
         button {
-            padding: 18px 28px;
+            width: 100%;
+            margin-top: 10px;
+            padding: 14px;
             border: none;
-            border-radius: 16px;
-            background: linear-gradient(135deg, #e88698, #d85777);
+            border-radius: 12px;
+            background: linear-gradient(135deg, #e11d48, #fb7185);
             color: white;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 6px 18px rgba(216, 87, 119, 0.25);
+            box-shadow: 0 6px 16px rgba(225, 29, 72, 0.3);
             transition: all 0.25s ease;
-            white-space: nowrap;
         }
 
         button:hover {
-            transform: scale(1.03);
-            box-shadow: 0 8px 22px rgba(216, 87, 119, 0.35);
-            background: linear-gradient(135deg, #ed94a4, #e06281);
+            background: linear-gradient(135deg, #be123c, #f43f5e);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(225, 29, 72, 0.4);
         }
 
         button:active {
-            transform: scale(0.98);
+            transform: translateY(0);
         }
 
-        /* Khối kết quả bên phải */
+        /* Khối bên phải: Kết quả */
+        .result-section {
+            background: #fff;
+            padding: 24px;
+            border-radius: 20px;
+            border: 1.5px solid #fecdd3;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
         #result {
             display: none;
-            flex: 1;
-            min-width: 220px;
-            padding: 20px;
             text-align: center;
-            background: #fff5f7;
-            border: 1.5px solid #ffe0e6;
-            border-radius: 18px;
-            animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-top: 15px;
+            animation: fadeIn 0.4s ease-out;
         }
 
-        #result > div:first-child {
-            color: #b07283;
-            font-size: 0.8rem;
+        .result-label {
+            color: #9f1239;
+            font-size: 0.85rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.8px;
+            letter-spacing: 0.5px;
         }
 
         #prediction {
-            font-size: 20px;
-            font-weight: 700;
-            color: #c94466;
-            margin-top: 4px;
+            font-size: 24px;
+            font-weight: 800;
+            color: #be123c;
+            margin: 6px 0 15px;
         }
 
         #flower-image {
             display: block;
-            width: 140px;
-            height: 140px;
+            width: 100%;
+            max-width: 200px;
+            height: 200px;
             object-fit: cover;
-            margin: 12px auto 0;
+            margin: 0 auto;
             border-radius: 14px;
-            border: 2px solid #ffffff;
-            box-shadow: 0 6px 16px rgba(201, 68, 102, 0.12);
+            border: 3px solid #fff1f2;
+            box-shadow: 0 6px 16px rgba(190, 18, 60, 0.15);
+        }
+
+        .placeholder-text {
+            color: #fda4af;
+            text-align: center;
+            margin: auto;
+            font-style: italic;
+            font-size: 0.95rem;
         }
 
         .back {
             display: block;
             text-align: center;
-            margin-top: 30px;
-            color: #b07283;
+            margin-top: 25px;
+            color: #e11d48;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 0.9rem;
-            transition: color 0.2s ease;
         }
 
         .back:hover {
-            color: #d85777;
+            color: #be123c;
             text-decoration: underline;
         }
 
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateX(12px);
+                transform: translateY(10px);
             }
             to {
                 opacity: 1;
-                transform: translateX(0);
+                transform: translateY(0);
             }
         }
 
-        /* Responsive cho màn hình nhỏ */
-        @media (max-width: 900px) {
-            .main-content {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .form-wrapper {
-                width: 100%;
-            }
-            button {
-                width: 100%;
-            }
-            #result {
-                width: 100%;
+        @media (max-width: 768px) {
+            .layout-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -256,44 +267,71 @@
         <h1>🌸 Iris Flower Classification</h1>
         <p class="subtitle">Phân loại hoa Iris bằng mô hình SVM</p>
 
-        <!-- Bố cục nằm ngang -->
-        <div class="main-content">
+        <!-- Bố cục Nằm Ngang: Nhập số liệu (Trái) - Kết quả (Phải) -->
+        <div class="layout-grid">
             
-            <!-- Phần nhập liệu (Có thanh cuộn ngang) -->
-            <div class="form-wrapper">
+            <!-- Cột trái: Nhập số liệu + Nút -->
+            <div class="input-section">
+                <div class="section-title">Nhập số liệu</div>
+                
                 <div class="form">
-                    <div class="input-group">
-                        <label>Sepal Length</label>
-                        <input id="sepal_length" type="number" step="0.1" value="5.1">
+                    <div class="form-group">
+                        <div class="label-row">
+                            <label>Sepal Length</label>
+                        </div>
+                        <div class="input-control-wrap">
+                            <input id="sepal_length" type="number" step="0.1" value="5.1" oninput="syncRange('sepal_length', 'sepal_length_range')">
+                            <input id="sepal_length_range" type="range" min="0" max="10" step="0.1" value="5.1" oninput="syncInput('sepal_length', 'sepal_length_range')">
+                        </div>
                     </div>
 
-                    <div class="input-group">
-                        <label>Sepal Width</label>
-                        <input id="sepal_width" type="number" step="0.1" value="3.5">
+                    <div class="form-group">
+                        <div class="label-row">
+                            <label>Sepal Width</label>
+                        </div>
+                        <div class="input-control-wrap">
+                            <input id="sepal_width" type="number" step="0.1" value="3.5" oninput="syncRange('sepal_width', 'sepal_width_range')">
+                            <input id="sepal_width_range" type="range" min="0" max="10" step="0.1" value="3.5" oninput="syncInput('sepal_width', 'sepal_width_range')">
+                        </div>
                     </div>
 
-                    <div class="input-group">
-                        <label>Petal Length</label>
-                        <input id="petal_length" type="number" step="0.1" value="1.4">
+                    <div class="form-group">
+                        <div class="label-row">
+                            <label>Petal Length</label>
+                        </div>
+                        <div class="input-control-wrap">
+                            <input id="petal_length" type="number" step="0.1" value="1.4" oninput="syncRange('petal_length', 'petal_length_range')">
+                            <input id="petal_length_range" type="range" min="0" max="10" step="0.1" value="1.4" oninput="syncInput('petal_length', 'petal_length_range')">
+                        </div>
                     </div>
 
-                    <div class="input-group">
-                        <label>Petal Width</label>
-                        <input id="petal_width" type="number" step="0.1" value="0.2">
+                    <div class="form-group">
+                        <div class="label-row">
+                            <label>Petal Width</label>
+                        </div>
+                        <div class="input-control-wrap">
+                            <input id="petal_width" type="number" step="0.1" value="0.2" oninput="syncRange('petal_width', 'petal_width_range')">
+                            <input id="petal_width_range" type="range" min="0" max="10" step="0.1" value="0.2" oninput="syncInput('petal_width', 'petal_width_range')">
+                        </div>
                     </div>
                 </div>
+
+                <button onclick="predict()">🔍 Dự đoán kết quả</button>
             </div>
 
-            <!-- Nút bấm ở giữa -->
-            <div class="button-wrapper">
-                <button onclick="predict()">🔍 Dự đoán</button>
-            </div>
+            <!-- Cột phải: Kết quả -->
+            <div class="result-section">
+                <div class="section-title">Kết quả</div>
+                
+                <div id="placeholder" class="placeholder-text">
+                    Nhấn "Dự đoán kết quả" để xem chi tiết loài hoa...
+                </div>
 
-            <!-- Kết quả bên phải -->
-            <div id="result">
-                <div>Kết quả:</div>
-                <div id="prediction"></div>
-                <img id="flower-image" src="" alt="Flower">
+                <div id="result">
+                    <div class="result-label">Loài hoa dự đoán:</div>
+                    <div id="prediction"></div>
+                    <img id="flower-image" src="" alt="Flower">
+                </div>
             </div>
 
         </div>
@@ -302,6 +340,15 @@
     </div>
 
     <script>
+        // Hàm đồng bộ giá trị giữa Ô nhập số và Thanh kéo (Slider)
+        function syncRange(inputId, rangeId) {
+            document.getElementById(rangeId).value = document.getElementById(inputId).value;
+        }
+
+        function syncInput(inputId, rangeId) {
+            document.getElementById(inputId).value = document.getElementById(rangeId).value;
+        }
+
         async function predict() {
             const data = {
                 sepal_length: Number(document.getElementById("sepal_length").value),
@@ -333,7 +380,8 @@
                 image.src = "/photo/" + result.prediction + ".jpg";
                 image.alt = result.prediction;
 
-                // Hiển thị kết quả (Dùng flex để giữ đúng layout ngang)
+                // Ẩn chữ chờ và hiển thị kết quả
+                document.getElementById("placeholder").style.display = "none";
                 document.getElementById("result").style.display = "block";
 
             } catch (error) {
