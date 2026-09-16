@@ -74,16 +74,17 @@ print(confusion_matrix(y_test, y_pred))
 print("\nBáo cáo phân loại:")
 print(classification_report(y_test, y_pred, target_names=encoder.classes_))
 
-# ===== CROSS-VALIDATION TRÊN TOÀN BỘ DỮ LIỆU (để kiểm tra độ ổn định) =====
-X_scaled_full = scaler.fit_transform(X)
+# ===== CROSS-VALIDATION TRÊN TOÀN BỘ DỮ LIỆU =====
+X_scaled_full = scaler.transform(X)
 cv_scores = cross_val_score(model, X_scaled_full, y_encoded, cv=5)
+
 print("\n===== CROSS-VALIDATION (5-fold) TRÊN TOÀN BỘ DỮ LIỆU =====")
 print("Accuracy từng fold:", cv_scores)
 print(f"Accuracy trung bình: {cv_scores.mean():.4f} (+/- {cv_scores.std():.4f})")
 
 # ===== LƯU MÔ HÌNH =====
 joblib.dump(model, "svm_iris_model.pkl")
-joblib.dump(scaler, "iris_scaler.pkl")   # nhớ lưu cả scaler!
+joblib.dump(scaler, "iris_scaler.pkl")
 joblib.dump(encoder, "iris_encoder.pkl")
 
 print("\nĐã lưu model, scaler và encoder!")
