@@ -1,7 +1,7 @@
 import pandas as pd
 from sklearn.svm import SVC
 from sklearn.preprocessing import LabelEncoder, StandardScaler
-from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score
+from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 import joblib
 
@@ -26,12 +26,7 @@ print("Các lớp:", encoder.classes_)
 
 # Chia train/test
 X_train, X_test, y_train, y_test = train_test_split(
-    X,
-    y_encoded,
-    test_size=0.2,
-    random_state=42,
-    stratify=y_encoded
-)
+    X, y_encoded, test_size=0.2, random_state=42, stratify=y_encoded)
 
 # Chuẩn hoá dữ liệu
 scaler = StandardScaler()
@@ -40,17 +35,17 @@ X_test_scaled = scaler.transform(X_test)
 
 # ===== TÌM SIÊU THAM SỐ TỐI ƯU BẰNG GRIDSEARCHCV =====
 param_grid = {
-    'C': [0.1, 1, 10, 100],
-    'kernel': ['linear', 'rbf', 'poly'],
-    'gamma': ['scale', 'auto', 0.1, 1]
+    "C": [0.1, 1, 10, 100],
+    "kernel": ["linear", "rbf", "poly"],
+    "gamma": ["scale", "auto", 0.1, 1]
 }
 
 grid_search = GridSearchCV(
     SVC(probability=True, random_state=42),
     param_grid,
-    cv=5,                # 5-fold cross-validation
-    scoring='accuracy',
-    n_jobs=-1,           # dùng đa luồng cho nhanh
+    cv=5,                
+    scoring="accuracy",
+    n_jobs=-1,           
     verbose=1
 )
 
@@ -74,17 +69,9 @@ print(confusion_matrix(y_test, y_pred))
 print("\nBáo cáo phân loại:")
 print(classification_report(y_test, y_pred, target_names=encoder.classes_))
 
-# ===== CROSS-VALIDATION TRÊN TOÀN BỘ DỮ LIỆU =====
-X_scaled_full = scaler.transform(X)
-cv_scores = cross_val_score(model, X_scaled_full, y_encoded, cv=5)
-
-print("\n===== CROSS-VALIDATION (5-fold) TRÊN TOÀN BỘ DỮ LIỆU =====")
-print("Accuracy từng fold:", cv_scores)
-print(f"Accuracy trung bình: {cv_scores.mean():.4f} (+/- {cv_scores.std():.4f})")
-
 # ===== LƯU MÔ HÌNH =====
 joblib.dump(model, "svm_iris_model.pkl")
-joblib.dump(scaler, "iris_scaler.pkl")
+joblib.dump(scaler, "iris_scaler.pkl")   # nhớ lưu cả scaler!
 joblib.dump(encoder, "iris_encoder.pkl")
 
 print("\nĐã lưu model, scaler và encoder!")
