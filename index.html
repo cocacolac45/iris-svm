@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iris Flower</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            padding-top: 50px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .flowers {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+
+            opacity: 0;
+            transform: translateY(80px);
+
+            animation: appear 0.8s ease forwards;
+        }
+
+        .card:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .card:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .card:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes appear {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .content h2 {
+            color: #5b4bc4;
+        }
+
+        .content p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .button {
+            display: block;
+            width: fit-content;
+            margin: 40px auto;
+            padding: 15px 30px;
+            background: white;
+            color: #5b4bc4;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 800px) {
+            .flowers {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🌸 Iris Flower</h1>
+
+    <p class="subtitle">
+        Khám phá 3 loài hoa trong bộ dữ liệu Iris
+    </p>
+
+    <div class="flowers">
+
+        <div class="card">
+            <img src="/photo/setosa.jpg" alt="Iris Setosa">
+
+            <div class="content">
+                <h2>Iris Setosa</h2>
+
+                <p>
+                    Iris Setosa là một trong ba loài hoa
+                    được sử dụng trong bộ dữ liệu Iris.
+                </p>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <img src="/photo/versicolor.jpg" alt="Iris Versicolor">
+
+            <div class="content">
+                <h2>Iris Versicolor</h2>
+
+                <p>
+                    Iris Versicolor có kích thước cánh hoa
+                    ở mức trung gian.
+                </p>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <img src="/photo/virginica.jpg" alt="Iris Virginica">
+
+            <div class="content">
+                <h2>Iris Virginica</h2>
+
+                <p>
+                    Iris Virginica thường có cánh hoa
+                    lớn hơn so với hai loài còn lại.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+
+    <a href="/predict-page" class="button">
+        🔍 Bắt đầu dự đoán
+    </a>
+
+</body>
+</html>
