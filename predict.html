@@ -17,17 +17,100 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
             display: flex;
-            justify-content: center;
-            align-items: center;
             background: linear-gradient(135deg, #ffe4e6 0%, #fecdd3 50%, #f43f5e 100%);
             background-attachment: fixed;
-            padding: 30px 20px;
             color: #4c0519;
+            overflow-x: hidden;
+        }
+
+        /* BAR TOGGLE BUTTON */
+        .toggle-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: #e11d48;
+            color: white;
+            border: none;
+            padding: 10px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .toggle-btn:hover {
+            background: #be123c;
+        }
+
+        /* SIDEBAR (CỘT THANH BÊN) */
+        .sidebar {
+            width: 260px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-right: 1.5px solid #fecdd3;
+            padding: 80px 16px 20px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 5px 0 25px rgba(225, 29, 72, 0.1);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 900;
+        }
+
+        .sidebar.collapsed {
+            transform: translateX(-100%);
+        }
+
+        .nav-item {
+            padding: 14px 16px;
+            border-radius: 12px;
+            color: #881337;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s ease;
+            background: #fff;
+            border: 1px solid #fecdd3;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: #fff1f2;
+            border-color: #e11d48;
+            color: #be123c;
+        }
+
+        .nav-item.active {
+            border-left: 5px solid #e11d48;
+        }
+
+        /* MAIN CONTENT AREA */
+        .main-wrapper {
+            flex: 1;
+            margin-left: 260px;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            min-height: 100vh;
+        }
+
+        .main-wrapper.expanded {
+            margin-left: 0;
         }
 
         .container {
             width: 100%;
-            max-width: 1200px;
+            max-width: 950px;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(12px);
             padding: 40px;
@@ -36,10 +119,19 @@
             border: 1px solid rgba(255, 255, 255, 0.6);
         }
 
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+
         h1 {
             text-align: center;
             color: #e11d48;
-            font-size: 2.1rem;
+            font-size: 2rem;
             margin-bottom: 6px;
             font-weight: 700;
         }
@@ -52,27 +144,27 @@
             opacity: 0.9;
         }
 
-        /* Chuyển layout sang 3 cột */
+        /* LAYOUT PREDICTION GRID */
         .layout-grid {
             display: grid;
-            grid-template-columns: 0.7fr 1.2fr 0.8fr;
+            grid-template-columns: 1.2fr 0.8fr;
             gap: 24px;
             align-items: start;
         }
 
-        .nav-section, .input-section, .result-section {
-            background: #fff;
+        .input-section, .result-section {
+            background: #fff1f2;
             padding: 24px;
             border-radius: 20px;
-            border: 1.5px solid #fecdd3;
-            min-height: 440px;
-            display: flex;
-            flex-direction: column;
+            border: 1px solid #ffe4e6;
         }
 
-        .input-section {
-            background: #fff1f2;
-            border-color: #ffe4e6;
+        .result-section {
+            background: #fff;
+            border: 1.5px solid #fecdd3;
+            min-height: 420px;
+            display: flex;
+            flex-direction: column;
         }
 
         .section-title {
@@ -85,102 +177,7 @@
             text-align: center;
         }
 
-        /* Định dạng cột điều hướng mới */
-        .nav-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .nav-card {
-            background: #fff;
-            border: 1px solid #fecdd3;
-            border-radius: 12px;
-            padding: 12px 14px;
-            text-decoration: none;
-            color: #881337;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .nav-card:hover {
-            background: #fff1f2;
-            border-color: #e11d48;
-            color: #be123c;
-            transform: translateX(3px);
-        }
-
-        .model-info-box {
-            background: #fff1f2;
-            padding: 12px;
-            border-radius: 12px;
-            border: 1px solid #fecdd3;
-            font-size: 0.85rem;
-            color: #9f1239;
-            margin-bottom: 20px;
-            line-height: 1.4;
-        }
-
-        .history-title {
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: #be123c;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .clear-btn {
-            background: none;
-            border: none;
-            color: #e11d48;
-            font-size: 0.75rem;
-            cursor: pointer;
-            text-decoration: underline;
-            padding: 0;
-            box-shadow: none;
-            width: auto;
-            margin: 0;
-        }
-
-        .clear-btn:hover {
-            color: #9f1239;
-            background: none;
-            box-shadow: none;
-            transform: none;
-        }
-
-        .history-list {
-            list-style: none;
-            max-height: 180px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .history-item {
-            font-size: 0.8rem;
-            background: #fff1f2;
-            padding: 8px 10px;
-            border-radius: 8px;
-            border-left: 3px solid #e11d48;
-            color: #4c0519;
-        }
-
-        .history-item .time {
-            font-size: 0.7rem;
-            color: #9f1239;
-            opacity: 0.8;
-        }
-
-        /* Input Controls */
+        /* FORM CONTROLS */
         .form-group {
             margin-bottom: 18px;
         }
@@ -245,11 +242,6 @@
             transition: all 0.15s ease;
         }
 
-        input[type="range"]::-webkit-slider-thumb:hover {
-            transform: scale(1.2);
-            background: #be123c;
-        }
-
         button.predict-btn {
             width: 100%;
             margin-top: 10px;
@@ -268,11 +260,6 @@
         button.predict-btn:hover {
             background: linear-gradient(135deg, #be123c, #f43f5e);
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(225, 29, 72, 0.4);
-        }
-
-        button.predict-btn:active {
-            transform: translateY(0);
         }
 
         #result {
@@ -287,7 +274,6 @@
             font-size: 0.85rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
         #prediction {
@@ -322,140 +308,163 @@
             text-align: center;
             margin: auto;
             font-style: italic;
-            font-size: 0.95rem;
+        }
+
+        /* LỊCH SỬ STYLES */
+        .history-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .history-item {
+            background: #fff1f2;
+            padding: 14px;
+            border-radius: 12px;
+            border-left: 4px solid #e11d48;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .clear-btn {
+            background: #e11d48;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            float: right;
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        @media (max-width: 992px) {
-            .layout-grid {
-                grid-template-columns: 1fr;
-            }
+        @media (max-width: 768px) {
+            .layout-grid { grid-template-columns: 1fr; }
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.active-mobile { transform: translateX(0); }
+            .main-wrapper { margin-left: 0; }
         }
     </style>
 </head>
 
 <body>
 
-    <div class="container">
+    <button class="toggle-btn" onclick="toggleSidebar()">☰ Thanh bên</button>
 
-        <h1>🌸 Phân loại Hoa Diên Vĩ (Iris)</h1>
-        <p class="subtitle">Dự đoán loài hoa bằng mô hình Học máy Support Vector Machine (SVM)</p>
+    <!-- THANH BÊN (SIDEBAR) -->
+    <div class="sidebar" id="sidebar">
+        <div class="nav-item active" onclick="switchTab('intro')">
+            <span>🏠</span> Giới thiệu
+        </div>
+        <div class="nav-item" onclick="switchTab('predict')">
+            <span>🔍</span> Dự đoán
+        </div>
+        <div class="nav-item" onclick="switchTab('history')">
+            <span>📜</span> Lịch sử
+        </div>
+    </div>
 
-        <div class="layout-grid">
+    <!-- KHU VỰC NỘI DUNG CHÍNH -->
+    <div class="main-wrapper" id="mainWrapper">
+        <div class="container">
 
-            <!-- CỘT 1: ĐIỀU HƯỚNG & LỊCH SỬ -->
-            <div class="nav-section">
-                <div class="section-title">Tổng quan & Lịch sử</div>
-
-                <div class="nav-list">
-                    <a href="/" class="nav-card">
-                        <span>🏠</span> Trang giới thiệu
-                    </a>
+            <!-- TAB 1: GIỚI THIỆU -->
+            <div id="tab-intro" class="tab-content active">
+                <h1>📖 Giới Thiệu Mô Hình Phân Loại Hoa Diên Vĩ</h1>
+                <p class="subtitle">Ứng dụng Học Máy Support Vector Machine (SVM)</p>
+                
+                <div style="line-height: 1.7; color: #4c0519;">
+                    <p style="margin-bottom: 15px;">
+                        Chào mừng bạn đến với ứng dụng dự đoán và phân loại loài <strong>Hoa Diên Vĩ (Iris)</strong>. Hệ thống sử dụng mô hình học máy <strong>SVM (Support Vector Machine)</strong> để phân tích thông số hình học của hoa.
+                    </p>
+                    <div style="background: #fff1f2; padding: 20px; border-radius: 14px; border: 1px solid #fecdd3; margin-bottom: 20px;">
+                        <h3 style="color: #be123c; margin-bottom: 10px;">⚙️ Các tính năng nổi bật:</h3>
+                        <ul style="padding-left: 20px;">
+                            <li><strong>Phân loại chính xác:</strong> Dự đoán 3 giống hoa chính: <em>Setosa</em>, <em>Versicolor</em>, và <em>Virginica</em>.</li>
+                            <li><strong>Tùy chỉnh linh hoạt:</strong> Nhập thông số đài hoa và cánh hoa bằng thanh trượt trực quan.</li>
+                            <li><strong>Lịch sử dự đoán:</strong> Lưu lại các lần dự đoán trực tiếp trên trình duyệt của bạn.</li>
+                        </ul>
+                    </div>
                 </div>
+            </div>
 
-                <div class="model-info-box">
-                    <strong>⚙️ Mô hình Phân loại:</strong><br>
-                    - Thuật toán: SVM (Support Vector Machine)<br>
-                    - Tập dữ liệu: Iris Dataset (4 đặc trưng)<br>
-                    - Đã huấn luyện phân loại Setosa, Versicolor, Virginica.
+            <!-- TAB 2: DỰ ĐOÁN -->
+            <div id="tab-predict" class="tab-content">
+                <h1>🌸 Dự đoán Hoa Diên Vĩ</h1>
+                <p class="subtitle">Nhập thông số kích thước bên dưới để tiến hành dự đoán</p>
+
+                <div class="layout-grid">
+                    <!-- NHẬP DỮ LIỆU -->
+                    <div class="input-section">
+                        <div class="section-title">Nhập kích thước (cm)</div>
+                        <div class="form">
+                            <div class="form-group">
+                                <div class="label-row"><label for="sepal_length">Chiều dài đài hoa (Sepal Length)</label></div>
+                                <div class="input-control-wrap">
+                                    <input id="sepal_length" type="number" step="0.1" min="0.1" max="10" value="5.1" oninput="syncRange('sepal_length', 'sepal_length_range')">
+                                    <input id="sepal_length_range" type="range" min="0.1" max="10" step="0.1" value="5.1" oninput="syncInput('sepal_length', 'sepal_length_range')">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="label-row"><label for="sepal_width">Chiều rộng đài hoa (Sepal Width)</label></div>
+                                <div class="input-control-wrap">
+                                    <input id="sepal_width" type="number" step="0.1" min="0.1" max="10" value="3.5" oninput="syncRange('sepal_width', 'sepal_width_range')">
+                                    <input id="sepal_width_range" type="range" min="0.1" max="10" step="0.1" value="3.5" oninput="syncInput('sepal_width', 'sepal_width_range')">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="label-row"><label for="petal_length">Chiều dài cánh hoa (Petal Length)</label></div>
+                                <div class="input-control-wrap">
+                                    <input id="petal_length" type="number" step="0.1" min="0.1" max="10" value="1.4" oninput="syncRange('petal_length', 'petal_length_range')">
+                                    <input id="petal_length_range" type="range" min="0.1" max="10" step="0.1" value="1.4" oninput="syncInput('petal_length', 'petal_length_range')">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="label-row"><label for="petal_width">Chiều rộng cánh hoa (Petal Width)</label></div>
+                                <div class="input-control-wrap">
+                                    <input id="petal_width" type="number" step="0.1" min="0.1" max="10" value="0.2" oninput="syncRange('petal_width', 'petal_width_range')">
+                                    <input id="petal_width_range" type="range" min="0.1" max="10" step="0.1" value="0.2" oninput="syncInput('petal_width', 'petal_width_range')">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="predict-btn" onclick="predict()">🔍 Dự đoán kết quả</button>
+                    </div>
+
+                    <!-- KẾT QUẢ -->
+                    <div class="result-section">
+                        <div class="section-title">Kết quả phân loại</div>
+                        <div id="placeholder" class="placeholder-text">
+                            Nhấn "Dự đoán kết quả" để xem chi tiết loài hoa...
+                        </div>
+                        <div id="result">
+                            <div class="result-label">Loài hoa dự đoán:</div>
+                            <div id="prediction"></div>
+                            <div id="confidence"></div>
+                            <img id="flower-image" src="" alt="Hoa Iris">
+                        </div>
+                    </div>
                 </div>
+            </div>
 
-                <div class="history-title">
-                    <span>📜 Lịch sử dự đoán</span>
-                    <button class="clear-btn" onclick="clearHistory()">Xóa</button>
+            <!-- TAB 3: LỊCH SỬ -->
+            <div id="tab-history" class="tab-content">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h1 style="margin: 0;">📜 Lịch Sử Dự Đoán</h1>
+                    <button class="clear-btn" onclick="clearHistory()">Xóa lịch sử</button>
                 </div>
-
-                <ul id="history-list" class="history-list">
-                    <li class="history-item" style="text-align: center; color: #fda4af; border: none; background: none;">Chưa có dữ liệu</li>
+                <ul id="history-page-list" class="history-list">
+                    <li class="placeholder-text">Chưa có lịch sử dự đoán nào.</li>
                 </ul>
             </div>
 
-            <!-- CỘT 2: NHẬP DỮ LIỆU -->
-            <div class="input-section">
-                <div class="section-title">Nhập kích thước (cm)</div>
-
-                <div class="form">
-                    <div class="form-group">
-                        <div class="label-row">
-                            <label for="sepal_length">Chiều dài đài hoa (Sepal Length)</label>
-                        </div>
-                        <div class="input-control-wrap">
-                            <input id="sepal_length" type="number" step="0.1" min="0.1" max="10" value="5.1"
-                                oninput="syncRange('sepal_length', 'sepal_length_range')">
-                            <input id="sepal_length_range" type="range" min="0.1" max="10" step="0.1" value="5.1"
-                                oninput="syncInput('sepal_length', 'sepal_length_range')">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="label-row">
-                            <label for="sepal_width">Chiều rộng đài hoa (Sepal Width)</label>
-                        </div>
-                        <div class="input-control-wrap">
-                            <input id="sepal_width" type="number" step="0.1" min="0.1" max="10" value="3.5"
-                                oninput="syncRange('sepal_width', 'sepal_width_range')">
-                            <input id="sepal_width_range" type="range" min="0.1" max="10" step="0.1" value="3.5"
-                                oninput="syncInput('sepal_width', 'sepal_width_range')">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="label-row">
-                            <label for="petal_length">Chiều dài cánh hoa (Petal Length)</label>
-                        </div>
-                        <div class="input-control-wrap">
-                            <input id="petal_length" type="number" step="0.1" min="0.1" max="10" value="1.4"
-                                oninput="syncRange('petal_length', 'petal_length_range')">
-                            <input id="petal_length_range" type="range" min="0.1" max="10" step="0.1" value="1.4"
-                                oninput="syncInput('petal_length', 'petal_length_range')">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="label-row">
-                            <label for="petal_width">Chiều rộng cánh hoa (Petal Width)</label>
-                        </div>
-                        <div class="input-control-wrap">
-                            <input id="petal_width" type="number" step="0.1" min="0.1" max="10" value="0.2"
-                                oninput="syncRange('petal_width', 'petal_width_range')">
-                            <input id="petal_width_range" type="range" min="0.1" max="10" step="0.1" value="0.2"
-                                oninput="syncInput('petal_width', 'petal_width_range')">
-                        </div>
-                    </div>
-                </div>
-
-                <button class="predict-btn" onclick="predict()">🔍 Dự đoán kết quả</button>
-            </div>
-
-            <!-- CỘT 3: KẾT QUẢ -->
-            <div class="result-section">
-                <div class="section-title">Kết quả phân loại</div>
-
-                <div id="placeholder" class="placeholder-text">
-                    Nhấn "Dự đoán kết quả" để xem chi tiết loài hoa...
-                </div>
-
-                <div id="result">
-                    <div class="result-label">Loài hoa dự đoán:</div>
-                    <div id="prediction"></div>
-                    <div id="confidence"></div>
-                    <img id="flower-image" src="" alt="Hoa Iris">
-                </div>
-            </div>
-
         </div>
-
     </div>
 
     <script>
@@ -469,8 +478,31 @@
         };
 
         window.onload = function () {
-            renderHistory();
+            renderHistoryPage();
         };
+
+        /* ĐÓNG / MỞ THANH BÊN */
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            const mainWrapper = document.getElementById("mainWrapper");
+            sidebar.classList.toggle("collapsed");
+            mainWrapper.classList.toggle("expanded");
+        }
+
+        /* CHUYỂN TAB */
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+
+            document.getElementById('tab-' + tabName).classList.add('active');
+            
+            const activeNavIndex = tabName === 'intro' ? 0 : tabName === 'predict' ? 1 : 2;
+            document.querySelectorAll('.nav-item')[activeNavIndex].classList.add('active');
+
+            if (tabName === 'history') {
+                renderHistoryPage();
+            }
+        }
 
         function syncRange(inputId, rangeId) {
             document.getElementById(rangeId).value = document.getElementById(inputId).value;
@@ -482,33 +514,36 @@
 
         function saveToHistory(name, params) {
             let history = JSON.parse(localStorage.getItem("iris_history") || "[]");
-            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const time = new Date().toLocaleString('vi-VN');
             history.unshift({ name, params, time });
-            if (history.length > 5) history.pop();
             localStorage.setItem("iris_history", JSON.stringify(history));
-            renderHistory();
         }
 
-        function renderHistory() {
+        function renderHistoryPage() {
             let history = JSON.parse(localStorage.getItem("iris_history") || "[]");
-            const listEl = document.getElementById("history-list");
+            const listEl = document.getElementById("history-page-list");
 
             if (history.length === 0) {
-                listEl.innerHTML = `<li class="history-item" style="text-align: center; color: #fda4af; border: none; background: none;">Chưa có lịch sử</li>`;
+                listEl.innerHTML = `<li class="placeholder-text" style="text-align: center; padding: 20px;">Chưa có lịch sử dự đoán nào.</li>`;
                 return;
             }
 
             listEl.innerHTML = history.map(item => `
                 <li class="history-item">
-                    <strong>${item.name}</strong> <span class="time">(${item.time})</span><br>
-                    <span style="font-size:0.75rem; color:#666;">SL:${item.params.sl} | SW:${item.params.sw} | PL:${item.params.pl} | PW:${item.params.pw}</span>
+                    <div>
+                        <strong style="color: #be123c; font-size: 1.1rem;">${item.name}</strong>
+                        <div style="font-size: 0.85rem; color: #666; margin-top: 4px;">
+                            Chiều dài đài: ${item.params.sl}cm | Rộng đài: ${item.params.sw}cm | Dài cánh: ${item.params.pl}cm | Rộng cánh: ${item.params.pw}cm
+                        </div>
+                    </div>
+                    <span style="font-size: 0.8rem; color: #9f1239; font-weight: 600;">${item.time}</span>
                 </li>
             `).join('');
         }
 
         function clearHistory() {
             localStorage.removeItem("iris_history");
-            renderHistory();
+            renderHistoryPage();
         }
 
         async function predict() {
@@ -517,7 +552,7 @@
             const rawPetalLength = document.getElementById("petal_length").value;
             const rawPetalWidth = document.getElementById("petal_width").value;
 
-            if (rawSepalLength === "" || rawSepalWidth === "" || rawPetalLength === "" || rawPetalWidth === "") {
+            if (!rawSepalLength || !rawSepalWidth || !rawPetalLength || !rawPetalWidth) {
                 alert("Vui lòng nhập đầy đủ 4 thông số!");
                 return;
             }
