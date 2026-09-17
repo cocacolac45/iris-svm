@@ -21,7 +21,7 @@
             align-items: center;
             background: linear-gradient(135deg, #ffe4e6 0%, #fecdd3 50%, #f43f5e 100%);
             background-attachment: fixed;
-            padding: 30px 20px;
+            padding: 20px;
             color: #4c0519;
         }
 
@@ -30,12 +30,74 @@
             max-width: 950px;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(12px);
-            padding: 40px;
-            border-radius: 24px;
+            padding: 30px 40px 40px 40px;
+            border-radius: 28px;
             box-shadow: 0 15px 35px rgba(225, 29, 72, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.6);
         }
 
+        /* --- THANH ĐIỀU HƯỚNG (NAVBAR) --- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(244, 63, 94, 0.15);
+        }
+
+        .nav-logo {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #be123c;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(254, 205, 211, 0.4);
+            padding: 5px 8px;
+            border-radius: 30px;
+            border: 1px solid rgba(253, 164, 175, 0.3);
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #881337;
+            font-size: 0.88rem;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.25s ease;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: #e11d48;
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        .nav-link.active {
+            background: #e11d48;
+            color: white;
+            box-shadow: 0 3px 10px rgba(225, 29, 72, 0.3);
+        }
+
+        /* --- CÁC TAB NỘI DUNG --- */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.35s ease-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* --- TIÊU ĐỀ --- */
         h1 {
             text-align: center;
             color: #e11d48;
@@ -52,6 +114,64 @@
             opacity: 0.9;
         }
 
+        /* --- THIẾT KẾ TAB GIỚI THIỆU (XẾP DỌC, HIỆU ỨNG TỪ DƯỚI LÊN) --- */
+        .flower-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px; /* Khoảng cách giữa các loài hoa */
+            margin-top: 10px;
+        }
+
+        .flower-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 20px;
+            border: 1.5px solid #fecdd3;
+            box-shadow: 0 8px 20px rgba(225, 29, 72, 0.08);
+
+            /* Hiệu ứng xuất hiện trượt từ dưới lên */
+            opacity: 0;
+            transform: translateY(80px);
+            animation: appear 0.8s ease forwards;
+        }
+
+        .flower-card:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .flower-card:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .flower-card:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        .flower-card-img {
+            width: 160px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 14px;
+            border: 2px solid #ffe4e6;
+            flex-shrink: 0;
+        }
+
+        .flower-card-info h2 {
+            color: #be123c;
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+
+        .flower-card-info p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* --- LAYOUT GRID (PHẦN PHÂN LOẠI) --- */
         .layout-grid {
             display: grid;
             grid-template-columns: 1.2fr 0.8fr;
@@ -73,7 +193,7 @@
             margin-bottom: 20px;
             padding-bottom: 8px;
             border-bottom: 2px solid #fecdd3;
-            text-align: center; /* Đã thêm căn giữa tiêu đề bảng */
+            text-align: center;
         }
 
         .form-group {
@@ -230,19 +350,38 @@
             font-size: 0.95rem;
         }
 
-        .back {
-            display: block;
-            text-align: center;
-            margin-top: 25px;
-            color: #e11d48;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
+        /* CARD TRANG CHỦ & LỊCH SỬ */
+        .page-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 20px;
+            border: 1.5px solid #fecdd3;
+            line-height: 1.6;
         }
 
-        .back:hover {
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .history-table th, .history-table td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #fecdd3;
+        }
+
+        .history-table th {
+            background-color: #fff1f2;
             color: #be123c;
-            text-decoration: underline;
+        }
+
+        /* KEYFRAMES */
+        @keyframes appear {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes fadeIn {
@@ -250,7 +389,6 @@
                 opacity: 0;
                 transform: translateY(10px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -258,6 +396,21 @@
         }
 
         @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .flower-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .flower-card-img {
+                width: 100%;
+                height: 180px;
+            }
+
             .layout-grid {
                 grid-template-columns: 1fr;
             }
@@ -269,94 +422,172 @@
 
     <div class="container">
 
-        <h1>🌸 Phân loại Hoa Diên Vĩ (Iris)</h1>
-
-        <p class="subtitle">
-            Dự đoán loài hoa bằng mô hình Học máy Support Vector Machine (SVM)
-        </p>
-
-        <div class="layout-grid">
-
-            <!-- CỘT TRÁI: NHẬP DỮ LIỆU -->
-            <div class="input-section">
-                <div class="section-title">Nhập kích thước (cm)</div>
-
-                <div class="form">
-                    <!-- Sepal Length -->
-                    <div class="form-group">
-                        <div class="label-row">
-                            <label for="sepal_length">Chiều dài đài hoa (Sepal Length)</label>
-                        </div>
-                        <div class="input-control-wrap">
-                            <input id="sepal_length" type="number" step="0.1" min="0.1" max="10" value="5.1"
-                                oninput="syncRange('sepal_length', 'sepal_length_range')">
-                            <input id="sepal_length_range" type="range" min="0.1" max="10" step="0.1" value="5.1"
-                                oninput="syncInput('sepal_length', 'sepal_length_range')">
-                        </div>
-                    </div>
-
-                    <!-- Sepal Width -->
-                    <div class="form-group">
-                        <div class="label-row">
-                            <label for="sepal_width">Chiều rộng đài hoa (Sepal Width)</label>
-                        </div>
-                        <div class="input-control-wrap">
-                            <input id="sepal_width" type="number" step="0.1" min="0.1" max="10" value="3.5"
-                                oninput="syncRange('sepal_width', 'sepal_width_range')">
-                            <input id="sepal_width_range" type="range" min="0.1" max="10" step="0.1" value="3.5"
-                                oninput="syncInput('sepal_width', 'sepal_width_range')">
-                        </div>
-                    </div>
-
-                    <!-- Petal Length -->
-                    <div class="form-group">
-                        <div class="label-row">
-                            <label for="petal_length">Chiều dài cánh hoa (Petal Length)</label>
-                        </div>
-                        <div class="input-control-wrap">
-                            <input id="petal_length" type="number" step="0.1" min="0.1" max="10" value="1.4"
-                                oninput="syncRange('petal_length', 'petal_length_range')">
-                            <input id="petal_length_range" type="range" min="0.1" max="10" step="0.1" value="1.4"
-                                oninput="syncInput('petal_length', 'petal_length_range')">
-                        </div>
-                    </div>
-
-                    <!-- Petal Width -->
-                    <div class="form-group">
-                        <div class="label-row">
-                            <label for="petal_width">Chiều rộng cánh hoa (Petal Width)</label>
-                        </div>
-                        <div class="input-control-wrap">
-                            <input id="petal_width" type="number" step="0.1" min="0.1" max="10" value="0.2"
-                                oninput="syncRange('petal_width', 'petal_width_range')">
-                            <input id="petal_width_range" type="range" min="0.1" max="10" step="0.1" value="0.2"
-                                oninput="syncInput('petal_width', 'petal_width_range')">
-                        </div>
-                    </div>
-                </div>
-
-                <button onclick="predict()">🔍 Dự đoán kết quả</button>
+        <!-- THANH ĐIỀU HƯỚNG TRÊN -->
+        <nav class="navbar">
+            <div class="nav-logo">
+                🌸 IrisApp
             </div>
-
-            <!-- CỘT PHẢI: KẾT QUẢ -->
-            <div class="result-section">
-                <div class="section-title">Kết quả phân loại</div>
-
-                <div id="placeholder" class="placeholder-text">
-                    Nhấn "Dự đoán kết quả" để xem chi tiết loài hoa...
-                </div>
-
-                <div id="result">
-                    <div class="result-label">Loài hoa dự đoán:</div>
-                    <div id="prediction"></div>
-                    <div id="confidence"></div>
-                    <img id="flower-image" src="" alt="Hoa Iris">
-                </div>
+            <div class="nav-menu">
+                <span class="nav-link active" onclick="switchTab('home', this)">Trang chủ</span>
+                <span class="nav-link" onclick="switchTab('about', this)">Giới thiệu</span>
+                <span class="nav-link" onclick="switchTab('classify', this)">Phân loại</span>
+                <span class="nav-link" onclick="switchTab('history', this)">Lịch sử</span>
             </div>
+        </nav>
 
+        <!-- TAB 1: TRANG CHỦ -->
+        <div id="tab-home" class="tab-content active">
+            <h1>🌸 Chào mừng đến với IrisApp</h1>
+            <p class="subtitle">Hệ thống phân loại và nhận diện loài hoa Diên Vĩ thông minh</p>
+            <div class="page-card" style="text-align: center;">
+                <p style="color: #881337;">Ứng dụng giúp bạn nhanh chóng xác định loài hoa Diên Vĩ (Iris) dựa trên kích thước các bộ phận đài hoa và cánh hoa.</p>
+                <button style="max-width: 250px; margin: 20px auto 0;" onclick="switchTab('classify', document.querySelectorAll('.nav-link')[2])">
+                    Thử phân loại ngay ➔
+                </button>
+            </div>
         </div>
 
-        <a href="/" class="back">← Quay lại trang giới thiệu</a>
+        <!-- TAB 2: GIỚI THIỆU (NỘI DUNG TỪ BẠN - HIỂN THỊ DẠNG HÌNH | CHỮ, TỪ DƯỚI LÊN) -->
+        <div id="tab-about" class="tab-content">
+            <h1>🌸 Iris Flower</h1>
+            <p class="subtitle">Khám phá 3 loài hoa trong bộ dữ liệu Iris</p>
+
+            <div class="flower-list">
+                <!-- Card 1 -->
+                <div class="flower-card">
+                    <img src="/photo/setosa.jpg" alt="Iris Setosa" class="flower-card-img">
+                    <div class="flower-card-info">
+                        <h2>Iris Setosa</h2>
+                        <p>Iris Setosa là một trong ba loài hoa được sử dụng trong bộ dữ liệu Iris.</p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="flower-card">
+                    <img src="/photo/versicolor.jpg" alt="Iris Versicolor" class="flower-card-img">
+                    <div class="flower-card-info">
+                        <h2>Iris Versicolor</h2>
+                        <p>Iris Versicolor có kích thước cánh hoa ở mức trung gian.</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="flower-card">
+                    <img src="/photo/virginica.jpg" alt="Iris Virginica" class="flower-card-img">
+                    <div class="flower-card-info">
+                        <h2>Iris Virginica</h2>
+                        <p>Iris Virginica thường có cánh hoa lớn hơn so với hai loài còn lại.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: PHÂN LOẠI -->
+        <div id="tab-classify" class="tab-content">
+            <h1>🌸 Phân loại Hoa Diên Vĩ (Iris)</h1>
+            <p class="subtitle">Dự đoán loài hoa bằng mô hình Học máy Support Vector Machine (SVM)</p>
+
+            <div class="layout-grid">
+                <!-- CỘT TRÁI: NHẬP DỮ LIỆU -->
+                <div class="input-section">
+                    <div class="section-title">Nhập kích thước (cm)</div>
+
+                    <div class="form">
+                        <!-- Sepal Length -->
+                        <div class="form-group">
+                            <div class="label-row">
+                                <label for="sepal_length">Chiều dài đài hoa (Sepal Length)</label>
+                            </div>
+                            <div class="input-control-wrap">
+                                <input id="sepal_length" type="number" step="0.1" min="0.1" max="10" value="5.1"
+                                    oninput="syncRange('sepal_length', 'sepal_length_range')">
+                                <input id="sepal_length_range" type="range" min="0.1" max="10" step="0.1" value="5.1"
+                                    oninput="syncInput('sepal_length', 'sepal_length_range')">
+                            </div>
+                        </div>
+
+                        <!-- Sepal Width -->
+                        <div class="form-group">
+                            <div class="label-row">
+                                <label for="sepal_width">Chiều rộng đài hoa (Sepal Width)</label>
+                            </div>
+                            <div class="input-control-wrap">
+                                <input id="sepal_width" type="number" step="0.1" min="0.1" max="10" value="3.5"
+                                    oninput="syncRange('sepal_width', 'sepal_width_range')">
+                                <input id="sepal_width_range" type="range" min="0.1" max="10" step="0.1" value="3.5"
+                                    oninput="syncInput('sepal_width', 'sepal_width_range')">
+                            </div>
+                        </div>
+
+                        <!-- Petal Length -->
+                        <div class="form-group">
+                            <div class="label-row">
+                                <label for="petal_length">Chiều dài cánh hoa (Petal Length)</label>
+                            </div>
+                            <div class="input-control-wrap">
+                                <input id="petal_length" type="number" step="0.1" min="0.1" max="10" value="1.4"
+                                    oninput="syncRange('petal_length', 'petal_length_range')">
+                                <input id="petal_length_range" type="range" min="0.1" max="10" step="0.1" value="1.4"
+                                    oninput="syncInput('petal_length', 'petal_length_range')">
+                            </div>
+                        </div>
+
+                        <!-- Petal Width -->
+                        <div class="form-group">
+                            <div class="label-row">
+                                <label for="petal_width">Chiều rộng cánh hoa (Petal Width)</label>
+                            </div>
+                            <div class="input-control-wrap">
+                                <input id="petal_width" type="number" step="0.1" min="0.1" max="10" value="0.2"
+                                    oninput="syncRange('petal_width', 'petal_width_range')">
+                                <input id="petal_width_range" type="range" min="0.1" max="10" step="0.1" value="0.2"
+                                    oninput="syncInput('petal_width', 'petal_width_range')">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="predict()">🔍 Dự đoán kết quả</button>
+                </div>
+
+                <!-- CỘT PHẢI: KẾT QUẢ -->
+                <div class="result-section">
+                    <div class="section-title">Kết quả phân loại</div>
+
+                    <div id="placeholder" class="placeholder-text">
+                        Nhấn "Dự đoán kết quả" để xem chi tiết loài hoa...
+                    </div>
+
+                    <div id="result">
+                        <div class="result-label">Loài hoa dự đoán:</div>
+                        <div id="prediction"></div>
+                        <div id="confidence"></div>
+                        <img id="flower-image" src="" alt="Hoa Iris">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: LỊCH SỬ -->
+        <div id="tab-history" class="tab-content">
+            <h1>📜 Lịch sử dự đoán</h1>
+            <p class="subtitle">Danh sách các lần dự đoán gần nhất của bạn</p>
+            <div class="page-card">
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Thông số (SL / SW / PL / PW)</th>
+                            <th>Kết quả dự đoán</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history-list">
+                        <tr>
+                            <td colspan="3" style="color: #fda4af;">Chưa có lịch sử dự đoán nào.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
     </div>
 
@@ -369,6 +600,28 @@
             "iris-versicolor": "Hoa Diên Vĩ Versicolor",
             "iris-virginica": "Hoa Diên Vĩ Virginica"
         };
+
+        let historyData = [];
+
+        // Chuyển Tab và reset animation để chạy lại mỗi khi bấm sang Tab Giới thiệu
+        function switchTab(tabName, element) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+
+            const targetTab = document.getElementById('tab-' + tabName);
+            targetTab.classList.add('active');
+            element.classList.add('active');
+
+            // Reset animation xuất hiện từ dưới lên cho các card ở Tab Giới thiệu
+            if (tabName === 'about') {
+                const cards = targetTab.querySelectorAll('.flower-card');
+                cards.forEach(card => {
+                    card.style.animation = 'none';
+                    card.offsetHeight; /* Trigger reflow */
+                    card.style.animation = '';
+                });
+            }
+        }
 
         function syncRange(inputId, rangeId) {
             document.getElementById(rangeId).value = document.getElementById(inputId).value;
@@ -442,9 +695,24 @@
                 document.getElementById("placeholder").style.display = "none";
                 document.getElementById("result").style.display = "block";
 
+                addHistory(`${sl} / ${sw} / ${pl} / ${pw}`, vnName);
+
             } catch (error) {
                 alert("Không thể kết nối đến API: " + error.message);
             }
+        }
+
+        function addHistory(params, resultName) {
+            historyData.unshift({ params, resultName });
+            const historyTable = document.getElementById("history-list");
+            
+            historyTable.innerHTML = historyData.map((item, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${item.params}</td>
+                    <td><strong>${item.resultName}</strong></td>
+                </tr>
+            `).join('');
         }
     </script>
 
