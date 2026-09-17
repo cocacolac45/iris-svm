@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dự đoán hoa Iris (SVM)</title>
+    <title>Dự đoán hoa Diên Vĩ (SVM)</title>
 
     <style>
         * {
@@ -28,12 +28,12 @@
         .container {
             width: 100%;
             max-width: 950px;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(254, 226, 226, 0.85); /* Thay nền trắng mờ bằng hồng nhạt kem */
             backdrop-filter: blur(12px);
             padding: 30px 40px 40px 40px;
             border-radius: 28px;
             box-shadow: 0 15px 35px rgba(225, 29, 72, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(253, 164, 175, 0.5);
         }
 
         /* --- THANH ĐIỀU HƯỚNG (NAVBAR) --- */
@@ -43,11 +43,11 @@
             align-items: center;
             margin-bottom: 25px;
             padding-bottom: 15px;
-            border-bottom: 1px solid rgba(244, 63, 94, 0.15);
+            border-bottom: 1px solid rgba(244, 63, 94, 0.2);
         }
 
         .nav-logo {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 800;
             color: #be123c;
             display: flex;
@@ -59,10 +59,10 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            background: rgba(254, 205, 211, 0.4);
+            background: rgba(254, 205, 211, 0.6);
             padding: 5px 8px;
             border-radius: 30px;
-            border: 1px solid rgba(253, 164, 175, 0.3);
+            border: 1px solid rgba(253, 164, 175, 0.4);
         }
 
         .nav-link {
@@ -78,12 +78,12 @@
 
         .nav-link:hover {
             color: #e11d48;
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 228, 230, 0.8);
         }
 
         .nav-link.active {
             background: #e11d48;
-            color: white;
+            color: #ffffff;
             box-shadow: 0 3px 10px rgba(225, 29, 72, 0.3);
         }
 
@@ -100,10 +100,10 @@
         /* --- TIÊU ĐỀ --- */
         h1 {
             text-align: center;
-            color: #e11d48;
+            color: #be123c;
             font-size: 2.1rem;
             margin-bottom: 6px;
-            font-weight: 700;
+            font-weight: 800;
         }
 
         .subtitle {
@@ -114,11 +114,11 @@
             opacity: 0.9;
         }
 
-        /* --- THIẾT KẾ TAB GIỚI THIỆU (XẾP DỌC, HIỆU ỨNG TỪ DƯỚI LÊN) --- */
+        /* --- TAB GIỚI THIỆU --- */
         .flower-list {
             display: flex;
             flex-direction: column;
-            gap: 25px; /* Khoảng cách giữa các loài hoa */
+            gap: 25px;
             margin-top: 10px;
         }
 
@@ -126,36 +126,26 @@
             display: flex;
             align-items: center;
             gap: 20px;
-            background: #ffffff;
+            background: #fff1f2; /* Thay trắng bằng hồng phấn nhẹ */
             padding: 20px;
             border-radius: 20px;
             border: 1.5px solid #fecdd3;
             box-shadow: 0 8px 20px rgba(225, 29, 72, 0.08);
-
-            /* Hiệu ứng xuất hiện trượt từ dưới lên */
             opacity: 0;
             transform: translateY(80px);
             animation: appear 0.8s ease forwards;
         }
 
-        .flower-card:nth-child(1) {
-            animation-delay: 0.2s;
-        }
-
-        .flower-card:nth-child(2) {
-            animation-delay: 0.4s;
-        }
-
-        .flower-card:nth-child(3) {
-            animation-delay: 0.6s;
-        }
+        .flower-card:nth-child(1) { animation-delay: 0.2s; }
+        .flower-card:nth-child(2) { animation-delay: 0.4s; }
+        .flower-card:nth-child(3) { animation-delay: 0.6s; }
 
         .flower-card-img {
             width: 160px;
             height: 140px;
             object-fit: cover;
             border-radius: 14px;
-            border: 2px solid #ffe4e6;
+            border: 2px solid #fecdd3;
             flex-shrink: 0;
         }
 
@@ -166,12 +156,12 @@
         }
 
         .flower-card-info p {
-            color: #666;
+            color: #881337;
             font-size: 0.95rem;
             line-height: 1.6;
         }
 
-        /* --- LAYOUT GRID (PHẦN PHÂN LOẠI) --- */
+        /* --- PHẦN PHÂN LOẠI --- */
         .layout-grid {
             display: grid;
             grid-template-columns: 1.2fr 0.8fr;
@@ -183,7 +173,7 @@
             background: #fff1f2;
             padding: 24px;
             border-radius: 20px;
-            border: 1px solid #ffe4e6;
+            border: 1.5px solid #fecdd3;
         }
 
         .section-title {
@@ -227,7 +217,7 @@
             font-size: 15px;
             font-weight: 600;
             color: #9f1239;
-            background-color: #ffffff;
+            background-color: #ffe4e6; /* Thay trắng bằng hồng nhạt */
             text-align: center;
             outline: none;
             transition: all 0.2s;
@@ -235,6 +225,7 @@
 
         input[type="number"]:focus {
             border-color: #e11d48;
+            background-color: #fff1f2;
             box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.15);
         }
 
@@ -272,7 +263,7 @@
             border: none;
             border-radius: 12px;
             background: linear-gradient(135deg, #e11d48, #fb7185);
-            color: white;
+            color: #ffffff;
             font-size: 16px;
             font-weight: 700;
             cursor: pointer;
@@ -291,7 +282,7 @@
         }
 
         .result-section {
-            background: #fff;
+            background: #fff1f2; /* Thay trắng bằng hồng phấn */
             padding: 24px;
             border-radius: 20px;
             border: 1.5px solid #fecdd3;
@@ -316,7 +307,7 @@
         }
 
         #prediction {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 800;
             color: #be123c;
             margin: 6px 0 10px;
@@ -338,42 +329,68 @@
             object-fit: cover;
             margin: 0 auto;
             border-radius: 14px;
-            border: 3px solid #fff1f2;
+            border: 3px solid #fecdd3;
             box-shadow: 0 6px 16px rgba(190, 18, 60, 0.15);
         }
 
         .placeholder-text {
-            color: #fda4af;
+            color: #e11d48;
             text-align: center;
             margin: auto;
             font-style: italic;
             font-size: 0.95rem;
+            opacity: 0.8;
         }
 
         /* CARD TRANG CHỦ & LỊCH SỬ */
         .page-card {
-            background: #fff;
+            background: #fff1f2; /* Thay trắng bằng hồng nhạt */
             padding: 30px;
             border-radius: 20px;
             border: 1.5px solid #fecdd3;
             line-height: 1.6;
         }
 
+        /* BẢNG LỊCH SỬ */
         .history-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
+            margin-top: 10px;
+            background: #ffe4e6;
+            border-radius: 12px;
+            overflow: hidden;
         }
 
         .history-table th, .history-table td {
-            padding: 12px;
+            padding: 12px 14px;
             text-align: center;
             border-bottom: 1px solid #fecdd3;
+            font-size: 0.9rem;
         }
 
         .history-table th {
-            background-color: #fff1f2;
-            color: #be123c;
+            background-color: #fecdd3;
+            color: #881337;
+            font-weight: 700;
+        }
+
+        .history-table tbody tr:hover {
+            background-color: #fdba74_20; /* Hiệu ứng hover cho dòng */
+            background: rgba(253, 164, 175, 0.2);
+        }
+
+        .history-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .badge-flower {
+            display: inline-block;
+            padding: 4px 10px;
+            background: #e11d48;
+            color: #ffffff;
+            border-radius: 12px;
+            font-size: 0.82rem;
+            font-weight: 600;
         }
 
         /* KEYFRAMES */
@@ -414,6 +431,14 @@
             .layout-grid {
                 grid-template-columns: 1fr;
             }
+
+            .history-table {
+                font-size: 0.8rem;
+            }
+
+            .history-table th, .history-table td {
+                padding: 8px 6px;
+            }
         }
     </style>
 </head>
@@ -425,7 +450,7 @@
         <!-- THANH ĐIỀU HƯỚNG TRÊN -->
         <nav class="navbar">
             <div class="nav-logo">
-                🌸 IrisApp
+                🌸 Ưu Ứng Dụng Iris
             </div>
             <div class="nav-menu">
                 <span class="nav-link active" onclick="switchTab('home', this)">Trang chủ</span>
@@ -437,46 +462,46 @@
 
         <!-- TAB 1: TRANG CHỦ -->
         <div id="tab-home" class="tab-content active">
-            <h1>🌸 Chào mừng đến với IrisApp</h1>
+            <h1>🌸 Chào mừng đến với Ứng Dụng Iris</h1>
             <p class="subtitle">Hệ thống phân loại và nhận diện loài hoa Diên Vĩ thông minh</p>
             <div class="page-card" style="text-align: center;">
-                <p style="color: #881337;">Ứng dụng giúp bạn nhanh chóng xác định loài hoa Diên Vĩ (Iris) dựa trên kích thước các bộ phận đài hoa và cánh hoa.</p>
-                <button style="max-width: 250px; margin: 20px auto 0;" onclick="switchTab('classify', document.querySelectorAll('.nav-link')[2])">
+                <p style="color: #881337; font-size: 1.05rem;">Ứng dụng giúp bạn nhanh chóng xác định loài hoa Diên Vĩ dưa trên kích thước chiều dài và chiều rộng của đài hoa cùng cánh hoa.</p>
+                <button style="max-width: 250px; margin: 25px auto 0;" onclick="switchTab('classify', document.querySelectorAll('.nav-link')[2])">
                     Thử phân loại ngay ➔
                 </button>
             </div>
         </div>
 
-        <!-- TAB 2: GIỚI THIỆU (NỘI DUNG TỪ BẠN - HIỂN THỊ DẠNG HÌNH | CHỮ, TỪ DƯỚI LÊN) -->
+        <!-- TAB 2: GIỚI THIỆU -->
         <div id="tab-about" class="tab-content">
-            <h1>🌸 Iris Flower</h1>
-            <p class="subtitle">Khám phá 3 loài hoa trong bộ dữ liệu Iris</p>
+            <h1>🌸 Các Loài Hoa Diên Vĩ</h1>
+            <p class="subtitle">Khám phá 3 loài hoa chính trong bộ dữ liệu Iris</p>
 
             <div class="flower-list">
                 <!-- Card 1 -->
                 <div class="flower-card">
-                    <img src="/photo/setosa.jpg" alt="Iris Setosa" class="flower-card-img">
+                    <img src="/photo/setosa.jpg" alt="Hoa Diên Vĩ Setosa" class="flower-card-img">
                     <div class="flower-card-info">
-                        <h2>Iris Setosa</h2>
-                        <p>Iris Setosa là một trong ba loài hoa được sử dụng trong bộ dữ liệu Iris.</p>
+                        <h2>Hoa Diên Vĩ Setosa (Iris Setosa)</h2>
+                        <p>Hoa Diên Vĩ Setosa có kích thước cánh hoa khá nhỏ và ngắn, rất dễ phân biệt với hai loài còn lại nhờ đặc trưng đài hoa nổi bật.</p>
                     </div>
                 </div>
 
                 <!-- Card 2 -->
                 <div class="flower-card">
-                    <img src="/photo/versicolor.jpg" alt="Iris Versicolor" class="flower-card-img">
+                    <img src="/photo/versicolor.jpg" alt="Hoa Diên Vĩ Versicolor" class="flower-card-img">
                     <div class="flower-card-info">
-                        <h2>Iris Versicolor</h2>
-                        <p>Iris Versicolor có kích thước cánh hoa ở mức trung gian.</p>
+                        <h2>Hoa Diên Vĩ Versicolor (Iris Versicolor)</h2>
+                        <p>Hoa Diên Vĩ Versicolor có kích thước các bộ phận đài hoa và cánh hoa ở mức trung bình, thể hiện sự cân đối hài hòa.</p>
                     </div>
                 </div>
 
                 <!-- Card 3 -->
                 <div class="flower-card">
-                    <img src="/photo/virginica.jpg" alt="Iris Virginica" class="flower-card-img">
+                    <img src="/photo/virginica.jpg" alt="Hoa Diên Vĩ Virginica" class="flower-card-img">
                     <div class="flower-card-info">
-                        <h2>Iris Virginica</h2>
-                        <p>Iris Virginica thường có cánh hoa lớn hơn so với hai loài còn lại.</p>
+                        <h2>Hoa Diên Vĩ Virginica (Iris Virginica)</h2>
+                        <p>Hoa Diên Vĩ Virginica thường có kích thước cánh hoa và đài hoa lớn nhất trong cả 3 loài.</p>
                     </div>
                 </div>
             </div>
@@ -484,7 +509,7 @@
 
         <!-- TAB 3: PHÂN LOẠI -->
         <div id="tab-classify" class="tab-content">
-            <h1>🌸 Phân loại Hoa Diên Vĩ (Iris)</h1>
+            <h1>🌸 Phân Loại Hoa Diên Vĩ</h1>
             <p class="subtitle">Dự đoán loài hoa bằng mô hình Học máy Support Vector Machine (SVM)</p>
 
             <div class="layout-grid">
@@ -493,10 +518,10 @@
                     <div class="section-title">Nhập kích thước (cm)</div>
 
                     <div class="form">
-                        <!-- Sepal Length -->
+                        <!-- Chiều dài đài hoa -->
                         <div class="form-group">
                             <div class="label-row">
-                                <label for="sepal_length">Chiều dài đài hoa (Sepal Length)</label>
+                                <label for="sepal_length">Chiều dài đài hoa</label>
                             </div>
                             <div class="input-control-wrap">
                                 <input id="sepal_length" type="number" step="0.1" min="0.1" max="10" value="5.1"
@@ -506,10 +531,10 @@
                             </div>
                         </div>
 
-                        <!-- Sepal Width -->
+                        <!-- Chiều rộng đài hoa -->
                         <div class="form-group">
                             <div class="label-row">
-                                <label for="sepal_width">Chiều rộng đài hoa (Sepal Width)</label>
+                                <label for="sepal_width">Chiều rộng đài hoa</label>
                             </div>
                             <div class="input-control-wrap">
                                 <input id="sepal_width" type="number" step="0.1" min="0.1" max="10" value="3.5"
@@ -519,10 +544,10 @@
                             </div>
                         </div>
 
-                        <!-- Petal Length -->
+                        <!-- Chiều dài cánh hoa -->
                         <div class="form-group">
                             <div class="label-row">
-                                <label for="petal_length">Chiều dài cánh hoa (Petal Length)</label>
+                                <label for="petal_length">Chiều dài cánh hoa</label>
                             </div>
                             <div class="input-control-wrap">
                                 <input id="petal_length" type="number" step="0.1" min="0.1" max="10" value="1.4"
@@ -532,10 +557,10 @@
                             </div>
                         </div>
 
-                        <!-- Petal Width -->
+                        <!-- Chiều rộng cánh hoa -->
                         <div class="form-group">
                             <div class="label-row">
-                                <label for="petal_width">Chiều rộng cánh hoa (Petal Width)</label>
+                                <label for="petal_width">Chiều rộng cánh hoa</label>
                             </div>
                             <div class="input-control-wrap">
                                 <input id="petal_width" type="number" step="0.1" min="0.1" max="10" value="0.2"
@@ -561,7 +586,7 @@
                         <div class="result-label">Loài hoa dự đoán:</div>
                         <div id="prediction"></div>
                         <div id="confidence"></div>
-                        <img id="flower-image" src="" alt="Hoa Iris">
+                        <img id="flower-image" src="" alt="Hoa Diên Vĩ">
                     </div>
                 </div>
             </div>
@@ -569,20 +594,22 @@
 
         <!-- TAB 4: LỊCH SỬ -->
         <div id="tab-history" class="tab-content">
-            <h1>📜 Lịch sử dự đoán</h1>
-            <p class="subtitle">Danh sách các lần dự đoán gần nhất của bạn</p>
+            <h1>📜 Lịch Sử Dự Đoán</h1>
+            <p class="subtitle">Danh sách các lần bạn đã thực hiện phân loại</p>
             <div class="page-card">
                 <table class="history-table">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Thông số (SL / SW / PL / PW)</th>
-                            <th>Kết quả dự đoán</th>
+                            <th style="width: 8%;">STT</th>
+                            <th style="width: 23%;">Đài hoa (Dài × Rộng)</th>
+                            <th style="width: 23%;">Cánh hoa (Dài × Rộng)</th>
+                            <th style="width: 26%;">Kết quả dự đoán</th>
+                            <th style="width: 20%;">Độ tin cậy</th>
                         </tr>
                     </thead>
                     <tbody id="history-list">
                         <tr>
-                            <td colspan="3" style="color: #fda4af;">Chưa có lịch sử dự đoán nào.</td>
+                            <td colspan="5" style="color: #be123c; opacity: 0.7;">Chưa có lịch sử dự đoán nào.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -603,7 +630,6 @@
 
         let historyData = [];
 
-        // Chuyển Tab và reset animation để chạy lại mỗi khi bấm sang Tab Giới thiệu
         function switchTab(tabName, element) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
@@ -612,12 +638,11 @@
             targetTab.classList.add('active');
             element.classList.add('active');
 
-            // Reset animation xuất hiện từ dưới lên cho các card ở Tab Giới thiệu
             if (tabName === 'about') {
                 const cards = targetTab.querySelectorAll('.flower-card');
                 cards.forEach(card => {
                     card.style.animation = 'none';
-                    card.offsetHeight; /* Trigger reflow */
+                    card.offsetHeight;
                     card.style.animation = '';
                 });
             }
@@ -631,6 +656,24 @@
             document.getElementById(inputId).value = document.getElementById(rangeId).value;
         }
 
+        function updateHistoryTable() {
+            const tbody = document.getElementById("history-list");
+            if (historyData.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" style="color: #be123c; opacity: 0.7;">Chưa có lịch sử dự đoán nào.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = historyData.map((item, index) => `
+                <tr>
+                    <td><strong>${index + 1}</strong></td>
+                    <td>${item.sl} × ${item.sw} cm</td>
+                    <td>${item.pl} × ${item.pw} cm</td>
+                    <td><span class="badge-flower">${item.prediction}</span></td>
+                    <td>${item.confidence}</td>
+                </tr>
+            `).join('');
+        }
+
         async function predict() {
             const rawSepalLength = document.getElementById("sepal_length").value;
             const rawSepalWidth = document.getElementById("sepal_width").value;
@@ -638,7 +681,7 @@
             const rawPetalWidth = document.getElementById("petal_width").value;
 
             if (rawSepalLength === "" || rawSepalWidth === "" || rawPetalLength === "" || rawPetalWidth === "") {
-                alert("Vui lòng nhập đầy đủ 4 thông số!");
+                alert("Vui lòng nhập đầy đủ cả 4 thông số!");
                 return;
             }
 
@@ -677,6 +720,8 @@
                 const rawPrediction = result.prediction.toLowerCase();
                 const vnName = flowerNamesVN[rawPrediction] || result.prediction;
                 
+                document.getElementById("placeholder").style.display = "none";
+                document.getElementById("result").style.display = "block";
                 document.getElementById("prediction").innerText = vnName;
 
                 let imageName = rawPrediction.replace("iris-", "");
@@ -684,38 +729,35 @@
                 image.src = "/photo/" + imageName + ".jpg";
                 image.alt = vnName;
 
-                const confidence = document.getElementById("confidence");
+                const confidenceElement = document.getElementById("confidence");
+                let confidenceText = "N/A";
+
                 if (result.confidence !== undefined) {
-                    confidence.innerText = "Độ tin cậy: " + (result.confidence * 100).toFixed(2) + "%";
-                    confidence.style.display = "block";
+                    confidenceText = (result.confidence * 100).toFixed(2) + "%";
+                    confidenceElement.innerText = "Độ tin cậy: " + confidenceText;
+                    confidenceElement.style.display = "block";
                 } else {
-                    confidence.style.display = "none";
+                    confidenceElement.style.display = "none";
                 }
 
-                document.getElementById("placeholder").style.display = "none";
-                document.getElementById("result").style.display = "block";
+                // Lưu vào lịch sử dự đoán
+                historyData.unshift({
+                    sl: sl,
+                    sw: sw,
+                    pl: pl,
+                    pw: pw,
+                    prediction: vnName,
+                    confidence: confidenceText
+                });
 
-                addHistory(`${sl} / ${sw} / ${pl} / ${pw}`, vnName);
+                // Cập nhật lại giao diện bảng lịch sử
+                updateHistoryTable();
 
             } catch (error) {
-                alert("Không thể kết nối đến API: " + error.message);
+                alert("Lỗi: " + error.message);
             }
         }
-
-        function addHistory(params, resultName) {
-            historyData.unshift({ params, resultName });
-            const historyTable = document.getElementById("history-list");
-            
-            historyTable.innerHTML = historyData.map((item, index) => `
-                <tr>
-                    <td>${index + 1}</td>
-                    <td>${item.params}</td>
-                    <td><strong>${item.resultName}</strong></td>
-                </tr>
-            `).join('');
-        }
     </script>
-
 </body>
 
 </html>
