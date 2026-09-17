@@ -16,38 +16,32 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             background: linear-gradient(135deg, #ffe4e6 0%, #fecdd3 50%, #f43f5e 100%);
             background-attachment: fixed;
-            padding: 20px;
             color: #4c0519;
+            padding-top: 80px; /* Tạo khoảng trống phía trên tránh bị thanh Navbar cố định che khuất */
         }
 
-        .container {
-            width: 100%;
-            max-width: 950px;
-            background: rgba(254, 226, 226, 0.85); /* Thay nền trắng mờ bằng hồng nhạt kem */
-            backdrop-filter: blur(12px);
-            padding: 30px 40px 40px 40px;
-            border-radius: 28px;
-            box-shadow: 0 15px 35px rgba(225, 29, 72, 0.2);
-            border: 1px solid rgba(253, 164, 175, 0.5);
-        }
-
-        /* --- THANH ĐIỀU HƯỚNG (NAVBAR) --- */
+        /* --- THANH ĐIỀU HƯỚNG (NAVBAR) CỐ ĐỊNH Ở TRÊN CÙNG --- */
         .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            z-index: 1000;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(244, 63, 94, 0.2);
+            padding: 0 5%;
+            background: rgba(254, 226, 226, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(253, 164, 175, 0.5);
+            box-shadow: 0 4px 20px rgba(225, 29, 72, 0.15);
         }
 
         .nav-logo {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 800;
             color: #be123c;
             display: flex;
@@ -68,9 +62,9 @@
         .nav-link {
             text-decoration: none;
             color: #881337;
-            font-size: 0.88rem;
+            font-size: 0.9rem;
             font-weight: 600;
-            padding: 8px 16px;
+            padding: 8px 18px;
             border-radius: 20px;
             transition: all 0.25s ease;
             cursor: pointer;
@@ -87,6 +81,14 @@
             box-shadow: 0 3px 10px rgba(225, 29, 72, 0.3);
         }
 
+        /* --- PHẦN NỘI DUNG CHÍNH (TOÀN MÀN HÌNH) --- */
+        .main-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 20px 40px 20px;
+        }
+
         /* --- CÁC TAB NỘI DUNG --- */
         .tab-content {
             display: none;
@@ -101,7 +103,7 @@
         h1 {
             text-align: center;
             color: #be123c;
-            font-size: 2.1rem;
+            font-size: 2.3rem;
             margin-bottom: 6px;
             font-weight: 800;
         }
@@ -110,7 +112,7 @@
             text-align: center;
             color: #9f1239;
             margin-bottom: 30px;
-            font-size: 0.95rem;
+            font-size: 1rem;
             opacity: 0.9;
         }
 
@@ -126,7 +128,8 @@
             display: flex;
             align-items: center;
             gap: 20px;
-            background: #fff1f2; /* Thay trắng bằng hồng phấn nhẹ */
+            background: rgba(255, 241, 242, 0.9);
+            backdrop-filter: blur(8px);
             padding: 20px;
             border-radius: 20px;
             border: 1.5px solid #fecdd3;
@@ -170,7 +173,8 @@
         }
 
         .input-section {
-            background: #fff1f2;
+            background: rgba(255, 241, 242, 0.9);
+            backdrop-filter: blur(8px);
             padding: 24px;
             border-radius: 20px;
             border: 1.5px solid #fecdd3;
@@ -217,7 +221,7 @@
             font-size: 15px;
             font-weight: 600;
             color: #9f1239;
-            background-color: #ffe4e6; /* Thay trắng bằng hồng nhạt */
+            background-color: #ffe4e6;
             text-align: center;
             outline: none;
             transition: all 0.2s;
@@ -282,7 +286,8 @@
         }
 
         .result-section {
-            background: #fff1f2; /* Thay trắng bằng hồng phấn */
+            background: rgba(255, 241, 242, 0.9);
+            backdrop-filter: blur(8px);
             padding: 24px;
             border-radius: 20px;
             border: 1.5px solid #fecdd3;
@@ -344,7 +349,8 @@
 
         /* CARD TRANG CHỦ & LỊCH SỬ */
         .page-card {
-            background: #fff1f2; /* Thay trắng bằng hồng nhạt */
+            background: rgba(255, 241, 242, 0.9);
+            backdrop-filter: blur(8px);
             padding: 30px;
             border-radius: 20px;
             border: 1.5px solid #fecdd3;
@@ -375,7 +381,6 @@
         }
 
         .history-table tbody tr:hover {
-            background-color: #fdba74_20; /* Hiệu ứng hover cho dòng */
             background: rgba(253, 164, 175, 0.2);
         }
 
@@ -413,9 +418,15 @@
         }
 
         @media (max-width: 768px) {
+            body {
+                padding-top: 120px;
+            }
+
             .navbar {
                 flex-direction: column;
-                gap: 15px;
+                height: auto;
+                padding: 12px;
+                gap: 10px;
             }
 
             .flower-card {
@@ -445,27 +456,28 @@
 
 <body>
 
-    <div class="container">
+    <!-- THANH ĐIỀU HƯỚNG TRÊN CỐ ĐỊNH (FIXED TOP NAVBAR) -->
+    <nav class="navbar">
+        <div class="nav-logo">
+            🌸 Ứng Dụng Iris
+        </div>
+        <div class="nav-menu">
+            <span class="nav-link active" onclick="switchTab('home', this)">Trang chủ</span>
+            <span class="nav-link" onclick="switchTab('about', this)">Giới thiệu</span>
+            <span class="nav-link" onclick="switchTab('classify', this)">Phân loại</span>
+            <span class="nav-link" onclick="switchTab('history', this)">Lịch sử</span>
+        </div>
+    </nav>
 
-        <!-- THANH ĐIỀU HƯỚNG TRÊN -->
-        <nav class="navbar">
-            <div class="nav-logo">
-                🌸 Ưu Ứng Dụng Iris
-            </div>
-            <div class="nav-menu">
-                <span class="nav-link active" onclick="switchTab('home', this)">Trang chủ</span>
-                <span class="nav-link" onclick="switchTab('about', this)">Giới thiệu</span>
-                <span class="nav-link" onclick="switchTab('classify', this)">Phân loại</span>
-                <span class="nav-link" onclick="switchTab('history', this)">Lịch sử</span>
-            </div>
-        </nav>
+    <!-- NỘI DUNG CHÍNH CHẠY TOÀN MÀN HÌNH KHÔNG BỊ BỎ TRONG CÁC KHUNG CONTAINER -->
+    <div class="main-wrapper">
 
         <!-- TAB 1: TRANG CHỦ -->
         <div id="tab-home" class="tab-content active">
             <h1>🌸 Chào mừng đến với Ứng Dụng Iris</h1>
             <p class="subtitle">Hệ thống phân loại và nhận diện loài hoa Diên Vĩ thông minh</p>
             <div class="page-card" style="text-align: center;">
-                <p style="color: #881337; font-size: 1.05rem;">Ứng dụng giúp bạn nhanh chóng xác định loài hoa Diên Vĩ dưa trên kích thước chiều dài và chiều rộng của đài hoa cùng cánh hoa.</p>
+                <p style="color: #881337; font-size: 1.05rem;">Ứng dụng giúp bạn nhanh chóng xác định loài hoa Diên Vĩ dựa trên kích thước chiều dài và chiều rộng của đài hoa cùng cánh hoa.</p>
                 <button style="max-width: 250px; margin: 25px auto 0;" onclick="switchTab('classify', document.querySelectorAll('.nav-link')[2])">
                     Thử phân loại ngay ➔
                 </button>
