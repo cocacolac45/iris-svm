@@ -144,7 +144,7 @@
             box-shadow: 0 10px 40px rgba(108, 92, 231, 0.05);
         }
 
-        /* --- TAB GIỚI THIỆU (TỐI ƯU HÌNH ẢNH CAO & FULL) --- */
+        /* --- TAB GIỚI THIỆU (ĐÃ ĐỔI MÀU NỀN & FULL ẢNH) --- */
         .flower-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -169,22 +169,27 @@
             box-shadow: 0 15px 35px rgba(108, 92, 231, 0.12);
         }
 
-        /* Tăng chiều cao và dùng contain để hiện FULL ảnh */
         .flower-card-img-wrap {
             width: 100%;
             height: 280px; 
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.35); /* Thay nền trắng bằng màu nhạt đồng bộ */
             display: flex;
             align-items: center;
             justify-content: center;
             border-bottom: 1px solid rgba(108, 92, 231, 0.1);
+            overflow: hidden;
         }
 
         .flower-card-img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Đảm bảo hình hiển thị đầy đủ, không bị xén */
-            padding: 8px;
+            object-fit: cover; /* Phủ full toàn bộ khung ảnh */
+            padding: 0;
+            transition: transform 0.4s ease;
+        }
+
+        .flower-card:hover .flower-card-img {
+            transform: scale(1.05);
         }
 
         .flower-card-info {
@@ -273,7 +278,7 @@
             font-size: 14px;
             font-weight: 700;
             color: var(--primary);
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.8);
             text-align: center;
             outline: none;
             transition: all 0.2s;
@@ -333,7 +338,7 @@
             box-shadow: 0 8px 25px rgba(108, 92, 231, 0.35);
         }
 
-        /* --- CỘT KẾT QUẢ --- */
+        /* --- CỘT KẾT QUẢ (TĂNG KÍCH THƯỚC ẢNH & ĐỔI MÀU VIỀN) --- */
         .result-section {
             display: flex;
             flex-direction: column;
@@ -398,15 +403,16 @@
             font-weight: 700;
         }
 
+        /* Tăng kích thước ảnh kết quả & bỏ viền trắng */
         #flower-image {
             width: 100%;
-            max-width: 220px;
-            height: 170px;
+            max-width: 320px; /* Tăng rộng tối đa từ 220px lên 320px */
+            height: 240px;    /* Tăng cao từ 170px lên 240px */
             object-fit: cover;
             margin: 15px auto 0;
-            border-radius: 16px;
-            border: 2px solid #ffffff;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            border-radius: 20px;
+            border: 2px solid rgba(108, 92, 231, 0.2); /* Đổi viền trắng sang viền mờ màu tím nhẹ */
+            box-shadow: 0 12px 30px rgba(108, 92, 231, 0.15);
         }
 
         /* --- TAB LỊCH SỬ --- */
@@ -437,7 +443,7 @@
         .history-table {
             width: 100%;
             border-collapse: collapse;
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.6);
             border-radius: 14px;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.02);
@@ -446,18 +452,18 @@
         .history-table th, .history-table td {
             padding: 14px 16px;
             text-align: center;
-            border-bottom: 1px solid #f1f2f6;
+            border-bottom: 1px solid rgba(108, 92, 231, 0.08);
             font-size: 0.88rem;
         }
 
         .history-table th {
-            background-color: rgba(108, 92, 231, 0.06);
+            background-color: rgba(108, 92, 231, 0.1);
             color: var(--purple-dark);
             font-weight: 700;
         }
 
         .history-table tbody tr:hover {
-            background: rgba(108, 92, 231, 0.02);
+            background: rgba(108, 92, 231, 0.04);
         }
 
         .badge-flower {
@@ -642,7 +648,7 @@
             </div>
         </div>
 
-        <!-- TAB 4: LỊCH SỬ (ĐÃ BỎ CỘT ĐỘ TIN CẬY) -->
+        <!-- TAB 4: LỊCH SỬ -->
         <div id="tab-history" class="tab-content">
             <h1>📜 Lịch Sử Dự Đoán</h1>
             <p class="subtitle">Các lượt phân loại gần đây của bạn</p>
