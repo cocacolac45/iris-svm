@@ -39,11 +39,6 @@ class IrisInput(BaseModel):
 # TRANG CHỦ
 # =========================
 
-@app.get("/", response_class=HTMLResponse)
-def home():
-
-    with open("index.html", "r", encoding="utf-8") as f:
-        return f.read()
 
 # =========================
 # TRANG DỰ ĐOÁN
