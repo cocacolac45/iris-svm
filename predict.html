@@ -1,18 +1,29 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sidebar Toggle Demo</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
 
-        /* Nút bấm Toggle Icon */
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dự đoán hoa Iris (SVM)</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            background: linear-gradient(135deg, #ffe4e6 0%, #fecdd3 50%, #f43f5e 100%);
+            background-attachment: fixed;
+            color: #4c0519;
+            overflow-x: hidden;
+        }
+
+        /* NÚT ĐÓNG/MỞ THANH BÊN */
         .toggle-btn {
             position: fixed;
             top: 20px;
@@ -20,8 +31,8 @@
             z-index: 1000;
             width: 42px;
             height: 42px;
-            background-color: #e11d48;
-            color: #ffffff;
+            background: #e11d48;
+            color: white;
             border: none;
             border-radius: 10px;
             font-size: 1.2rem;
@@ -30,94 +41,670 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3);
-            transition: background-color 0.2s ease, transform 0.2s ease;
+            transition: background 0.2s ease, transform 0.2s ease;
         }
-
+        
         .toggle-btn:hover {
-            background-color: #be123c;
             transform: scale(1.05);
         }
 
-        /* Thanh bên (Sidebar) */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: -260px; /* Ẩn thanh bên về phía trái */
-            width: 260px;
-            height: 100vh;
-            background-color: #1e293b;
-            color: #ffffff;
-            padding-top: 80px;
-            transition: left 0.3s ease;
-            z-index: 999;
-            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.2);
-        }
+        /* THANH BÊN (SIDEBAR) */
+        .sidebar {
+            width: 260px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-right: 1.5px solid #fecdd3;
+            padding: 80px 16px 20px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 5px 0 25px rgba(225, 29, 72, 0.1);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 900;
+        }
 
-        /* Khi kích hoạt mở thanh bên */
-        .sidebar.active {
-            left: 0;
-        }
+        .sidebar.collapsed {
+            transform: translateX(-100%);
+        }
 
-        .sidebar ul {
-            list-style: none;
-        }
+        .nav-item {
+            padding: 14px 16px;
+            border-radius: 12px;
+            color: #881337;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s ease;
+            background: #fff;
+            border: 1px solid #fecdd3;
+        }
 
-        .sidebar ul li a {
-            display: block;
-            padding: 15px 25px;
-            color: #cbd5e1;
-            text-decoration: none;
-            transition: background 0.2s ease, color 0.2s ease;
-        }
+        .nav-item:hover, .nav-item.active {
+            background: #fff1f2;
+            border-color: #e11d48;
+            color: #be123c;
+        }
 
-        .sidebar ul li a:hover {
-            background-color: #334155;
-            color: #ffffff;
-        }
+        .nav-item.active {
+            border-left: 5px solid #e11d48;
+        }
 
-        /* Vùng nội dung chính */
-        .main-content {
-            padding: 80px 20px 20px 80px;
-        }
-    </style>
+        /* NỘI DUNG CHÍNH */
+        .main-wrapper {
+            flex: 1;
+            margin-left: 260px;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            min-height: 100vh;
+        }
+
+        .main-wrapper.expanded {
+            margin-left: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(225, 29, 72, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        h1 {
+            text-align: center;
+            color: #e11d48;
+            font-size: 2.1rem;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #9f1239;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        /* STYLES TRANG GIỚI THIỆU */
+        .flowers {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(225, 29, 72, 0.1);
+            border: 1px solid #fecdd3;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card .content {
+            padding: 16px;
+        }
+
+        .card .content h2 {
+            color: #be123c;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .card .content p {
+            color: #666;
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+
+        .go-predict-btn {
+            display: block;
+            width: fit-content;
+            margin: 30px auto 0;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #e11d48, #fb7185);
+            color: white;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 6px 16px rgba(225, 29, 72, 0.3);
+            transition: all 0.25s ease;
+        }
+
+        .go-predict-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(225, 29, 72, 0.4);
+        }
+
+        /* STYLES TRANG DỰ ĐOÁN */
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .input-section {
+            background: #fff1f2;
+            padding: 24px;
+            border-radius: 20px;
+            border: 1px solid #ffe4e6;
+        }
+
+        .result-section {
+            background: #fff;
+            padding: 24px;
+            border-radius: 20px;
+            border: 1.5px solid #fecdd3;
+            min-height: 420px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #be123c;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #fecdd3;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .label-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #881337;
+            font-size: 0.9rem;
+        }
+
+        .input-control-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        input[type="number"] {
+            width: 80px;
+            padding: 8px 10px;
+            border: 1.5px solid #fda4af;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #9f1239;
+            background-color: #ffffff;
+            text-align: center;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        input[type="number"]:focus {
+            border-color: #e11d48;
+            box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.15);
+        }
+
+        input[type="range"] {
+            flex: 1;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            border-radius: 5px;
+            background: #fecdd3;
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #e11d48;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(225, 29, 72, 0.4);
+            transition: all 0.15s ease;
+        }
+
+        button.predict-btn {
+            width: 100%;
+            margin-top: 10px;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #e11d48, #fb7185);
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 16px rgba(225, 29, 72, 0.3);
+            transition: all 0.25s ease;
+        }
+
+        button.predict-btn:hover {
+            background: linear-gradient(135deg, #be123c, #f43f5e);
+            transform: translateY(-2px);
+        }
+
+        #result {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .result-label {
+            color: #9f1239;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        #prediction {
+            font-size: 24px;
+            font-weight: 800;
+            color: #be123c;
+            margin: 6px 0 10px;
+        }
+
+        #confidence {
+            display: none;
+            color: #9f1239;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        #flower-image {
+            display: block;
+            width: 100%;
+            max-width: 200px;
+            height: 200px;
+            object-fit: cover;
+            margin: 0 auto;
+            border-radius: 14px;
+            border: 3px solid #fff1f2;
+            box-shadow: 0 6px 16px rgba(190, 18, 60, 0.15);
+        }
+
+        .placeholder-text {
+            color: #fda4af;
+            text-align: center;
+            margin: auto;
+            font-style: italic;
+        }
+
+        /* STYLES TRANG LỊCH SỬ */
+        .history-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .history-item {
+            background: #fff1f2;
+            padding: 14px;
+            border-radius: 12px;
+            border-left: 4px solid #e11d48;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .clear-btn {
+            background: #e11d48;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 800px) {
+            .flowers { grid-template-columns: 1fr; }
+            .layout-grid { grid-template-columns: 1fr; }
+            .sidebar { transform: translateX(-100%); }
+            .main-wrapper { margin-left: 0; }
+        }
+    </style>
 </head>
+
 <body>
 
-    <!-- Nút bấm mở/đóng thanh bên -->
-    <button class="toggle-btn" id="toggleBtn" onclick="toggleSidebar()">☰</button>
+    <button class="toggle-btn" id="toggleBtn" onclick="toggleSidebar()">☰</button>
 
-    <!-- Thanh bên -->
-    <nav class="sidebar" id="sidebar">
-        <ul>
-            <li><a href="#">Trang chủ</a></li>
-            <li><a href="#">Học tập</a></li>
-            <li><a href="#">Dự án</a></li>
-            <li><a href="#">Cài đặt</a></li>
-        </ul>
-    </nav>
+    <!-- THANH BÊN (SIDEBAR) -->
+    <div class="sidebar" id="sidebar">
+        <div class="nav-item active" onclick="switchTab('intro')">
+            <span>🏠</span> Giới thiệu
+        </div>
+        <div class="nav-item" onclick="switchTab('predict')">
+            <span>🔍</span> Dự đoán
+        </div>
+        <div class="nav-item" onclick="switchTab('history')">
+            <span>📜</span> Lịch sử
+        </div>
+    </div>
 
-    <!-- Nội dung trang -->
-    <main class="main-content">
-        <h1>Nội dung chính</h1>
-        <p>Bấm vào nút icon phía trên bên trái để mở hoặc đóng thanh bên.</p>
-    </main>
+    <!-- KHU VỰC NỘI DUNG CHÍNH -->
+    <div class="main-wrapper" id="mainWrapper">
+        <div class="container">
 
-    <!-- Script điều khiển -->
-    <script>
+            <!-- TAB 1: GIỚI THIỆU -->
+            <div id="tab-intro" class="tab-content active">
+                <h1>🌸 Iris Flower</h1>
+                <p class="subtitle">Khám phá 3 loài hoa trong bộ dữ liệu Iris</p>
+
+                <div class="flowers">
+                    <div class="card">
+                        <img src="/photo/setosa.jpg" alt="Iris Setosa">
+                        <div class="content">
+                            <h2>Iris Setosa</h2>
+                            <p>Iris Setosa là một trong ba loài hoa được sử dụng trong bộ dữ liệu Iris.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="/photo/versicolor.jpg" alt="Iris Versicolor">
+                        <div class="content">
+                            <h2>Iris Versicolor</h2>
+                            <p>Iris Versicolor có kích thước cánh hoa ở mức trung gian.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="/photo/virginica.jpg" alt="Iris Virginica">
+                        <div class="content">
+                            <h2>Iris Virginica</h2>
+                            <p>Iris Virginica thường có cánh hoa lớn hơn so với hai loài còn lại.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="go-predict-btn" onclick="switchTab('predict')">
+                    🔍 Bắt đầu dự đoán
+                </button>
+            </div>
+
+            <!-- TAB 2: DỰ ĐOÁN -->
+            <div id="tab-predict" class="tab-content">
+                <h1>🌸 Dự đoán Hoa Diên Vĩ</h1>
+                <p class="subtitle">Dự đoán loài hoa bằng mô hình Học máy Support Vector Machine (SVM)</p>
+
+                <div class="layout-grid">
+                    <div class="input-section">
+                        <div class="section-title">Nhập kích thước (cm)</div>
+                        <div class="form">
+                            <div class="form-group">
+                                <div class="label-row"><label for="sepal_length">Chiều dài đài hoa </label></div>
+                                <div class="input-control-wrap">
+                                    <input id="sepal_length" type="number" step="0.1" min="0.1" max="10" value="5.1" oninput="syncRange('sepal_length', 'sepal_length_range')">
+                                    <input id="sepal_length_range" type="range" min="0.1" max="10" step="0.1" value="5.1" oninput="syncInput('sepal_length', 'sepal_length_range')">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="label-row"><label for="sepal_width">Chiều rộng đài hoa </label></div>
+                                <div class="input-control-wrap">
+                                    <input id="sepal_width" type="number" step="0.1" min="0.1" max="10" value="3.5" oninput="syncRange('sepal_width', 'sepal_width_range')">
+                                    <input id="sepal_width_range" type="range" min="0.1" max="10" step="0.1" value="3.5" oninput="syncInput('sepal_width', 'sepal_width_range')">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="label-row"><label for="petal_length">Chiều dài cánh hoa </label></div>
+                                <div class="input-control-wrap">
+                                    <input id="petal_length" type="number" step="0.1" min="0.1" max="10" value="1.4" oninput="syncRange('petal_length', 'petal_length_range')">
+                                    <input id="petal_length_range" type="range" min="0.1" max="10" step="0.1" value="1.4" oninput="syncInput('petal_length', 'petal_length_range')">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="label-row"><label for="petal_width">Chiều rộng cánh hoa </label></div>
+                                <div class="input-control-wrap">
+                                    <input id="petal_width" type="number" step="0.1" min="0.1" max="10" value="0.2" oninput="syncRange('petal_width', 'petal_width_range')">
+                                    <input id="petal_width_range" type="range" min="0.1" max="10" step="0.1" value="0.2" oninput="syncInput('petal_width', 'petal_width_range')">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="predict-btn" onclick="predict()">🔍 Dự đoán kết quả</button>
+                    </div>
+
+                    <div class="result-section">
+                        <div class="section-title">Kết quả phân loại</div>
+                        <div id="placeholder" class="placeholder-text">
+                            Nhấn "Dự đoán kết quả" để xem chi tiết loài hoa...
+                        </div>
+                        <div id="result">
+                            <div class="result-label">Loài hoa dự đoán:</div>
+                            <div id="prediction"></div>
+                            <div id="confidence"></div>
+                            <img id="flower-image" src="" alt="Hoa Iris">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: LỊCH SỬ -->
+            <div id="tab-history" class="tab-content">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h1 style="margin: 0;">📜 Lịch Sử Dự Đoán</h1>
+                    <button class="clear-btn" onclick="clearHistory()">Xóa lịch sử</button>
+                </div>
+                <ul id="history-page-list" class="history-list">
+                    <li class="placeholder-text">Chưa có lịch sử dự đoán nào.</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const flowerNamesVN = {
+            "setosa": "Hoa Diên Vĩ Setosa",
+            "versicolor": "Hoa Diên Vĩ Versicolor",
+            "virginica": "Hoa Diên Vĩ Virginica",
+            "iris-setosa": "Hoa Diên Vĩ Setosa",
+            "iris-versicolor": "Hoa Diên Vĩ Versicolor",
+            "iris-virginica": "Hoa Diên Vĩ Virginica"
+        };
+
+        window.onload = function () {
+            renderHistoryPage();
+        };
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            const mainWrapper = document.getElementById("mainWrapper");
+            sidebar.classList.toggle("collapsed");
+            mainWrapper.classList.toggle("expanded");
+        }
+
         function toggleSidebar() {
             const sidebar = document.getElementById("sidebar");
             const toggleBtn = document.getElementById("toggleBtn");
             
-            // Bật/tắt class active trên thanh bên
+            // Bật/tắt class 'active' cho thanh bên
             sidebar.classList.toggle("active");
             
-            // Đổi icon tương ứng với trạng thái đóng/mở
+            // Đổi icon tương ứng với trạng thái
             if (sidebar.classList.contains("active")) {
                 toggleBtn.textContent = "✕";
             } else {
                 toggleBtn.textContent = "☰";
             }
         }
-    </script>
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+
+            document.getElementById('tab-' + tabName).classList.add('active');
+            
+            const activeNavIndex = tabName === 'intro' ? 0 : tabName === 'predict' ? 1 : 2;
+            document.querySelectorAll('.nav-item')[activeNavIndex].classList.add('active');
+
+            if (tabName === 'history') {
+                renderHistoryPage();
+            }
+        }
+
+        function syncRange(inputId, rangeId) {
+            document.getElementById(rangeId).value = document.getElementById(inputId).value;
+        }
+
+        function syncInput(inputId, rangeId) {
+            document.getElementById(inputId).value = document.getElementById(rangeId).value;
+        }
+
+        function saveToHistory(name, params) {
+            let history = JSON.parse(localStorage.getItem("iris_history") || "[]");
+            const time = new Date().toLocaleString('vi-VN');
+            history.unshift({ name, params, time });
+            localStorage.setItem("iris_history", JSON.stringify(history));
+        }
+
+        function renderHistoryPage() {
+            let history = JSON.parse(localStorage.getItem("iris_history") || "[]");
+            const listEl = document.getElementById("history-page-list");
+
+            if (history.length === 0) {
+                listEl.innerHTML = `<li class="placeholder-text" style="text-align: center; padding: 20px;">Chưa có lịch sử dự đoán nào.</li>`;
+                return;
+            }
+
+            listEl.innerHTML = history.map(item => `
+                <li class="history-item">
+                    <div>
+                        <strong style="color: #be123c; font-size: 1.1rem;">${item.name}</strong>
+                        <div style="font-size: 0.85rem; color: #666; margin-top: 4px;">
+                            Chiều dài đài: ${item.params.sl}cm | Rộng đài: ${item.params.sw}cm | Dài cánh: ${item.params.pl}cm | Rộng cánh: ${item.params.pw}cm
+                        </div>
+                    </div>
+                    <span style="font-size: 0.8rem; color: #9f1239; font-weight: 600;">${item.time}</span>
+                </li>
+            `).join('');
+        }
+
+        function clearHistory() {
+            localStorage.removeItem("iris_history");
+            renderHistoryPage();
+        }
+
+        async function predict() {
+            const rawSepalLength = document.getElementById("sepal_length").value;
+            const rawSepalWidth = document.getElementById("sepal_width").value;
+            const rawPetalLength = document.getElementById("petal_length").value;
+            const rawPetalWidth = document.getElementById("petal_width").value;
+
+            if (!rawSepalLength || !rawSepalWidth || !rawPetalLength || !rawPetalWidth) {
+                alert("Vui lòng nhập đầy đủ 4 thông số!");
+                return;
+            }
+
+            const sl = Number(rawSepalLength);
+            const sw = Number(rawSepalWidth);
+            const pl = Number(rawPetalLength);
+            const pw = Number(rawPetalWidth);
+
+            if (sl <= 0 || sw <= 0 || pl <= 0 || pw <= 0) {
+                alert("Kích thước các bộ phận hoa phải lớn hơn 0!");
+                return;
+            }
+
+            const data = { sepal_length: sl, sepal_width: sw, petal_length: pl, petal_width: pw };
+
+            try {
+                const response = await fetch("/predict", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.detail || "Có lỗi xảy ra từ máy chủ");
+                }
+
+                const rawPrediction = result.prediction.toLowerCase();
+                const vnName = flowerNamesVN[rawPrediction] || result.prediction;
+
+                document.getElementById("prediction").innerText = vnName;
+
+                let imageName = rawPrediction.replace("iris-", "");
+                const image = document.getElementById("flower-image");
+                image.src = "/photo/" + imageName + ".jpg";
+                image.alt = vnName;
+
+                const confidence = document.getElementById("confidence");
+                if (result.confidence !== undefined) {
+                    confidence.innerText = "Độ tin cậy: " + (result.confidence * 100).toFixed(2) + "%";
+                    confidence.style.display = "block";
+                } else {
+                    confidence.style.display = "none";
+                }
+
+                document.getElementById("placeholder").style.display = "none";
+                document.getElementById("result").style.display = "block";
+
+                saveToHistory(vnName, { sl, sw, pl, pw });
+
+            } catch (error) {
+                alert("Không thể kết nối đến API: " + error.message);
+            }
+        }
+    </script>
+
 </body>
+
 </html>
