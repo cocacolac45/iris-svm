@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iris SVM Prediction</title>
+    <title>Dự đoán hoa Iris (SVM)</title>
 
     <style>
         * {
@@ -27,7 +27,7 @@
 
         .container {
             width: 100%;
-            max-width: 950px;
+            max-width: 1200px;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(12px);
             padding: 40px;
@@ -52,18 +52,27 @@
             opacity: 0.9;
         }
 
+        /* Chuyển layout sang 3 cột */
         .layout-grid {
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 30px;
+            grid-template-columns: 0.7fr 1.2fr 0.8fr;
+            gap: 24px;
             align-items: start;
+        }
+
+        .nav-section, .input-section, .result-section {
+            background: #fff;
+            padding: 24px;
+            border-radius: 20px;
+            border: 1.5px solid #fecdd3;
+            min-height: 440px;
+            display: flex;
+            flex-direction: column;
         }
 
         .input-section {
             background: #fff1f2;
-            padding: 24px;
-            border-radius: 20px;
-            border: 1px solid #ffe4e6;
+            border-color: #ffe4e6;
         }
 
         .section-title {
@@ -73,8 +82,105 @@
             margin-bottom: 20px;
             padding-bottom: 8px;
             border-bottom: 2px solid #fecdd3;
+            text-align: center;
         }
 
+        /* Định dạng cột điều hướng mới */
+        .nav-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .nav-card {
+            background: #fff;
+            border: 1px solid #fecdd3;
+            border-radius: 12px;
+            padding: 12px 14px;
+            text-decoration: none;
+            color: #881337;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-card:hover {
+            background: #fff1f2;
+            border-color: #e11d48;
+            color: #be123c;
+            transform: translateX(3px);
+        }
+
+        .model-info-box {
+            background: #fff1f2;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid #fecdd3;
+            font-size: 0.85rem;
+            color: #9f1239;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .history-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #be123c;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .clear-btn {
+            background: none;
+            border: none;
+            color: #e11d48;
+            font-size: 0.75rem;
+            cursor: pointer;
+            text-decoration: underline;
+            padding: 0;
+            box-shadow: none;
+            width: auto;
+            margin: 0;
+        }
+
+        .clear-btn:hover {
+            color: #9f1239;
+            background: none;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .history-list {
+            list-style: none;
+            max-height: 180px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .history-item {
+            font-size: 0.8rem;
+            background: #fff1f2;
+            padding: 8px 10px;
+            border-radius: 8px;
+            border-left: 3px solid #e11d48;
+            color: #4c0519;
+        }
+
+        .history-item .time {
+            font-size: 0.7rem;
+            color: #9f1239;
+            opacity: 0.8;
+        }
+
+        /* Input Controls */
         .form-group {
             margin-bottom: 18px;
         }
@@ -144,7 +250,7 @@
             background: #be123c;
         }
 
-        button {
+        button.predict-btn {
             width: 100%;
             margin-top: 10px;
             padding: 14px;
@@ -159,24 +265,14 @@
             transition: all 0.25s ease;
         }
 
-        button:hover {
+        button.predict-btn:hover {
             background: linear-gradient(135deg, #be123c, #f43f5e);
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(225, 29, 72, 0.4);
         }
 
-        button:active {
+        button.predict-btn:active {
             transform: translateY(0);
-        }
-
-        .result-section {
-            background: #fff;
-            padding: 24px;
-            border-radius: 20px;
-            border: 1.5px solid #fecdd3;
-            min-height: 420px;
-            display: flex;
-            flex-direction: column;
         }
 
         #result {
@@ -229,21 +325,6 @@
             font-size: 0.95rem;
         }
 
-        .back {
-            display: block;
-            text-align: center;
-            margin-top: 25px;
-            color: #e11d48;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .back:hover {
-            color: #be123c;
-            text-decoration: underline;
-        }
-
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -256,7 +337,7 @@
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 992px) {
             .layout-grid {
                 grid-template-columns: 1fr;
             }
@@ -268,23 +349,46 @@
 
     <div class="container">
 
-        <h1>🌸 Iris Flower Classification</h1>
-
-        <p class="subtitle">
-            Phân loại hoa Iris bằng mô hình SVM
-        </p>
+        <h1>🌸 Phân loại Hoa Diên Vĩ (Iris)</h1>
+        <p class="subtitle">Dự đoán loài hoa bằng mô hình Học máy Support Vector Machine (SVM)</p>
 
         <div class="layout-grid">
 
-            <!-- CỘT TRÁI: NHẬP DỮ LIỆU -->
+            <!-- CỘT 1: ĐIỀU HƯỚNG & LỊCH SỬ -->
+            <div class="nav-section">
+                <div class="section-title">Tổng quan & Lịch sử</div>
+
+                <div class="nav-list">
+                    <a href="/" class="nav-card">
+                        <span>🏠</span> Trang giới thiệu
+                    </a>
+                </div>
+
+                <div class="model-info-box">
+                    <strong>⚙️ Mô hình Phân loại:</strong><br>
+                    - Thuật toán: SVM (Support Vector Machine)<br>
+                    - Tập dữ liệu: Iris Dataset (4 đặc trưng)<br>
+                    - Đã huấn luyện phân loại Setosa, Versicolor, Virginica.
+                </div>
+
+                <div class="history-title">
+                    <span>📜 Lịch sử dự đoán</span>
+                    <button class="clear-btn" onclick="clearHistory()">Xóa</button>
+                </div>
+
+                <ul id="history-list" class="history-list">
+                    <li class="history-item" style="text-align: center; color: #fda4af; border: none; background: none;">Chưa có dữ liệu</li>
+                </ul>
+            </div>
+
+            <!-- CỘT 2: NHẬP DỮ LIỆU -->
             <div class="input-section">
-                <div class="section-title">Nhập số liệu</div>
+                <div class="section-title">Nhập kích thước (cm)</div>
 
                 <div class="form">
-                    <!-- Sepal Length -->
                     <div class="form-group">
                         <div class="label-row">
-                            <label for="sepal_length">Sepal Length (cm)</label>
+                            <label for="sepal_length">Chiều dài đài hoa (Sepal Length)</label>
                         </div>
                         <div class="input-control-wrap">
                             <input id="sepal_length" type="number" step="0.1" min="0.1" max="10" value="5.1"
@@ -294,10 +398,9 @@
                         </div>
                     </div>
 
-                    <!-- Sepal Width -->
                     <div class="form-group">
                         <div class="label-row">
-                            <label for="sepal_width">Sepal Width (cm)</label>
+                            <label for="sepal_width">Chiều rộng đài hoa (Sepal Width)</label>
                         </div>
                         <div class="input-control-wrap">
                             <input id="sepal_width" type="number" step="0.1" min="0.1" max="10" value="3.5"
@@ -307,10 +410,9 @@
                         </div>
                     </div>
 
-                    <!-- Petal Length -->
                     <div class="form-group">
                         <div class="label-row">
-                            <label for="petal_length">Petal Length (cm)</label>
+                            <label for="petal_length">Chiều dài cánh hoa (Petal Length)</label>
                         </div>
                         <div class="input-control-wrap">
                             <input id="petal_length" type="number" step="0.1" min="0.1" max="10" value="1.4"
@@ -320,10 +422,9 @@
                         </div>
                     </div>
 
-                    <!-- Petal Width -->
                     <div class="form-group">
                         <div class="label-row">
-                            <label for="petal_width">Petal Width (cm)</label>
+                            <label for="petal_width">Chiều rộng cánh hoa (Petal Width)</label>
                         </div>
                         <div class="input-control-wrap">
                             <input id="petal_width" type="number" step="0.1" min="0.1" max="10" value="0.2"
@@ -334,12 +435,12 @@
                     </div>
                 </div>
 
-                <button onclick="predict()">🔍 Dự đoán kết quả</button>
+                <button class="predict-btn" onclick="predict()">🔍 Dự đoán kết quả</button>
             </div>
 
-            <!-- CỘT PHẢI: KẾT QUẢ -->
+            <!-- CỘT 3: KẾT QUẢ -->
             <div class="result-section">
-                <div class="section-title">Kết quả</div>
+                <div class="section-title">Kết quả phân loại</div>
 
                 <div id="placeholder" class="placeholder-text">
                     Nhấn "Dự đoán kết quả" để xem chi tiết loài hoa...
@@ -349,17 +450,28 @@
                     <div class="result-label">Loài hoa dự đoán:</div>
                     <div id="prediction"></div>
                     <div id="confidence"></div>
-                    <img id="flower-image" src="" alt="Flower">
+                    <img id="flower-image" src="" alt="Hoa Iris">
                 </div>
             </div>
 
         </div>
 
-        <a href="/" class="back">← Quay lại trang giới thiệu</a>
-
     </div>
 
     <script>
+        const flowerNamesVN = {
+            "setosa": "Hoa Diên Vĩ Setosa",
+            "versicolor": "Hoa Diên Vĩ Versicolor",
+            "virginica": "Hoa Diên Vĩ Virginica",
+            "iris-setosa": "Hoa Diên Vĩ Setosa",
+            "iris-versicolor": "Hoa Diên Vĩ Versicolor",
+            "iris-virginica": "Hoa Diên Vĩ Virginica"
+        };
+
+        window.onload = function () {
+            renderHistory();
+        };
+
         function syncRange(inputId, rangeId) {
             document.getElementById(rangeId).value = document.getElementById(inputId).value;
         }
@@ -368,13 +480,43 @@
             document.getElementById(inputId).value = document.getElementById(rangeId).value;
         }
 
+        function saveToHistory(name, params) {
+            let history = JSON.parse(localStorage.getItem("iris_history") || "[]");
+            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            history.unshift({ name, params, time });
+            if (history.length > 5) history.pop();
+            localStorage.setItem("iris_history", JSON.stringify(history));
+            renderHistory();
+        }
+
+        function renderHistory() {
+            let history = JSON.parse(localStorage.getItem("iris_history") || "[]");
+            const listEl = document.getElementById("history-list");
+
+            if (history.length === 0) {
+                listEl.innerHTML = `<li class="history-item" style="text-align: center; color: #fda4af; border: none; background: none;">Chưa có lịch sử</li>`;
+                return;
+            }
+
+            listEl.innerHTML = history.map(item => `
+                <li class="history-item">
+                    <strong>${item.name}</strong> <span class="time">(${item.time})</span><br>
+                    <span style="font-size:0.75rem; color:#666;">SL:${item.params.sl} | SW:${item.params.sw} | PL:${item.params.pl} | PW:${item.params.pw}</span>
+                </li>
+            `).join('');
+        }
+
+        function clearHistory() {
+            localStorage.removeItem("iris_history");
+            renderHistory();
+        }
+
         async function predict() {
             const rawSepalLength = document.getElementById("sepal_length").value;
             const rawSepalWidth = document.getElementById("sepal_width").value;
             const rawPetalLength = document.getElementById("petal_length").value;
             const rawPetalWidth = document.getElementById("petal_width").value;
 
-            // 1. Kiểm tra trường hợp để trống
             if (rawSepalLength === "" || rawSepalWidth === "" || rawPetalLength === "" || rawPetalWidth === "") {
                 alert("Vui lòng nhập đầy đủ 4 thông số!");
                 return;
@@ -385,25 +527,17 @@
             const pl = Number(rawPetalLength);
             const pw = Number(rawPetalWidth);
 
-            // 2. Chặn giá trị bằng 0 hoặc nhỏ hơn 0
             if (sl <= 0 || sw <= 0 || pl <= 0 || pw <= 0) {
                 alert("Kích thước các bộ phận hoa phải lớn hơn 0!");
                 return;
             }
 
-            const data = {
-                sepal_length: sl,
-                sepal_width: sw,
-                petal_length: pl,
-                petal_width: pw
-            };
+            const data = { sepal_length: sl, sepal_width: sw, petal_length: pl, petal_width: pw };
 
             try {
                 const response = await fetch("/predict", {
                     method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(data)
                 });
 
@@ -413,17 +547,16 @@
                     throw new Error(result.detail || "Có lỗi xảy ra từ máy chủ");
                 }
 
-                // Hiển thị tên loài hoa
-                const prediction = result.prediction;
-                document.getElementById("prediction").innerText = prediction.toUpperCase();
+                const rawPrediction = result.prediction.toLowerCase();
+                const vnName = flowerNamesVN[rawPrediction] || result.prediction;
 
-                // Hiển thị hình ảnh tương ứng
-                let imageName = prediction.toLowerCase().replace("iris-", "");
+                document.getElementById("prediction").innerText = vnName;
+
+                let imageName = rawPrediction.replace("iris-", "");
                 const image = document.getElementById("flower-image");
                 image.src = "/photo/" + imageName + ".jpg";
-                image.alt = prediction;
+                image.alt = vnName;
 
-                // Hiển thị độ tin cậy nếu API trả về
                 const confidence = document.getElementById("confidence");
                 if (result.confidence !== undefined) {
                     confidence.innerText = "Độ tin cậy: " + (result.confidence * 100).toFixed(2) + "%";
@@ -432,9 +565,10 @@
                     confidence.style.display = "none";
                 }
 
-                // Hiển thị giao diện kết quả
                 document.getElementById("placeholder").style.display = "none";
                 document.getElementById("result").style.display = "block";
+
+                saveToHistory(vnName, { sl, sw, pl, pw });
 
             } catch (error) {
                 alert("Không thể kết nối đến API: " + error.message);
