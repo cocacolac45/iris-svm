@@ -133,7 +133,7 @@
             font-weight: 500;
         }
 
-        /* --- HERO & PAGE CARDS --- */
+        /* --- PAGE CARDS --- */
         .page-card {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
@@ -144,7 +144,7 @@
             box-shadow: 0 10px 40px rgba(108, 92, 231, 0.05);
         }
 
-        /* --- TAB GIỚI THIỆU (GRID 3 CỘT) --- */
+        /* --- TAB GIỚI THIỆU (TỐI ƯU HÌNH ẢNH CAO & FULL) --- */
         .flower-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -169,10 +169,22 @@
             box-shadow: 0 15px 35px rgba(108, 92, 231, 0.12);
         }
 
+        /* Tăng chiều cao và dùng contain để hiện FULL ảnh */
+        .flower-card-img-wrap {
+            width: 100%;
+            height: 280px; 
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid rgba(108, 92, 231, 0.1);
+        }
+
         .flower-card-img {
             width: 100%;
-            height: 190px;
-            object-fit: cover;
+            height: 100%;
+            object-fit: contain; /* Đảm bảo hình hiển thị đầy đủ, không bị xén */
+            padding: 8px;
         }
 
         .flower-card-info {
@@ -523,7 +535,9 @@
             <div class="flower-grid">
                 <!-- Card 1 -->
                 <div class="flower-card">
-                    <img src="/photo/setosa.jpg" alt="Iris Setosa" class="flower-card-img">
+                    <div class="flower-card-img-wrap">
+                        <img src="/photo/setosa.jpg" alt="Iris Setosa" class="flower-card-img">
+                    </div>
                     <div class="flower-card-info">
                         <span class="flower-tag">Setosa</span>
                         <h2>Iris Setosa</h2>
@@ -533,7 +547,9 @@
 
                 <!-- Card 2 -->
                 <div class="flower-card">
-                    <img src="/photo/versicolor.jpg" alt="Iris Versicolor" class="flower-card-img">
+                    <div class="flower-card-img-wrap">
+                        <img src="/photo/versicolor.jpg" alt="Iris Versicolor" class="flower-card-img">
+                    </div>
                     <div class="flower-card-info">
                         <span class="flower-tag">Versicolor</span>
                         <h2>Iris Versicolor</h2>
@@ -543,7 +559,9 @@
 
                 <!-- Card 3 -->
                 <div class="flower-card">
-                    <img src="/photo/virginica.jpg" alt="Iris Virginica" class="flower-card-img">
+                    <div class="flower-card-img-wrap">
+                        <img src="/photo/virginica.jpg" alt="Iris Virginica" class="flower-card-img">
+                    </div>
                     <div class="flower-card-info">
                         <span class="flower-tag">Virginica</span>
                         <h2>Iris Virginica</h2>
@@ -624,7 +642,7 @@
             </div>
         </div>
 
-        <!-- TAB 4: LỊCH SỬ -->
+        <!-- TAB 4: LỊCH SỬ (ĐÃ BỎ CỘT ĐỘ TIN CẬY) -->
         <div id="tab-history" class="tab-content">
             <h1>📜 Lịch Sử Dự Đoán</h1>
             <p class="subtitle">Các lượt phân loại gần đây của bạn</p>
@@ -636,16 +654,15 @@
                 <table class="history-table">
                     <thead>
                         <tr>
-                            <th style="width: 10%;">STT</th>
-                            <th style="width: 25%;">Đài hoa (D × R)</th>
-                            <th style="width: 25%;">Cánh hoa (D × R)</th>
+                            <th style="width: 15%;">STT</th>
+                            <th style="width: 30%;">Đài hoa (D × R)</th>
+                            <th style="width: 30%;">Cánh hoa (D × R)</th>
                             <th style="width: 25%;">Kết quả</th>
-                            <th style="width: 15%;">Độ tin cậy</th>
                         </tr>
                     </thead>
                     <tbody id="history-list">
                         <tr>
-                            <td colspan="5" style="color: var(--text-muted); opacity: 0.7;">Chưa có lịch sử dự đoán nào.</td>
+                            <td colspan="4" style="color: var(--text-muted); opacity: 0.7;">Chưa có lịch sử dự đoán nào.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -685,7 +702,7 @@
         function updateHistoryTable() {
             const tbody = document.getElementById("history-list");
             if (historyData.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" style="color: var(--text-muted); opacity: 0.7;">Chưa có lịch sử dự đoán nào.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="4" style="color: var(--text-muted); opacity: 0.7;">Chưa có lịch sử dự đoán nào.</td></tr>`;
                 return;
             }
 
@@ -695,7 +712,6 @@
                     <td>${item.sl} × ${item.sw} cm</td>
                     <td>${item.pl} × ${item.pw} cm</td>
                     <td><span class="badge-flower">${item.prediction}</span></td>
-                    <td><strong>${item.confidence}</strong></td>
                 </tr>
             `).join('');
         }
@@ -748,12 +764,10 @@
                 const confidenceWrap = document.getElementById("confidence-wrap");
                 const confidenceText = document.getElementById("confidence");
                 const progressBar = document.getElementById("progress-bar");
-                let confidenceValText = "N/A";
 
                 if (result.confidence !== undefined) {
                     const percent = (result.confidence * 100).toFixed(1);
-                    confidenceValText = percent + "%";
-                    confidenceText.innerText = "Độ tin cậy: " + confidenceValText;
+                    confidenceText.innerText = "Độ tin cậy: " + percent + "%";
                     progressBar.style.width = percent + "%";
                     confidenceWrap.style.display = "block";
                 } else {
@@ -762,8 +776,7 @@
 
                 historyData.unshift({
                     sl, sw, pl, pw,
-                    prediction: vnName,
-                    confidence: confidenceValText
+                    prediction: vnName
                 });
 
                 updateHistoryTable();
