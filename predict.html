@@ -17,8 +17,9 @@
             --primary-hover: #5b4bc4;
             --primary-light: #a29bfe;
             --bg-gradient: linear-gradient(135deg, #f3e8ff 0%, #e0e7ff 50%, #d8b4fe 100%);
-            --card-bg: rgba(255, 255, 255, 0.75);
-            --card-border: rgba(255, 255, 255, 0.8);
+            /* Đổi nền Card từ trắng đục sang nền mờ màu tím nhạt đồng bộ */
+            --card-bg: rgba(255, 255, 255, 0.45); 
+            --card-border: rgba(255, 255, 255, 0.7);
             --text-dark: #2d3436;
             --text-muted: #57606f;
             --purple-dark: #3c096c;
@@ -51,7 +52,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 0 8%;
-            background: rgba(255, 255, 255, 0.65);
+            background: rgba(255, 255, 255, 0.55);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--card-border);
@@ -71,10 +72,10 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.4);
             padding: 4px 6px;
             border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.7);
         }
 
         .nav-link {
@@ -133,18 +134,18 @@
             font-weight: 500;
         }
 
-        /* --- PAGE CARDS --- */
+        /* --- PAGE CARDS (ĐỒNG BỘ MÀU NỀN MỜ KHÔNG TRẮNG) --- */
         .page-card {
             background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             padding: 35px;
             border-radius: 24px;
             border: 1px solid var(--card-border);
-            box-shadow: 0 10px 40px rgba(108, 92, 231, 0.05);
+            box-shadow: 0 10px 40px rgba(108, 92, 231, 0.06);
         }
 
-        /* --- TAB GIỚI THIỆU (ĐÃ ĐỔI MÀU NỀN & FULL ẢNH) --- */
+        /* --- TAB GIỚI THIỆU (HOÀN TOÀN KHÔNG TRẮNG) --- */
         .flower-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -154,11 +155,12 @@
 
         .flower-card {
             background: var(--card-bg);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border-radius: 20px;
             border: 1px solid var(--card-border);
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.06);
             transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
@@ -166,13 +168,13 @@
 
         .flower-card:hover {
             transform: translateY(-6px);
-            box-shadow: 0 15px 35px rgba(108, 92, 231, 0.12);
+            box-shadow: 0 15px 35px rgba(108, 92, 231, 0.15);
         }
 
         .flower-card-img-wrap {
             width: 100%;
             height: 280px; 
-            background: rgba(255, 255, 255, 0.35); /* Thay nền trắng bằng màu nhạt đồng bộ */
+            background: rgba(108, 92, 231, 0.05);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -183,7 +185,7 @@
         .flower-card-img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Phủ full toàn bộ khung ảnh */
+            object-fit: cover;
             padding: 0;
             transition: transform 0.4s ease;
         }
@@ -202,7 +204,7 @@
         .flower-tag {
             align-self: flex-start;
             padding: 4px 10px;
-            background: rgba(108, 92, 231, 0.1);
+            background: rgba(108, 92, 231, 0.12);
             color: var(--primary);
             font-size: 0.75rem;
             font-weight: 700;
@@ -224,7 +226,7 @@
             line-height: 1.6;
         }
 
-        /* --- TAB PHÂN LOẠI --- */
+        /* --- TAB PHÂN LOẠI (2 Ô KHÔNG NỀN TRẮNG) --- */
         .layout-grid {
             display: grid;
             grid-template-columns: 1.1fr 0.9fr;
@@ -234,11 +236,12 @@
 
         .input-section, .result-section {
             background: var(--card-bg);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             padding: 28px;
             border-radius: 24px;
             border: 1px solid var(--card-border);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.06);
         }
 
         .section-title {
@@ -247,7 +250,7 @@
             color: var(--purple-dark);
             margin-bottom: 22px;
             padding-bottom: 10px;
-            border-bottom: 2px solid rgba(108, 92, 231, 0.1);
+            border-bottom: 2px solid rgba(108, 92, 231, 0.12);
             display: flex;
             align-items: center;
             gap: 8px;
@@ -273,12 +276,12 @@
         input[type="number"] {
             width: 75px;
             padding: 8px;
-            border: 1.5px solid #dcdde1;
+            border: 1.5px solid rgba(108, 92, 231, 0.2);
             border-radius: 10px;
             font-size: 14px;
             font-weight: 700;
             color: var(--primary);
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.6);
             text-align: center;
             outline: none;
             transition: all 0.2s;
@@ -294,7 +297,7 @@
             -webkit-appearance: none;
             height: 6px;
             border-radius: 5px;
-            background: #e2e8f0;
+            background: rgba(108, 92, 231, 0.15);
             outline: none;
         }
 
@@ -338,7 +341,7 @@
             box-shadow: 0 8px 25px rgba(108, 92, 231, 0.35);
         }
 
-        /* --- CỘT KẾT QUẢ (TĂNG KÍCH THƯỚC ẢNH & ĐỔI MÀU VIỀN) --- */
+        /* --- CỘT KẾT QUẢ --- */
         .result-section {
             display: flex;
             flex-direction: column;
@@ -382,7 +385,7 @@
 
         .progress-bar-wrap {
             width: 100%;
-            background: #e2e8f0;
+            background: rgba(108, 92, 231, 0.15);
             height: 8px;
             border-radius: 10px;
             overflow: hidden;
@@ -403,15 +406,14 @@
             font-weight: 700;
         }
 
-        /* Tăng kích thước ảnh kết quả & bỏ viền trắng */
         #flower-image {
             width: 100%;
-            max-width: 320px; /* Tăng rộng tối đa từ 220px lên 320px */
-            height: 240px;    /* Tăng cao từ 170px lên 240px */
+            max-width: 320px;
+            height: 240px;
             object-fit: cover;
             margin: 15px auto 0;
             border-radius: 20px;
-            border: 2px solid rgba(108, 92, 231, 0.2); /* Đổi viền trắng sang viền mờ màu tím nhẹ */
+            border: 2px solid rgba(108, 92, 231, 0.2);
             box-shadow: 0 12px 30px rgba(108, 92, 231, 0.15);
         }
 
@@ -424,7 +426,7 @@
         }
 
         .btn-clear {
-            background: rgba(231, 76, 60, 0.1);
+            background: rgba(231, 76, 60, 0.12);
             color: #e74c3c;
             border: none;
             padding: 8px 14px;
@@ -443,10 +445,9 @@
         .history-table {
             width: 100%;
             border-collapse: collapse;
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.35);
             border-radius: 14px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
         }
 
         .history-table th, .history-table td {
@@ -457,19 +458,19 @@
         }
 
         .history-table th {
-            background-color: rgba(108, 92, 231, 0.1);
+            background-color: rgba(108, 92, 231, 0.12);
             color: var(--purple-dark);
             font-weight: 700;
         }
 
         .history-table tbody tr:hover {
-            background: rgba(108, 92, 231, 0.04);
+            background: rgba(108, 92, 231, 0.05);
         }
 
         .badge-flower {
             display: inline-block;
             padding: 4px 12px;
-            background: rgba(108, 92, 231, 0.12);
+            background: rgba(108, 92, 231, 0.15);
             color: var(--primary);
             border-radius: 20px;
             font-size: 0.8rem;
