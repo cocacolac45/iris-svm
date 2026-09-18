@@ -17,7 +17,6 @@
             --primary-hover: #5b4bc4;
             --primary-light: #a29bfe;
             --bg-gradient: linear-gradient(135deg, #f3e8ff 0%, #e0e7ff 50%, #d8b4fe 100%);
-            /* Đổi nền Card từ trắng đục sang nền mờ màu tím nhạt đồng bộ */
             --card-bg: rgba(255, 255, 255, 0.45); 
             --card-border: rgba(255, 255, 255, 0.7);
             --text-dark: #2d3436;
@@ -134,7 +133,7 @@
             font-weight: 500;
         }
 
-        /* --- PAGE CARDS (ĐỒNG BỘ MÀU NỀN MỜ KHÔNG TRẮNG) --- */
+        /* --- PAGE CARDS --- */
         .page-card {
             background: var(--card-bg);
             backdrop-filter: blur(16px);
@@ -145,7 +144,7 @@
             box-shadow: 0 10px 40px rgba(108, 92, 231, 0.06);
         }
 
-        /* --- TAB GIỚI THIỆU (HOÀN TOÀN KHÔNG TRẮNG) --- */
+        /* --- TAB GIỚI THIỆU --- */
         .flower-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -226,7 +225,7 @@
             line-height: 1.6;
         }
 
-        /* --- TAB PHÂN LOẠI (2 Ô KHÔNG NỀN TRẮNG) --- */
+        /* --- TAB PHÂN LOẠI --- */
         .layout-grid {
             display: grid;
             grid-template-columns: 1.1fr 0.9fr;
@@ -406,10 +405,11 @@
             font-weight: 700;
         }
 
+        /* ĐÃ TĂNG CHIỀU CAO ẢNH DỰ ĐOÁN */
         #flower-image {
             width: 100%;
-            max-width: 320px;
-            height: 240px;
+            max-width: 360px;
+            height: 320px; /* Tăng chiều cao lên 320px */
             object-fit: cover;
             margin: 15px auto 0;
             border-radius: 20px;
@@ -497,6 +497,7 @@
             .navbar { flex-direction: column; height: auto; padding: 10px; gap: 8px; }
             .nav-menu { width: 100%; justify-content: center; }
             .nav-link { padding: 6px 12px; font-size: 0.8rem; }
+            #flower-image { height: 260px; } /* Chiều cao tối ưu riêng cho giao diện điện thoại */
         }
     </style>
 </head>
