@@ -405,11 +405,10 @@
             font-weight: 700;
         }
 
-        /* ĐÃ TĂNG CHIỀU CAO ẢNH DỰ ĐOÁN */
         #flower-image {
             width: 100%;
             max-width: 360px;
-            height: 320px; /* Tăng chiều cao lên 320px */
+            height: 320px;
             object-fit: cover;
             margin: 15px auto 0;
             border-radius: 20px;
@@ -497,7 +496,7 @@
             .navbar { flex-direction: column; height: auto; padding: 10px; gap: 8px; }
             .nav-menu { width: 100%; justify-content: center; }
             .nav-link { padding: 6px 12px; font-size: 0.8rem; }
-            #flower-image { height: 260px; } /* Chiều cao tối ưu riêng cho giao diện điện thoại */
+            #flower-image { height: 260px; }
         }
     </style>
 </head>
@@ -510,8 +509,7 @@
             🪻 Ứng Dụng Iris
         </div>
         <div class="nav-menu">
-            <span class="nav-link active" onclick="switchTab('home', this)">Trang chủ</span>
-            <span class="nav-link" onclick="switchTab('about', this)">Giới thiệu</span>
+            <span class="nav-link active" onclick="switchTab('about', this)">Giới thiệu</span>
             <span class="nav-link" onclick="switchTab('classify', this)">Phân loại</span>
             <span class="nav-link" onclick="switchTab('history', this)">Lịch sử</span>
         </div>
@@ -520,23 +518,8 @@
     <!-- MAIN CONTENT -->
     <div class="main-wrapper">
 
-        <!-- TAB 1: TRANG CHỦ -->
-        <div id="tab-home" class="tab-content active">
-            <h1>🪻 Chào mừng đến với Iris AI</h1>
-            <p class="subtitle">Hệ thống phân loại và nhận diện loài hoa Diên Vĩ thông minh</p>
-            <div class="page-card" style="text-align: center; max-width: 750px; margin: 0 auto;">
-                <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.7;">
-                    Ứng dụng hỗ trợ nhận diện chính xác 3 loài hoa Diên Vĩ (Setosa, Versicolor, Virginica) 
-                    dựa trên thuật toán học máy <strong>Support Vector Machine (SVM)</strong>.
-                </p>
-                <button class="btn-submit" style="max-width: 220px; margin: 25px auto 0;" onclick="switchTab('classify', document.querySelectorAll('.nav-link')[2])">
-                    Thử phân loại ngay ➔
-                </button>
-            </div>
-        </div>
-
-        <!-- TAB 2: GIỚI THIỆU -->
-        <div id="tab-about" class="tab-content">
+        <!-- TAB 1: GIỚI THIỆU -->
+        <div id="tab-about" class="tab-content active">
             <h1>🌸 Các Loài Hoa Diên Vĩ</h1>
             <p class="subtitle">Khám phá 3 loài hoa chính trong bộ dữ liệu Iris Dataset</p>
 
@@ -579,19 +562,19 @@
             </div>
         </div>
 
-        <!-- TAB 3: PHÂN LOẠI -->
+        <!-- TAB 2: PHÂN LOẠI -->
         <div id="tab-classify" class="tab-content">
-            <h1>⚙️ Phân Loại Hoa Diên Vĩ</h1>
+            <h1>Phân Loại Hoa Diên Vĩ</h1>
             <p class="subtitle">Điều chỉnh các thông số kích thước để dự đoán kết quả</p>
 
             <div class="layout-grid">
                 <!-- CỘT TRÁI -->
                 <div class="input-section">
-                    <div class="section-title">📏 Nhập kích thước (cm)</div>
+                    <div class="section-title">Nhập kích thước (cm)</div>
 
                     <div class="form">
                         <div class="form-group">
-                            <div class="label-row"><label for="sepal_length">Chiều dài đài hoa (Sepal Length)</label></div>
+                            <div class="label-row"><label for="sepal_length">Chiều dài đài hoa</label></div>
                             <div class="input-control-wrap">
                                 <input id="sepal_length" type="number" step="0.1" min="0.1" max="10" value="5.1" oninput="syncRange('sepal_length', 'sepal_length_range')">
                                 <input id="sepal_length_range" type="range" min="0.1" max="10" step="0.1" value="5.1" oninput="syncInput('sepal_length', 'sepal_length_range')">
@@ -599,7 +582,7 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="label-row"><label for="sepal_width">Chiều rộng đài hoa (Sepal Width)</label></div>
+                            <div class="label-row"><label for="sepal_width">Chiều rộng đài hoa</label></div>
                             <div class="input-control-wrap">
                                 <input id="sepal_width" type="number" step="0.1" min="0.1" max="10" value="3.5" oninput="syncRange('sepal_width', 'sepal_width_range')">
                                 <input id="sepal_width_range" type="range" min="0.1" max="10" step="0.1" value="3.5" oninput="syncInput('sepal_width', 'sepal_width_range')">
@@ -607,7 +590,7 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="label-row"><label for="petal_length">Chiều dài cánh hoa (Petal Length)</label></div>
+                            <div class="label-row"><label for="petal_length">Chiều dài cánh hoa</label></div>
                             <div class="input-control-wrap">
                                 <input id="petal_length" type="number" step="0.1" min="0.1" max="10" value="1.4" oninput="syncRange('petal_length', 'petal_length_range')">
                                 <input id="petal_length_range" type="range" min="0.1" max="10" step="0.1" value="1.4" oninput="syncInput('petal_length', 'petal_length_range')">
@@ -615,7 +598,7 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="label-row"><label for="petal_width">Chiều rộng cánh hoa (Petal Width)</label></div>
+                            <div class="label-row"><label for="petal_width">Chiều rộng cánh hoa</label></div>
                             <div class="input-control-wrap">
                                 <input id="petal_width" type="number" step="0.1" min="0.1" max="10" value="0.2" oninput="syncRange('petal_width', 'petal_width_range')">
                                 <input id="petal_width_range" type="range" min="0.1" max="10" step="0.1" value="0.2" oninput="syncInput('petal_width', 'petal_width_range')">
@@ -623,13 +606,13 @@
                         </div>
                     </div>
 
-                    <button class="btn-submit" onclick="predict()">🔍 Dự đoán ngay</button>
+                    <button class="btn-submit" onclick="predict()">Dự đoán ngay</button>
                 </div>
 
                 <!-- CỘT PHẢI -->
                 <div class="result-section">
                     <div id="placeholder" class="placeholder-text">
-                        <div class="placeholder-icon">📊</div>
+                        <div class="placeholder-icon">🌸</div>
                         Nhấn nút <strong>"Dự đoán ngay"</strong><br>để xem kết quả phân loại chi tiết.
                     </div>
 
@@ -650,7 +633,7 @@
             </div>
         </div>
 
-        <!-- TAB 4: LỊCH SỬ -->
+        <!-- TAB 3: LỊCH SỬ -->
         <div id="tab-history" class="tab-content">
             <h1>📜 Lịch Sử Dự Đoán</h1>
             <p class="subtitle">Các lượt phân loại gần đây của bạn</p>
