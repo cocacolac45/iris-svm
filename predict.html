@@ -542,7 +542,7 @@
     <!-- NAVBAR -->
     <nav class="navbar">
         <div class="nav-logo">
-            🪻 Ứng Dụng Iris
+            Iris-Svm
         </div>
         <div class="nav-menu">
             <span class="nav-link active" onclick="switchTab('about', this)">Giới thiệu</span>
@@ -556,7 +556,7 @@
 
         <!-- TAB 1: GIỚI THIỆU -->
         <div id="tab-about" class="tab-content active">
-            <h1>🌸 Các Loài Hoa Diên Vĩ</h1>
+            <h1>Các Loài Hoa Diên Vĩ</h1>
             <p class="subtitle">Khám phá 3 loài hoa chính trong bộ dữ liệu Iris Dataset</p>
 
             <div class="flower-grid">
@@ -648,7 +648,6 @@
                 <!-- CỘT PHẢI -->
                 <div class="result-section">
                     <div id="placeholder" class="placeholder-text">
-                        <div class="placeholder-icon">🌸</div>
                         Nhấn nút <strong>"Dự đoán ngay"</strong><br>để xem kết quả phân loại chi tiết.
                     </div>
 
@@ -822,17 +821,20 @@
                     confidenceWrap.style.display = "none";
                 }
 
+                // Lưu kết quả vào lịch sử
                 historyData.unshift({
-                    sl, sw, pl, pw,
+                    sl: sl,
+                    sw: sw,
+                    pl: pl,
+                    pw: pw,
                     prediction: vnName
                 });
-
                 updateHistoryTable();
 
             } catch (error) {
-                alert("Lỗi: " + error.message);
+                alert("Lỗi khi dự đoán: " + error.message);
             } finally {
-                // Mở lại khả năng chỉnh sửa sau khi load xong
+                // Phục hồi lại trạng thái ban đầu của nút và form
                 btn.disabled = false;
                 setFormDisabled(false);
                 btn.innerHTML = originalBtnText;
