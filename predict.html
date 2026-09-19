@@ -316,6 +316,12 @@
             background: var(--primary-hover);
         }
 
+        /* Trạng thái bị khóa khi loading */
+        input:disabled, button:disabled {
+            opacity: 0.55;
+            cursor: not-allowed !important;
+        }
+
         .btn-submit {
             width: 100%;
             margin-top: 15px;
@@ -335,12 +341,12 @@
             gap: 8px;
         }
 
-        .btn-submit:hover {
+        .btn-submit:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(108, 92, 231, 0.35);
         }
 
-        .btn-submit:active {
+        .btn-submit:active:not(:disabled) {
             transform: scale(0.98);
         }
 
@@ -369,10 +375,6 @@
         #result {
             display: none;
             width: 100%;
-        }
-
-        #result.animate-show {
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
         .result-label {
@@ -404,7 +406,7 @@
             background: var(--primary);
             width: 0%;
             border-radius: 10px;
-            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: width 0.6s ease;
         }
 
         #confidence {
@@ -413,6 +415,7 @@
             font-weight: 700;
         }
 
+        /* Hiệu ứng nảy/phóng mượt CHỈ áp dụng cho ảnh */
         #flower-image {
             width: 100%;
             max-width: 360px;
@@ -422,7 +425,16 @@
             border-radius: 20px;
             border: 2px solid rgba(108, 92, 231, 0.2);
             box-shadow: 0 12px 30px rgba(108, 92, 231, 0.15);
-            transition: transform 0.4s ease, opacity 0.4s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #flower-image.img-animate {
+            animation: imgPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        #flower-image:hover {
+            transform: scale(1.03);
+            box-shadow: 0 16px 35px rgba(108, 92, 231, 0.25);
         }
 
         /* --- TAB LỊCH SỬ --- */
@@ -485,15 +497,15 @@
             font-weight: 700;
         }
 
-        /* --- KEYFRAMES HIỆU ỨNG MỚI THÊM --- */
+        /* --- KEYFRAMES --- */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes popIn {
-            0% { opacity: 0; transform: scale(0.9) translateY(15px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
+        @keyframes imgPop {
+            0% { opacity: 0; transform: scale(0.85); }
+            100% { opacity: 1; transform: scale(1); }
         }
 
         .spinner {
@@ -511,12 +523,8 @@
 
         /* --- RESPONSIVE --- */
         @media (max-width: 850px) {
-            .flower-grid {
-                grid-template-columns: 1fr;
-            }
-            .layout-grid {
-                grid-template-columns: 1fr;
-            }
+            .flower-grid { grid-template-columns: 1fr; }
+            .layout-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 600px) {
@@ -718,6 +726,12 @@
             document.getElementById(inputId).value = document.getElementById(rangeId).value;
         }
 
+        // Bật / tắt các ô nhập liệu khi đang load
+        function setFormDisabled(disabled) {
+            const inputs = document.querySelectorAll('.input-section input');
+            inputs.forEach(input => input.disabled = disabled);
+        }
+
         function updateHistoryTable() {
             const tbody = document.getElementById("history-list");
             if (historyData.length === 0) {
@@ -740,21 +754,6 @@
             updateHistoryTable();
         }
 
-        // Hàm hỗ trợ hiệu ứng nhảy số % độ tin cậy
-        function animateValue(obj, start, end, duration) {
-            let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                const currentVal = (progress * (end - start) + start).toFixed(1);
-                obj.innerText = "Độ tin cậy: " + currentVal + "%";
-                if (progress < 1) {
-                    window.requestAnimationFrame(step);
-                }
-            };
-            window.requestAnimationFrame(step);
-        }
-
         async function predict() {
             const rawSepalLength = document.getElementById("sepal_length").value;
             const rawSepalWidth = document.getElementById("sepal_width").value;
@@ -768,7 +767,10 @@
 
             const btn = document.getElementById("btn-predict");
             const originalBtnText = btn.innerHTML;
+
+            // Vô hiệu hóa nút và toàn bộ ô nhập liệu
             btn.disabled = true;
+            setFormDisabled(true);
             btn.innerHTML = `<div class="spinner"></div> Đang phân loại...`;
 
             const sl = Number(rawSepalLength);
@@ -791,21 +793,21 @@
                 const rawPrediction = result.prediction.toLowerCase();
                 const vnName = flowerNamesVN[rawPrediction] || result.prediction;
                 
-                const resultDiv = document.getElementById("result");
                 document.getElementById("placeholder").style.display = "none";
-                
-                // Triggers animation nảy ra (popIn) cho card kết quả
-                resultDiv.style.display = "block";
-                resultDiv.classList.remove("animate-show");
-                void resultDiv.offsetWidth; // Trigger reflow
-                resultDiv.classList.add("animate-show");
+                document.getElementById("result").style.display = "block";
 
+                // Hiển thị chữ thông thường
                 document.getElementById("prediction").innerText = vnName;
 
+                // Áp dụng hiệu ứng nảy/phóng mượt CHỈ cho ảnh
                 let imageName = rawPrediction.replace("iris-", "");
                 const image = document.getElementById("flower-image");
                 image.src = "/photo/" + imageName + ".jpg";
                 image.alt = vnName;
+
+                image.classList.remove("img-animate");
+                void image.offsetWidth; // Reflow để kích hoạt lại animation
+                image.classList.add("img-animate");
 
                 const confidenceWrap = document.getElementById("confidence-wrap");
                 const confidenceText = document.getElementById("confidence");
@@ -814,13 +816,8 @@
                 if (result.confidence !== undefined) {
                     const percent = (result.confidence * 100).toFixed(1);
                     confidenceWrap.style.display = "block";
-                    
-                    // Reset progress bar rồi chạy hiệu ứng fill mượt
-                    progressBar.style.width = "0%";
-                    setTimeout(() => {
-                        progressBar.style.width = percent + "%";
-                        animateValue(confidenceText, 0, parseFloat(percent), 800);
-                    }, 50);
+                    confidenceText.innerText = "Độ tin cậy: " + percent + "%";
+                    progressBar.style.width = percent + "%";
                 } else {
                     confidenceWrap.style.display = "none";
                 }
@@ -835,7 +832,9 @@
             } catch (error) {
                 alert("Lỗi: " + error.message);
             } finally {
+                // Mở lại khả năng chỉnh sửa sau khi load xong
                 btn.disabled = false;
+                setFormDisabled(false);
                 btn.innerHTML = originalBtnText;
             }
         }
