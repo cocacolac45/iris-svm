@@ -41,16 +41,6 @@ class IrisInput(BaseModel):
 @app.get("/", response_class=HTMLResponse)
 def home():
 
-    with open("index.html", "r", encoding="utf-8") as f:
-        return f.read()
-
-# =========================
-# TRANG DỰ ĐOÁN
-# =========================
-
-@app.get("/predict-page", response_class=HTMLResponse)
-def predict_page():
-
     with open("predict.html", "r", encoding="utf-8") as f:
         return f.read()
 
