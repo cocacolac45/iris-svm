@@ -1,716 +1,265 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dự đoán hoa Diên Vĩ (SVM)</title>
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
+    <title>Phân loại Hoa Iris</title>
     <style>
-        :root {
-            --primary: #6c5ce7;
-            --primary-hover: #5b4bc4;
-            --primary-light: #a29bfe;
-            --bg-gradient: linear-gradient(135deg, #f3e8ff 0%, #e0e7ff 50%, #d8b4fe 100%);
-            --card-bg: rgba(255, 255, 255, 0.45); 
-            --card-border: rgba(255, 255, 255, 0.7);
-            --text-dark: #2d3436;
-            --text-muted: #57606f;
-            --purple-dark: #3c096c;
-        }
-
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            min-height: 100vh;
-            background: var(--bg-gradient);
-            background-attachment: fixed;
-            color: var(--text-dark);
-            padding-top: 90px;
-        }
-
-        /* --- NAVBAR --- */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 70px;
-            z-index: 1000;
+            background-color: #f4f7f6;
+            color: #333;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 8%;
-            background: rgba(255, 255, 255, 0.55);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--card-border);
-            box-shadow: 0 4px 30px rgba(108, 92, 231, 0.08);
-        }
-
-        .nav-logo {
-            font-size: 1.25rem;
-            font-weight: 800;
-            color: var(--purple-dark);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .nav-menu {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(255, 255, 255, 0.4);
-            padding: 4px 6px;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.7);
-        }
-
-        .nav-link {
-            text-decoration: none;
-            color: var(--text-muted);
-            font-size: 0.88rem;
-            font-weight: 600;
-            padding: 8px 18px;
-            border-radius: 20px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-        }
-
-        .nav-link:hover {
-            color: var(--primary);
-            background: rgba(108, 92, 231, 0.08);
-        }
-
-        .nav-link.active {
-            background: var(--primary);
-            color: #ffffff;
-            box-shadow: 0 4px 14px rgba(108, 92, 231, 0.35);
-        }
-
-        /* --- MAIN CONTAINER --- */
-        .main-wrapper {
-            width: 100%;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 20px 20px 50px 20px;
-        }
-
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.4s ease-out;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        h1 {
-            text-align: center;
-            color: var(--purple-dark);
-            font-size: 2.2rem;
-            margin-bottom: 8px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: var(--text-muted);
-            margin-bottom: 35px;
-            font-size: 0.98rem;
-            font-weight: 500;
-        }
-
-        /* --- PAGE CARDS --- */
-        .page-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            padding: 35px;
-            border-radius: 24px;
-            border: 1px solid var(--card-border);
-            box-shadow: 0 10px 40px rgba(108, 92, 231, 0.06);
-        }
-
-        /* --- TAB GIỚI THIỆU --- */
-        .flower-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin-top: 10px;
-        }
-
-        .flower-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-radius: 20px;
-            border: 1px solid var(--card-border);
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.06);
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .flower-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 15px 35px rgba(108, 92, 231, 0.15);
-        }
-
-        .flower-card-img-wrap {
-            width: 100%;
-            height: 280px; 
-            background: rgba(108, 92, 231, 0.05);
-            display: flex;
-            align-items: center;
             justify-content: center;
-            border-bottom: 1px solid rgba(108, 92, 231, 0.1);
-            overflow: hidden;
-        }
-
-        .flower-card-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            padding: 0;
-            transition: transform 0.4s ease;
-        }
-
-        .flower-card:hover .flower-card-img {
-            transform: scale(1.05);
-        }
-
-        .flower-card-info {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        .flower-tag {
-            align-self: flex-start;
-            padding: 4px 10px;
-            background: rgba(108, 92, 231, 0.12);
-            color: var(--primary);
-            font-size: 0.75rem;
-            font-weight: 700;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-
-        .flower-card-info h2 {
-            color: var(--purple-dark);
-            font-size: 1.15rem;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-
-        .flower-card-info p {
-            color: var(--text-muted);
-            font-size: 0.88rem;
-            line-height: 1.6;
-        }
-
-        /* --- TAB PHÂN LOẠI --- */
-        .layout-grid {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 28px;
-            align-items: stretch;
-        }
-
-        .input-section, .result-section {
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            padding: 28px;
-            border-radius: 24px;
-            border: 1px solid var(--card-border);
-            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.06);
-        }
-
-        .section-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--purple-dark);
-            margin-bottom: 22px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid rgba(108, 92, 231, 0.12);
-            display: flex;
             align-items: center;
-            gap: 8px;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 480px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 24px;
+            color: #2c3e50;
         }
 
         .form-group {
-            margin-bottom: 18px;
+            margin-bottom: 16px;
         }
 
-        .label-row label {
+        label {
+            display: block;
+            margin-bottom: 6px;
             font-weight: 600;
-            color: var(--text-dark);
-            font-size: 0.88rem;
-        }
-
-        .input-control-wrap {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-top: 8px;
+            color: #4a5568;
         }
 
         input[type="number"] {
-            width: 75px;
-            padding: 8px;
-            border: 1.5px solid rgba(108, 92, 231, 0.2);
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--primary);
-            background: rgba(255, 255, 255, 0.6);
-            text-align: center;
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            font-size: 15px;
             outline: none;
-            transition: all 0.2s;
+            transition: border-color 0.2s;
         }
 
         input[type="number"]:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.15);
-        }
-
-        input[type="range"] {
-            flex: 1;
-            -webkit-appearance: none;
-            height: 6px;
-            border-radius: 5px;
-            background: rgba(108, 92, 231, 0.15);
-            outline: none;
-        }
-
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: var(--primary);
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(108, 92, 231, 0.4);
-            transition: all 0.2s ease;
-        }
-
-        input[type="range"]::-webkit-slider-thumb:hover {
-            transform: scale(1.15);
-            background: var(--primary-hover);
+            border-color: #3182ce;
         }
 
         .btn-submit {
             width: 100%;
-            margin-top: 15px;
-            padding: 14px;
+            padding: 12px;
+            background-color: #3182ce;
+            color: white;
             border: none;
-            border-radius: 12px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
-            color: #ffffff;
-            font-size: 0.95rem;
-            font-weight: 700;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 6px 20px rgba(108, 92, 231, 0.25);
-            transition: all 0.25s ease;
+            transition: background-color 0.2s, transform 0.1s;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 8px;
+            margin-top: 10px;
         }
 
         .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.35);
+            background-color: #2b6cb0;
         }
 
-        /* --- CỘT KẾT QUẢ --- */
-        .result-section {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
+        .btn-submit:active {
+            transform: scale(0.99);
         }
 
-        .placeholder-text {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            line-height: 1.5;
+        .btn-submit:disabled {
+            opacity: 0.75;
+            cursor: not-allowed;
+            transform: none !important;
         }
 
-        .placeholder-icon {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            opacity: 0.6;
+        /* --- SPINNER & ANIMATION --- */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        #result {
-            display: none;
-            width: 100%;
-            animation: fadeIn 0.4s ease-out;
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2.5px solid rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            border-top-color: #ffffff;
+            animation: spin 0.8s linear infinite;
         }
 
-        .result-label {
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.92) translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
         }
 
-        #prediction {
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: var(--purple-dark);
-            margin: 4px 0 12px;
+        .animate-pop {
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
-        .progress-bar-wrap {
-            width: 100%;
-            background: rgba(108, 92, 231, 0.15);
-            height: 8px;
-            border-radius: 10px;
-            overflow: hidden;
-            margin: 8px 0 16px;
-        }
-
-        .progress-bar-fill {
-            height: 100%;
-            background: var(--primary);
-            width: 0%;
-            border-radius: 10px;
-            transition: width 0.6s ease;
-        }
-
-        #confidence {
-            color: var(--primary);
-            font-size: 0.88rem;
-            font-weight: 700;
-        }
-
-        #flower-image {
-            width: 100%;
-            max-width: 360px;
-            height: 320px;
-            object-fit: cover;
-            margin: 15px auto 0;
-            border-radius: 20px;
-            border: 2px solid rgba(108, 92, 231, 0.2);
-            box-shadow: 0 12px 30px rgba(108, 92, 231, 0.15);
-        }
-
-        /* --- TAB LỊCH SỬ --- */
-        .table-header-flex {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .btn-clear {
-            background: rgba(231, 76, 60, 0.12);
-            color: #e74c3c;
-            border: none;
-            padding: 8px 14px;
+        /* --- KẾT QUẢ --- */
+        .placeholder-box {
+            margin-top: 24px;
+            padding: 20px;
+            border: 2px dashed #e2e8f0;
             border-radius: 8px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
+            text-align: center;
+            color: #a0aec0;
         }
 
-        .btn-clear:hover {
-            background: #e74c3c;
-            color: #fff;
+        .result-box {
+            margin-top: 24px;
+            padding: 20px;
+            background-color: #f7fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+            display: none;
         }
 
-        .history-table {
+        .result-box h3 {
+            color: #2b6cb0;
+            margin-bottom: 12px;
+            font-size: 20px;
+        }
+
+        .flower-img {
+            max-width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-top: 10px;
+        }
+
+        /* --- BẢNG LỊCH SỬ --- */
+        .history-section {
+            margin-top: 30px;
+        }
+
+        .history-section h4 {
+            margin-bottom: 10px;
+            color: #4a5568;
+        }
+
+        table {
             width: 100%;
             border-collapse: collapse;
-            background: rgba(255, 255, 255, 0.35);
-            border-radius: 14px;
-            overflow: hidden;
+            font-size: 13px;
         }
 
-        .history-table th, .history-table td {
-            padding: 14px 16px;
+        th, td {
+            padding: 8px 10px;
+            border: 1px solid #e2e8f0;
             text-align: center;
-            border-bottom: 1px solid rgba(108, 92, 231, 0.08);
-            font-size: 0.88rem;
         }
 
-        .history-table th {
-            background-color: rgba(108, 92, 231, 0.12);
-            color: var(--purple-dark);
-            font-weight: 700;
-        }
-
-        .history-table tbody tr:hover {
-            background: rgba(108, 92, 231, 0.05);
-        }
-
-        .badge-flower {
-            display: inline-block;
-            padding: 4px 12px;
-            background: rgba(108, 92, 231, 0.15);
-            color: var(--primary);
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- RESPONSIVE --- */
-        @media (max-width: 850px) {
-            .flower-grid {
-                grid-template-columns: 1fr;
-            }
-            .layout-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 600px) {
-            body { padding-top: 110px; }
-            .navbar { flex-direction: column; height: auto; padding: 10px; gap: 8px; }
-            .nav-menu { width: 100%; justify-content: center; }
-            .nav-link { padding: 6px 12px; font-size: 0.8rem; }
-            #flower-image { height: 260px; }
+        th {
+            background-color: #edf2f7;
+            color: #4a5568;
         }
     </style>
 </head>
-
 <body>
 
-    <!-- NAVBAR -->
-    <nav class="navbar">
-        <div class="nav-logo">
-            🪻 Ứng Dụng Iris
-        </div>
-        <div class="nav-menu">
-            <span class="nav-link active" onclick="switchTab('about', this)">Giới thiệu</span>
-            <span class="nav-link" onclick="switchTab('classify', this)">Phân loại</span>
-            <span class="nav-link" onclick="switchTab('history', this)">Lịch sử</span>
-        </div>
-    </nav>
+    <div class="container">
+        <h2>Phân loại Hoa Iris</h2>
 
-    <!-- MAIN CONTENT -->
-    <div class="main-wrapper">
-
-        <!-- TAB 1: GIỚI THIỆU -->
-        <div id="tab-about" class="tab-content active">
-            <h1>🌸 Các Loài Hoa Diên Vĩ</h1>
-            <p class="subtitle">Khám phá 3 loài hoa chính trong bộ dữ liệu Iris Dataset</p>
-
-            <div class="flower-grid">
-                <!-- Card 1 -->
-                <div class="flower-card">
-                    <div class="flower-card-img-wrap">
-                        <img src="/photo/setosa.jpg" alt="Iris Setosa" class="flower-card-img">
-                    </div>
-                    <div class="flower-card-info">
-                        <span class="flower-tag">Setosa</span>
-                        <h2>Iris Setosa</h2>
-                        <p>Kích thước cánh hoa nhỏ và ngắn. Rất dễ phân biệt với hai loài còn lại nhờ đài hoa nổi bật.</p>
-                    </div>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="flower-card">
-                    <div class="flower-card-img-wrap">
-                        <img src="/photo/versicolor.jpg" alt="Iris Versicolor" class="flower-card-img">
-                    </div>
-                    <div class="flower-card-info">
-                        <span class="flower-tag">Versicolor</span>
-                        <h2>Iris Versicolor</h2>
-                        <p>Kích thước các bộ phận đài hoa và cánh hoa ở mức trung bình, thể hiện sự cân đối hài hòa.</p>
-                    </div>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="flower-card">
-                    <div class="flower-card-img-wrap">
-                        <img src="/photo/virginica.jpg" alt="Iris Virginica" class="flower-card-img">
-                    </div>
-                    <div class="flower-card-info">
-                        <span class="flower-tag">Virginica</span>
-                        <h2>Iris Virginica</h2>
-                        <p>Thường có kích thước cánh hoa và đài hoa lớn nhất trong cả 3 loài hoa Diên Vĩ.</p>
-                    </div>
-                </div>
-            </div>
+        <div class="form-group">
+            <label for="sepal_length">Chiều dài đài hoa (Sepal Length - cm):</label>
+            <input type="number" id="sepal_length" step="0.1" placeholder="Ví dụ: 5.1">
         </div>
 
-        <!-- TAB 2: PHÂN LOẠI -->
-        <div id="tab-classify" class="tab-content">
-            <h1>Phân Loại Hoa Diên Vĩ</h1>
-            <p class="subtitle">Điều chỉnh các thông số kích thước để dự đoán kết quả</p>
-
-            <div class="layout-grid">
-                <!-- CỘT TRÁI -->
-                <div class="input-section">
-                    <div class="section-title">Nhập kích thước (cm)</div>
-
-                    <div class="form">
-                        <div class="form-group">
-                            <div class="label-row"><label for="sepal_length">Chiều dài đài hoa</label></div>
-                            <div class="input-control-wrap">
-                                <input id="sepal_length" type="number" step="0.1" min="0.1" max="10" value="5.1" oninput="syncRange('sepal_length', 'sepal_length_range')">
-                                <input id="sepal_length_range" type="range" min="0.1" max="10" step="0.1" value="5.1" oninput="syncInput('sepal_length', 'sepal_length_range')">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="label-row"><label for="sepal_width">Chiều rộng đài hoa</label></div>
-                            <div class="input-control-wrap">
-                                <input id="sepal_width" type="number" step="0.1" min="0.1" max="10" value="3.5" oninput="syncRange('sepal_width', 'sepal_width_range')">
-                                <input id="sepal_width_range" type="range" min="0.1" max="10" step="0.1" value="3.5" oninput="syncInput('sepal_width', 'sepal_width_range')">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="label-row"><label for="petal_length">Chiều dài cánh hoa</label></div>
-                            <div class="input-control-wrap">
-                                <input id="petal_length" type="number" step="0.1" min="0.1" max="10" value="1.4" oninput="syncRange('petal_length', 'petal_length_range')">
-                                <input id="petal_length_range" type="range" min="0.1" max="10" step="0.1" value="1.4" oninput="syncInput('petal_length', 'petal_length_range')">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="label-row"><label for="petal_width">Chiều rộng cánh hoa</label></div>
-                            <div class="input-control-wrap">
-                                <input id="petal_width" type="number" step="0.1" min="0.1" max="10" value="0.2" oninput="syncRange('petal_width', 'petal_width_range')">
-                                <input id="petal_width_range" type="range" min="0.1" max="10" step="0.1" value="0.2" oninput="syncInput('petal_width', 'petal_width_range')">
-                            </div>
-                        </div>
-                    </div>
-
-                    <button class="btn-submit" onclick="predict()">Dự đoán ngay</button>
-                </div>
-
-                <!-- CỘT PHẢI -->
-                <div class="result-section">
-                    <div id="placeholder" class="placeholder-text">
-                        <div class="placeholder-icon">🌸</div>
-                        Nhấn nút <strong>"Dự đoán ngay"</strong><br>để xem kết quả phân loại chi tiết.
-                    </div>
-
-                    <div id="result">
-                        <div class="result-label">Kết quả phân loại</div>
-                        <div id="prediction"></div>
-
-                        <div id="confidence-wrap" style="display: none;">
-                            <div id="confidence">Độ tin cậy: 0%</div>
-                            <div class="progress-bar-wrap">
-                                <div id="progress-bar" class="progress-bar-fill"></div>
-                            </div>
-                        </div>
-
-                        <img id="flower-image" src="" alt="Hoa Diên Vĩ">
-                    </div>
-                </div>
-            </div>
+        <div class="form-group">
+            <label for="sepal_width">Chiều rộng đài hoa (Sepal Width - cm):</label>
+            <input type="number" id="sepal_width" step="0.1" placeholder="Ví dụ: 3.5">
         </div>
 
-        <!-- TAB 3: LỊCH SỬ -->
-        <div id="tab-history" class="tab-content">
-            <h1>📜 Lịch Sử Dự Đoán</h1>
-            <p class="subtitle">Các lượt phân loại gần đây của bạn</p>
-            <div class="page-card">
-                <div class="table-header-flex">
-                    <span style="font-weight: 700; color: var(--purple-dark);">Danh sách kết quả</span>
-                    <button class="btn-clear" onclick="clearHistory()">🗑️ Xóa lịch sử</button>
-                </div>
-                <table class="history-table">
-                    <thead>
-                        <tr>
-                            <th style="width: 15%;">STT</th>
-                            <th style="width: 30%;">Đài hoa (D × R)</th>
-                            <th style="width: 30%;">Cánh hoa (D × R)</th>
-                            <th style="width: 25%;">Kết quả</th>
-                        </tr>
-                    </thead>
-                    <tbody id="history-list">
-                        <tr>
-                            <td colspan="4" style="color: var(--text-muted); opacity: 0.7;">Chưa có lịch sử dự đoán nào.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <div class="form-group">
+            <label for="petal_length">Chiều dài cánh hoa (Petal Length - cm):</label>
+            <input type="number" id="petal_length" step="0.1" placeholder="Ví dụ: 1.4">
         </div>
 
+        <div class="form-group">
+            <label for="petal_width">Chiều rộng cánh hoa (Petal Width - cm):</label>
+            <input type="number" id="petal_width" step="0.1" placeholder="Ví dụ: 0.2">
+        </div>
+
+        <button id="btn-predict" class="btn-submit" onclick="predict()">
+            <span id="btn-text">Dự đoán ngay</span>
+        </button>
+
+        <!-- Trạng thái chờ -->
+        <div id="placeholder" class="placeholder-box">
+            Nhập các thông số và bấm "Dự đoán ngay" để xem kết quả.
+        </div>
+
+        <!-- Khung kết quả -->
+        <div id="result" class="result-box">
+            <p>Kết quả dự đoán:</p>
+            <h3 id="prediction">--</h3>
+            <img id="flower-image" class="flower-img" src="" alt="Ảnh hoa dự đoán">
+        </div>
+
+        <!-- Bảng lịch sử dự đoán -->
+        <div class="history-section">
+            <h4>Lịch sử dự đoán</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>SL</th>
+                        <th>SW</th>
+                        <th>PL</th>
+                        <th>PW</th>
+                        <th>Kết quả</th>
+                    </tr>
+                </thead>
+                <tbody id="history-body">
+                    <!-- Dữ liệu lịch sử sẽ thêm vào đây -->
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script>
         const flowerNamesVN = {
-            "setosa": "Hoa Diên Vĩ Setosa",
-            "versicolor": "Hoa Diên Vĩ Versicolor",
-            "virginica": "Hoa Diên Vĩ Virginica",
-            "iris-setosa": "Hoa Diên Vĩ Setosa",
-            "iris-versicolor": "Hoa Diên Vĩ Versicolor",
-            "iris-virginica": "Hoa Diên Vĩ Virginica"
+            "iris-setosa": "Hoa Iris Setosa",
+            "iris-versicolor": "Hoa Iris Versicolor",
+            "iris-virginica": "Hoa Iris Virginica",
+            "setosa": "Hoa Iris Setosa",
+            "versicolor": "Hoa Iris Versicolor",
+            "virginica": "Hoa Iris Virginica"
         };
 
-        let historyData = [];
-
-        function switchTab(tabName, element) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-
-            document.getElementById('tab-' + tabName).classList.add('active');
-            element.classList.add('active');
-        }
-
-        function syncRange(inputId, rangeId) {
-            document.getElementById(rangeId).value = document.getElementById(inputId).value;
-        }
-
-        function syncInput(inputId, rangeId) {
-            document.getElementById(inputId).value = document.getElementById(rangeId).value;
-        }
-
-        function updateHistoryTable() {
-            const tbody = document.getElementById("history-list");
-            if (historyData.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" style="color: var(--text-muted); opacity: 0.7;">Chưa có lịch sử dự đoán nào.</td></tr>`;
-                return;
-            }
-
-            tbody.innerHTML = historyData.map((item, index) => `
-                <tr>
-                    <td><strong>${index + 1}</strong></td>
-                    <td>${item.sl} × ${item.sw} cm</td>
-                    <td>${item.pl} × ${item.pw} cm</td>
-                    <td><span class="badge-flower">${item.prediction}</span></td>
-                </tr>
-            `).join('');
-        }
-
-        function clearHistory() {
-            historyData = [];
-            updateHistoryTable();
-        }
+        const historyData = [];
 
         async function predict() {
             const rawSepalLength = document.getElementById("sepal_length").value;
@@ -728,6 +277,13 @@
             const pl = Number(rawPetalLength);
             const pw = Number(rawPetalWidth);
 
+            const btn = document.getElementById("btn-predict");
+            const btnText = document.getElementById("btn-text");
+
+            // Bật hiệu ứng loading trên nút
+            btn.disabled = true;
+            btnText.innerHTML = `<span class="spinner"></span> Đang phân tích...`;
+
             const data = { sepal_length: sl, sepal_width: sw, petal_length: pl, petal_width: pw };
 
             try {
@@ -738,13 +294,22 @@
                 });
 
                 const result = await response.json();
-                if (!response.ok) throw new Error(result.detail || "Có lỗi từ máy chủ");
+                if (!response.ok) throw new Error(result.detail || "Có lỗi xảy ra từ máy chủ");
 
                 const rawPrediction = result.prediction.toLowerCase();
                 const vnName = flowerNamesVN[rawPrediction] || result.prediction;
-                
-                document.getElementById("placeholder").style.display = "none";
-                document.getElementById("result").style.display = "block";
+
+                const placeholder = document.getElementById("placeholder");
+                const resultContainer = document.getElementById("result");
+
+                // Hiển thị khung kết quả kèm animation popIn
+                placeholder.style.display = "none";
+                resultContainer.style.display = "block";
+
+                resultContainer.classList.remove("animate-pop");
+                void resultContainer.offsetWidth; // Trigger reflow để reset animation
+                resultContainer.classList.add("animate-pop");
+
                 document.getElementById("prediction").innerText = vnName;
 
                 let imageName = rawPrediction.replace("iris-", "");
@@ -752,31 +317,35 @@
                 image.src = "/photo/" + imageName + ".jpg";
                 image.alt = vnName;
 
-                const confidenceWrap = document.getElementById("confidence-wrap");
-                const confidenceText = document.getElementById("confidence");
-                const progressBar = document.getElementById("progress-bar");
-
-                if (result.confidence !== undefined) {
-                    const percent = (result.confidence * 100).toFixed(1);
-                    confidenceText.innerText = "Độ tin cậy: " + percent + "%";
-                    progressBar.style.width = percent + "%";
-                    confidenceWrap.style.display = "block";
-                } else {
-                    confidenceWrap.style.display = "none";
-                }
-
-                historyData.unshift({
-                    sl, sw, pl, pw,
-                    prediction: vnName
-                });
-
+                // Thêm vào lịch sử
+                historyData.unshift({ sl, sw, pl, pw, prediction: vnName });
                 updateHistoryTable();
 
             } catch (error) {
                 alert("Lỗi: " + error.message);
+            } finally {
+                // Tắt trạng thái loading
+                btn.disabled = false;
+                btnText.innerText = "Dự đoán ngay";
             }
+        }
+
+        function updateHistoryTable() {
+            const tbody = document.getElementById("history-body");
+            tbody.innerHTML = "";
+
+            historyData.slice(0, 5).forEach(item => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${item.sl}</td>
+                    <td>${item.sw}</td>
+                    <td>${item.pl}</td>
+                    <td>${item.pw}</td>
+                    <td><b>${item.prediction}</b></td>
+                `;
+                tbody.appendChild(row);
+            });
         }
     </script>
 </body>
-
 </html>
