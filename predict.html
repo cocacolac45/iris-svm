@@ -1,134 +1,305 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dự đoán Loài hoa Iris</title>
-    <!-- Google Fonts & FontAwesome Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <title>Dự đoán hoa Diên Vĩ (SVM)</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --primary: #6366f1;
-            --primary-hover: #4f46e5;
-            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.12);
-            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
+            /* Tone màu pastel theo hình ảnh */
+            --primary: #8b5cf6;            /* Tím dịu chủ đạo */
+            --primary-hover: #7c3aed;      /* Tím đậm hơn khi hover */
+            --primary-light: #c4b5fd;      /* Tím sáng pastel */
+            --bg-gradient: linear-gradient(135deg, #fce7f3 0%, #e0e7ff 50%, #f3e8ff 100%); /* Hồng phấn -> Xanh lam dịu -> Tím nhạt */
+            --card-bg: rgba(255, 255, 255, 0.55); 
+            --card-border: rgba(255, 255, 255, 0.8);
+            --text-dark: #374151;         /* Xám xám tối dịu mắt */
+            --text-muted: #6b7280;        /* Xám trung tính */
+            --purple-dark: #4c1d95;       /* Tím sẫm cho tiêu đề */
+            --accent-pink: #f472b6;       /* Điểm nhấn hồng pastel */
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
         body {
-            background: var(--bg-gradient);
-            color: var(--text-main);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-dark);
+            padding-top: 90px;
         }
 
-        .container {
+        /* --- NAVBAR --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 1000px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-        }
-
-        @media (max-width: 868px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 28px;
-            box-shadow: var(--glass-shadow);
-        }
-
-        .header {
-            margin-bottom: 24px;
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            background: linear-gradient(to right, #818cf8, #c084fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 8px;
-        }
-
-        .header p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .label-container {
+            height: 70px;
+            z-index: 1000;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 8px;
+            padding: 0 8%;
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--card-border);
+            box-shadow: 0 4px 30px rgba(139, 92, 246, 0.08);
         }
 
-        .label-container label {
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: var(--text-main);
+        .nav-logo {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--purple-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .number-input-wrapper {
+        .nav-menu {
             display: flex;
             align-items: center;
             gap: 6px;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 4px 6px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
         }
 
-        .number-input-wrapper input[type="number"] {
-            width: 70px;
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid var(--glass-border);
-            border-radius: 8px;
-            padding: 4px 8px;
-            color: #38bdf8;
-            font-weight: 600;
-            text-align: right;
-            outline: none;
-        }
-
-        .number-input-wrapper span {
-            font-size: 0.8rem;
+        .nav-link {
+            text-decoration: none;
             color: var(--text-muted);
+            font-size: 0.88rem;
+            font-weight: 600;
+            padding: 8px 18px;
+            border-radius: 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            background: rgba(139, 92, 246, 0.08);
+        }
+
+        .nav-link.active {
+            background: var(--primary);
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(139, 92, 246, 0.35);
+        }
+
+        /* --- MAIN CONTAINER --- */
+        .main-wrapper {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px 20px 50px 20px;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--purple-dark);
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 35px;
+            font-size: 0.98rem;
+            font-weight: 500;
+        }
+
+        /* --- PAGE CARDS --- */
+        .page-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 35px;
+            border-radius: 24px;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 10px 40px rgba(139, 92, 246, 0.06);
+        }
+
+        /* --- TAB GIỚI THIỆU --- */
+        .flower-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 10px;
+        }
+
+        .flower-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 20px;
+            border: 1px solid var(--card-border);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.06);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .flower-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(139, 92, 246, 0.15);
+        }
+
+        .flower-card-img-wrap {
+            width: 100%;
+            height: 280px; 
+            background: rgba(139, 92, 246, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+            overflow: hidden;
+        }
+
+        .flower-card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            padding: 0;
+            transition: transform 0.4s ease;
+        }
+
+        .flower-card:hover .flower-card-img {
+            transform: scale(1.05);
+        }
+
+        .flower-card-info {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .flower-tag {
+            align-self: flex-start;
+            padding: 4px 10px;
+            background: rgba(139, 92, 246, 0.12);
+            color: var(--primary);
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .flower-card-info h2 {
+            color: var(--purple-dark);
+            font-size: 1.15rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .flower-card-info p {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            line-height: 1.6;
+        }
+
+        /* --- TAB PHÂN LOẠI --- */
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 28px;
+            align-items: stretch;
+        }
+
+        .input-section, .result-section {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 28px;
+            border-radius: 24px;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.06);
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--purple-dark);
+            margin-bottom: 22px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(139, 92, 246, 0.12);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .label-row label {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.88rem;
+        }
+
+        .input-control-wrap {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 8px;
+        }
+
+        input[type="number"] {
+            width: 75px;
+            padding: 8px;
+            border: 1.5px solid rgba(139, 92, 246, 0.25);
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary);
+            background: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        input[type="number"]:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.18);
         }
 
         input[type="range"] {
-            width: 100%;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 5px;
-            outline: none;
-            appearance: none;
+            flex: 1;
             -webkit-appearance: none;
-            cursor: pointer;
+            height: 6px;
+            border-radius: 5px;
+            background: rgba(139, 92, 246, 0.18);
+            outline: none;
         }
 
         input[type="range"]::-webkit-slider-thumb {
@@ -138,463 +309,523 @@
             border-radius: 50%;
             background: var(--primary);
             cursor: pointer;
-            transition: transform 0.1s ease, background 0.2s ease;
+            box-shadow: 0 2px 8px rgba(139, 92, 246, 0.4);
+            transition: all 0.2s ease;
         }
 
         input[type="range"]::-webkit-slider-thumb:hover {
-            transform: scale(1.2);
+            transform: scale(1.15);
             background: var(--primary-hover);
         }
 
-        .btn-predict {
+        input:disabled, button:disabled {
+            opacity: 0.55;
+            cursor: not-allowed !important;
+        }
+
+        .btn-submit {
             width: 100%;
+            margin-top: 15px;
             padding: 14px;
-            background: linear-gradient(135deg, var(--primary) 0%, #8b5cf6 100%);
             border: none;
             border-radius: 12px;
-            color: white;
-            font-size: 1rem;
-            font-weight: 600;
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            color: #ffffff;
+            font-size: 0.95rem;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.25);
+            transition: all 0.25s ease;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 8px;
-            margin-top: 10px;
         }
 
-        .btn-predict:hover {
-            opacity: 0.95;
+        .btn-submit:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.35);
         }
 
-        .btn-predict:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
+        .btn-submit:active:not(:disabled) {
+            transform: scale(0.98);
         }
 
-        /* Direct Output Card */
-        .result-box {
+        /* --- CỘT KẾT QUẢ --- */
+        .result-section {
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
-            height: 100%;
-            min-height: 250px;
+            align-items: center;
             text-align: center;
-            border: 2px dashed var(--glass-border);
-            border-radius: 16px;
-            padding: 24px;
-            transition: all 0.3s ease;
         }
 
-        .result-box.active {
-            border-style: solid;
-            border-color: #818cf8;
-            background: rgba(99, 102, 241, 0.05);
-        }
-
-        .result-icon {
-            font-size: 3rem;
-            margin-bottom: 12px;
+        .placeholder-text {
             color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            transition: opacity 0.3s ease;
         }
 
-        .result-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            text-transform: capitalize;
+        .placeholder-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            opacity: 0.6;
         }
 
-        .confidence-bar-container {
+        #result {
+            display: none;
             width: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            height: 10px;
-            margin-top: 12px;
-            overflow: hidden;
-            display: none;
         }
 
-        .confidence-bar {
-            height: 100%;
-            background: linear-gradient(90deg, #34d399, #10b981);
-            width: 0%;
-            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .confidence-text {
-            font-size: 0.85rem;
+        .result-label {
             color: var(--text-muted);
-            margin-top: 6px;
-            display: none;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        /* History Table Section */
-        .history-section {
-            grid-column: 1 / -1;
-            margin-top: 12px;
+        #prediction {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--purple-dark);
+            margin: 4px 0 12px;
         }
 
-        .history-header {
+        .progress-bar-wrap {
+            width: 100%;
+            background: rgba(139, 92, 246, 0.15);
+            height: 8px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 8px 0 16px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            border-radius: 10px;
+            transition: width 0.6s ease;
+        }
+
+        #confidence {
+            color: var(--primary);
+            font-size: 0.88rem;
+            font-weight: 700;
+        }
+
+        #flower-image {
+            width: 100%;
+            max-width: 360px;
+            height: 320px;
+            object-fit: cover;
+            margin: 15px auto 0;
+            border-radius: 20px;
+            border: 2px solid rgba(139, 92, 246, 0.2);
+            box-shadow: 0 12px 30px rgba(139, 92, 246, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #flower-image.img-animate {
+            animation: imgPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        #flower-image:hover {
+            transform: scale(1.03);
+            box-shadow: 0 16px 35px rgba(139, 92, 246, 0.25);
+        }
+
+        /* --- TAB LỊCH SỬ --- */
+        .table-header-flex {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
+            margin-bottom: 15px;
         }
 
         .btn-clear {
-            background: transparent;
-            border: 1px solid rgba(239, 68, 68, 0.4);
-            color: #f87171;
-            padding: 6px 12px;
+            background: rgba(244, 114, 182, 0.15);
+            color: #db2777;
+            border: none;
+            padding: 8px 14px;
             border-radius: 8px;
             font-size: 0.8rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.2s;
         }
 
         .btn-clear:hover {
-            background: rgba(239, 68, 68, 0.15);
+            background: #db2777;
+            color: #fff;
         }
 
-        .table-wrapper {
-            overflow-x: auto;
-        }
-
-        table {
+        .history-table {
             width: 100%;
             border-collapse: collapse;
-            text-align: left;
-            font-size: 0.875rem;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 14px;
+            overflow: hidden;
         }
 
-        th, td {
-            padding: 12px;
-            border-bottom: 1px solid var(--glass-border);
+        .history-table th, .history-table td {
+            padding: 14px 16px;
+            text-align: center;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.08);
+            font-size: 0.88rem;
         }
 
-        th {
-            color: var(--text-muted);
-            font-weight: 500;
+        .history-table th {
+            background-color: rgba(139, 92, 246, 0.12);
+            color: var(--purple-dark);
+            font-weight: 700;
         }
 
-        td {
-            color: var(--text-main);
+        .history-table tbody tr:hover {
+            background: rgba(139, 92, 246, 0.05);
         }
 
-        .badge {
+        .badge-flower {
             display: inline-block;
-            padding: 4px 10px;
+            padding: 4px 12px;
+            background: rgba(139, 92, 246, 0.15);
+            color: var(--primary);
             border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: capitalize;
+            font-size: 0.8rem;
+            font-weight: 700;
         }
 
-        .badge-setosa { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
-        .badge-versicolor { background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); }
-        .badge-virginica { background: rgba(236, 72, 153, 0.2); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.3); }
+        /* --- KEYFRAMES --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes imgPop {
+            0% { opacity: 0; transform: scale(0.85); }
+            100% { opacity: 1; transform: scale(1); }
+        }
 
         .spinner {
-            animation: rotate 2s linear infinite;
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #ffffff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
         }
 
-        .spinner .path {
-            stroke: #ffffff;
-            stroke-linecap: round;
-            animation: dash 1.5s ease-in-out infinite;
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
-        @keyframes rotate {
-            100% { transform: rotate(360deg); }
+        /* --- RESPONSIVE --- */
+        @media (max-width: 850px) {
+            .flower-grid { grid-template-columns: 1fr; }
+            .layout-grid { grid-template-columns: 1fr; }
         }
 
-        @keyframes dash {
-            0% { stroke-dasharray: 1, 150; stroke-dashoffset: 0; }
-            50% { stroke-dasharray: 90, 150; stroke-dashoffset: -35; }
-            100% { stroke-dasharray: 90, 150; stroke-dashoffset: -124; }
+        @media (max-width: 600px) {
+            body { padding-top: 110px; }
+            .navbar { flex-direction: column; height: auto; padding: 10px; gap: 8px; }
+            .nav-menu { width: 100%; justify-content: center; }
+            .nav-link { padding: 6px 12px; font-size: 0.8rem; }
+            #flower-image { height: 260px; }
         }
     </style>
 </head>
+
 <body>
 
-    <div class="container">
-        <!-- Input Form Card -->
-        <div class="card">
-            <div class="header">
-                <h1>Dự Đoán Loài Hoa Iris</h1>
-                <p>Thay đổi thông số đài hoa và cánh hoa</p>
-            </div>
-
-            <form id="irisForm" onsubmit="event.preventDefault(); predict();">
-                <!-- Sepal Length -->
-                <div class="form-group">
-                    <div class="label-container">
-                        <label for="sepal_length">Chiều dài đài hoa (Sepal Length)</label>
-                        <div class="number-input-wrapper">
-                            <input type="number" id="num_sepal_length" min="4.0" max="8.0" step="0.1" value="5.1" oninput="syncInput('sepal_length', this.value)">
-                            <span>cm</span>
-                        </div>
-                    </div>
-                    <input type="range" id="sepal_length" min="4.0" max="8.0" step="0.1" value="5.1" oninput="syncInput('num_sepal_length', this.value)">
-                </div>
-
-                <!-- Sepal Width -->
-                <div class="form-group">
-                    <div class="label-container">
-                        <label for="sepal_width">Chiều rộng đài hoa (Sepal Width)</label>
-                        <div class="number-input-wrapper">
-                            <input type="number" id="num_sepal_width" min="2.0" max="4.5" step="0.1" value="3.5" oninput="syncInput('sepal_width', this.value)">
-                            <span>cm</span>
-                        </div>
-                    </div>
-                    <input type="range" id="sepal_width" min="2.0" max="4.5" step="0.1" value="3.5" oninput="syncInput('num_sepal_width', this.value)">
-                </div>
-
-                <!-- Petal Length -->
-                <div class="form-group">
-                    <div class="label-container">
-                        <label for="petal_length">Chiều dài cánh hoa (Petal Length)</label>
-                        <div class="number-input-wrapper">
-                            <input type="number" id="num_petal_length" min="1.0" max="7.0" step="0.1" value="1.4" oninput="syncInput('petal_length', this.value)">
-                            <span>cm</span>
-                        </div>
-                    </div>
-                    <input type="range" id="petal_length" min="1.0" max="7.0" step="0.1" value="1.4" oninput="syncInput('num_petal_length', this.value)">
-                </div>
-
-                <!-- Petal Width -->
-                <div class="form-group">
-                    <div class="label-container">
-                        <label for="petal_width">Chiều rộng cánh hoa (Petal Width)</label>
-                        <div class="number-input-wrapper">
-                            <input type="number" id="num_petal_width" min="0.1" max="2.5" step="0.1" value="0.2" oninput="syncInput('petal_width', this.value)">
-                            <span>cm</span>
-                        </div>
-                    </div>
-                    <input type="range" id="petal_width" min="0.1" max="2.5" step="0.1" value="0.2" oninput="syncInput('num_petal_width', this.value)">
-                </div>
-
-                <button type="submit" class="btn-predict" id="btnPredict">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i> Dự đoán ngay
-                </button>
-            </form>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-logo">
+            Iris-Svm
         </div>
+        <div class="nav-menu">
+            <span class="nav-link active" onclick="switchTab('about', this)">Giới thiệu</span>
+            <span class="nav-link" onclick="switchTab('classify', this)">Phân loại</span>
+            <span class="nav-link" onclick="switchTab('history', this)">Lịch sử</span>
+        </div>
+    </nav>
 
-        <!-- Result Card -->
-        <div class="card">
-            <div class="header">
-                <h1>Kết Quả Phân Loại</h1>
-                <p>Mô hình Machine Learning xử lý</p>
-            </div>
+    <!-- MAIN CONTENT -->
+    <div class="main-wrapper">
 
-            <div class="result-box" id="resultBox">
-                <i class="fa-solid fa-seedling result-icon" id="resultIcon"></i>
-                <div class="result-title" id="resultTitle">Chưa có dữ liệu</div>
-                <p id="resultSubtitle" style="color: var(--text-muted); font-size: 0.9rem;">Nhập thông số và ấn "Dự đoán ngay"</p>
-                
-                <div class="confidence-bar-container" id="confidenceContainer">
-                    <div class="confidence-bar" id="confidenceBar"></div>
+        <!-- TAB 1: GIỚI THIỆU -->
+        <div id="tab-about" class="tab-content active">
+            <h1>Các Loài Hoa Diên Vĩ</h1>
+            <p class="subtitle">Khám phá 3 loài hoa chính trong bộ dữ liệu Iris Dataset</p>
+
+            <div class="flower-grid">
+                <!-- Card 1 -->
+                <div class="flower-card">
+                    <div class="flower-card-img-wrap">
+                        <img src="/photo/setosa.jpg" alt="Hoa Diên Vĩ Setosa" class="flower-card-img">
+                    </div>
+                    <div class="flower-card-info">
+                        <h2>Hoa Diên Vĩ Setosa</h2>
+                        <p>Kích thước cánh hoa nhỏ và ngắn. Rất dễ phân biệt với hai loài còn lại nhờ đài hoa nổi bật.</p>
+                    </div>
                 </div>
-                <div class="confidence-text" id="confidenceText">Độ tin cậy: 0%</div>
+
+                <!-- Card 2 -->
+                <div class="flower-card">
+                    <div class="flower-card-img-wrap">
+                        <img src="/photo/versicolor.jpg" alt="Hoa Diên Vĩ Versicolor" class="flower-card-img">
+                    </div>
+                    <div class="flower-card-info">
+                        <h2>Hoa Diên Vĩ Versicolor</h2>
+                        <p>Kích thước các bộ phận đài hoa và cánh hoa ở mức trung bình, thể hiện sự cân đối hài hòa.</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="flower-card">
+                    <div class="flower-card-img-wrap">
+                        <img src="/photo/virginica.jpg" alt="Hoa Diên Vĩ Virginica" class="flower-card-img">
+                    </div>
+                    <div class="flower-card-info">
+                        <h2>Hoa Diên Vĩ Virginica</h2>
+                        <p>Thường có kích thước cánh hoa và đài hoa lớn nhất trong cả 3 loài hoa Diên Vĩ.</p>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- History Table Section -->
-        <div class="card history-section">
-            <div class="history-header">
-                <h2>Lịch sử dự đoán</h2>
-                <button class="btn-clear" onclick="clearHistory()"><i class="fa-solid fa-trash-can"></i> Xóa lịch sử</button>
+        <!-- TAB 2: PHÂN LOẠI -->
+        <div id="tab-classify" class="tab-content">
+            <h1>Phân Loại Hoa Diên Vĩ</h1>
+            <p class="subtitle">Điều chỉnh các thông số kích thước để dự đoán kết quả</p>
+
+            <div class="layout-grid">
+                <!-- CỘT TRÁI -->
+                <div class="input-section">
+                    <div class="section-title">Nhập kích thước (cm)</div>
+
+                    <div class="form">
+                        <div class="form-group">
+                            <div class="label-row"><label for="sepal_length">Chiều dài đài hoa</label></div>
+                            <div class="input-control-wrap">
+                                <input id="sepal_length" type="number" step="0.1" min="0.1" max="10" value="5.1" oninput="syncRange('sepal_length', 'sepal_length_range')">
+                                <input id="sepal_length_range" type="range" min="0.1" max="10" step="0.1" value="5.1" oninput="syncInput('sepal_length', 'sepal_length_range')">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="label-row"><label for="sepal_width">Chiều rộng đài hoa</label></div>
+                            <div class="input-control-wrap">
+                                <input id="sepal_width" type="number" step="0.1" min="0.1" max="10" value="3.5" oninput="syncRange('sepal_width', 'sepal_width_range')">
+                                <input id="sepal_width_range" type="range" min="0.1" max="10" step="0.1" value="3.5" oninput="syncInput('sepal_width', 'sepal_width_range')">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="label-row"><label for="petal_length">Chiều dài cánh hoa</label></div>
+                            <div class="input-control-wrap">
+                                <input id="petal_length" type="number" step="0.1" min="0.1" max="10" value="1.4" oninput="syncRange('petal_length', 'petal_length_range')">
+                                <input id="petal_length_range" type="range" min="0.1" max="10" step="0.1" value="1.4" oninput="syncInput('petal_length', 'petal_length_range')">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="label-row"><label for="petal_width">Chiều rộng cánh hoa</label></div>
+                            <div class="input-control-wrap">
+                                <input id="petal_width" type="number" step="0.1" min="0.1" max="10" value="0.2" oninput="syncRange('petal_width', 'petal_width_range')">
+                                <input id="petal_width_range" type="range" min="0.1" max="10" step="0.1" value="0.2" oninput="syncInput('petal_width', 'petal_width_range')">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="btn-predict" class="btn-submit" onclick="predict()">Dự đoán ngay</button>
+                </div>
+
+                <!-- CỘT PHẢI -->
+                <div class="result-section">
+                    <div id="placeholder" class="placeholder-text">
+                        Nhấn nút <strong>"Dự đoán ngay"</strong><br>để xem kết quả phân loại chi tiết.
+                    </div>
+
+                    <div id="result">
+                        <div class="result-label">Kết quả phân loại</div>
+                        <div id="prediction"></div>
+
+                        <div id="confidence-wrap" style="display: none;">
+                            <div id="confidence">Độ tin cậy: 0%</div>
+                            <div class="progress-bar-wrap">
+                                <div id="progress-bar" class="progress-bar-fill"></div>
+                            </div>
+                        </div>
+
+                        <img id="flower-image" src="" alt="Hoa Diên Vĩ">
+                    </div>
+                </div>
             </div>
-            <div class="table-wrapper">
-                <table>
+        </div>
+
+        <!-- TAB 3: LỊCH SỬ -->
+        <div id="tab-history" class="tab-content">
+            <h1>Lịch Sử Dự Đoán</h1>
+            <p class="subtitle">Các lượt phân loại gần đây của bạn</p>
+            <div class="page-card">
+                <div class="table-header-flex">
+                    <span style="font-weight: 700; color: var(--purple-dark);">Danh sách kết quả</span>
+                    <button class="btn-clear" onclick="clearHistory()">🗑️ Xóa lịch sử</button>
+                </div>
+                <table class="history-table">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Đài hoa (L × W)</th>
-                            <th>Cánh hoa (L × W)</th>
-                            <th>Kết quả dự đoán</th>
-                            <th>Độ tin cậy</th>
-                            <th>Thời gian</th>
+                            <th style="width: 15%;">STT</th>
+                            <th style="width: 30%;">Đài hoa (D × R)</th>
+                            <th style="width: 30%;">Cánh hoa (D × R)</th>
+                            <th style="width: 25%;">Kết quả</th>
                         </tr>
                     </thead>
-                    <tbody id="historyBody">
+                    <tbody id="history-list">
                         <tr>
-                            <td colspan="6" style="text-align: center; color: var(--text-muted);">Chưa có lịch sử dự đoán nào.</td>
+                            <td colspan="4" style="color: var(--text-muted); opacity: 0.7;">Chưa có lịch sử dự đoán nào.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
+
     </div>
 
     <script>
-        // Địa chỉ API Backend (Thay thế URL này tương ứng với server Flask/FastAPI của bạn)
-        const API_URL = "http://127.0.0.1:8000/predict";
+        const flowerNamesVN = {
+            "setosa": "Hoa Diên Vĩ Setosa",
+            "versicolor": "Hoa Diên Vĩ Versicolor",
+            "virginica": "Hoa Diên Vĩ Virginica",
+            "iris-setosa": "Hoa Diên Vĩ Setosa",
+            "iris-versicolor": "Hoa Diên Vĩ Versicolor",
+            "iris-virginica": "Hoa Diên Vĩ Virginica"
+        };
 
-        // Khởi tạo mảng lưu trữ lịch sử từ localStorage
-        let historyData = JSON.parse(localStorage.getItem('iris_history')) || [];
+        let historyData = [];
 
-        // Khởi tạo giao diện lịch sử khi load trang
-        document.addEventListener('DOMContentLoaded', () => {
-            updateHistoryTable();
-        });
+        function switchTab(tabName, element) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
 
-        // Hàm đồng bộ hai chiều giữa Input Range và Input Number
-        function syncInput(targetId, value) {
-            document.getElementById(targetId).value = value;
+            document.getElementById('tab-' + tabName).classList.add('active');
+            element.classList.add('active');
         }
 
-        // Bật/Tắt trạng thái Form khi đang gọi API
-        function setFormDisabled(isDisabled) {
-            const inputs = document.querySelectorAll('input');
-            inputs.forEach(input => input.disabled = isDisabled);
+        function syncRange(inputId, rangeId) {
+            document.getElementById(rangeId).value = document.getElementById(inputId).value;
         }
 
-        // Hàm xóa lịch sử
-        function clearHistory() {
-            historyData = [];
-            localStorage.removeItem('iris_history');
-            updateHistoryTable();
+        function syncInput(inputId, rangeId) {
+            document.getElementById(inputId).value = document.getElementById(rangeId).value;
         }
 
-        // Hàm cập nhật bảng lịch sử
+        function setFormDisabled(disabled) {
+            const inputs = document.querySelectorAll('.input-section input');
+            inputs.forEach(input => input.disabled = disabled);
+        }
+
         function updateHistoryTable() {
-            const tbody = document.getElementById('historyBody');
-            
+            const tbody = document.getElementById("history-list");
             if (historyData.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="6" style="text-align: center; color: var(--text-muted);">Chưa có lịch sử dự đoán nào.</td>
-                    </tr>
-                `;
+                tbody.innerHTML = `<tr><td colspan="4" style="color: var(--text-muted); opacity: 0.7;">Chưa có lịch sử dự đoán nào.</td></tr>`;
                 return;
             }
 
-            tbody.innerHTML = historyData.map((item, index) => {
-                const badgeClass = `badge-${item.prediction.toLowerCase()}`;
-                const confPercent = Math.round(item.confidence * 100);
-                return `
-                    <tr>
-                        <td>${index + 1}</td>
-                        <td>${Number(item.sl).toFixed(1)} × ${Number(item.sw).toFixed(1)} cm</td>
-                        <td>${Number(item.pl).toFixed(1)} × ${Number(item.pw).toFixed(1)} cm</td>
-                        <td><span class="badge ${badgeClass}">${item.prediction}</span></td>
-                        <td>${confPercent}%</td>
-                        <td style="color: var(--text-muted); font-size: 0.8rem;">${item.timestamp}</td>
-                    </tr>
-                `;
-            }).join('');
+            tbody.innerHTML = historyData.map((item, index) => `
+                <tr>
+                    <td><strong>${index + 1}</strong></td>
+                    <td>${item.sl} × ${item.sw} cm</td>
+                    <td>${item.pl} × ${item.pw} cm</td>
+                    <td><span class="badge-flower">${item.prediction}</span></td>
+                </tr>
+            `).join('');
         }
 
-        // Hàm chính gửi request dự đoán
+        function clearHistory() {
+            historyData = [];
+            updateHistoryTable();
+        }
+
         async function predict() {
-            const btn = document.getElementById('btnPredict');
+            const rawSepalLength = document.getElementById("sepal_length").value;
+            const rawSepalWidth = document.getElementById("sepal_width").value;
+            const rawPetalLength = document.getElementById("petal_length").value;
+            const rawPetalWidth = document.getElementById("petal_width").value;
+
+            if (!rawSepalLength || !rawSepalWidth || !rawPetalLength || !rawPetalWidth) {
+                alert("Vui lòng nhập đầy đủ cả 4 thông số!");
+                return;
+            }
+
+            const btn = document.getElementById("btn-predict");
             const originalBtnText = btn.innerHTML;
 
-            // Đọc giá trị đầu vào
-            const sl = parseFloat(document.getElementById('sepal_length').value);
-            const sw = parseFloat(document.getElementById('sepal_width').value);
-            const pl = parseFloat(document.getElementById('petal_length').value);
-            const pw = parseFloat(document.getElementById('petal_width').value);
-
-            // Cập nhật UI sang trạng thái Loading
             btn.disabled = true;
             setFormDisabled(true);
-            btn.innerHTML = `
-                <svg class="spinner" viewBox="0 0 50 50">
-                    <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
-                </svg>
-                Đang xử lý...
-            `;
+            btn.innerHTML = `<div class="spinner"></div> Đang phân loại...`;
+
+            const sl = Number(rawSepalLength);
+            const sw = Number(rawSepalWidth);
+            const pl = Number(rawPetalLength);
+            const pw = Number(rawPetalWidth);
+
+            const data = { sepal_length: sl, sepal_width: sw, petal_length: pl, petal_width: pw };
 
             try {
-                // Gửi dữ liệu lên API Backend
-                const response = await fetch(API_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        sepal_length: sl,
-                        sepal_width: sw,
-                        petal_length: pl,
-                        petal_width: pw
-                    })
+                const response = await fetch("/predict", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
                 });
 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
+                const result = await response.json();
+                if (!response.ok) throw new Error(result.detail || "Có lỗi từ máy chủ");
 
-                const data = await response.json();
+                const rawPrediction = result.prediction.toLowerCase();
+                const vnName = flowerNamesVN[rawPrediction] || result.prediction;
                 
-                // Giả định API trả về định dạng: { "prediction": "setosa", "confidence": 0.98 }
-                const prediction = data.prediction;
-                const confidence = data.confidence || 0.95; 
+                document.getElementById("placeholder").style.display = "none";
+                document.getElementById("result").style.display = "block";
 
-                // Cập nhật giao diện kết quả
-                const resultBox = document.getElementById('resultBox');
-                const resultIcon = document.getElementById('resultIcon');
-                const resultTitle = document.getElementById('resultTitle');
-                const resultSubtitle = document.getElementById('resultSubtitle');
-                const confidenceContainer = document.getElementById('confidenceContainer');
-                const confidenceBar = document.getElementById('confidenceBar');
-                const confidenceText = document.getElementById('confidenceText');
+                document.getElementById("prediction").innerText = vnName;
 
-                resultBox.classList.add('active');
-                resultTitle.innerText = `Iris ${prediction}`;
-                resultSubtitle.innerText = "Dự đoán hoàn tất thành công!";
-                
-                // Icon tương ứng theo loài
-                if (prediction.toLowerCase() === 'setosa') {
-                    resultIcon.className = "fa-solid fa-fan result-icon";
-                    resultIcon.style.color = "#60a5fa";
-                } else if (prediction.toLowerCase() === 'versicolor') {
-                    resultIcon.className = "fa-solid fa-clover result-icon";
-                    resultIcon.style.color = "#c084fc";
+                let imageName = rawPrediction.replace("iris-", "");
+                const image = document.getElementById("flower-image");
+                image.src = "/photo/" + imageName + ".jpg";
+                image.alt = vnName;
+
+                image.classList.remove("img-animate");
+                void image.offsetWidth;
+                image.classList.add("img-animate");
+
+                const confidenceWrap = document.getElementById("confidence-wrap");
+                const confidenceText = document.getElementById("confidence");
+                const progressBar = document.getElementById("progress-bar");
+
+                if (result.confidence !== undefined) {
+                    const percent = (result.confidence * 100).toFixed(1);
+                    confidenceWrap.style.display = "block";
+                    confidenceText.innerText = "Độ tin cậy: " + percent + "%";
+                    progressBar.style.width = percent + "%";
                 } else {
-                    resultIcon.className = "fa-solid fa-spa result-icon";
-                    resultIcon.style.color = "#f472b6";
+                    confidenceWrap.style.display = "none";
                 }
 
-                // Cập nhật thanh độ tin cậy
-                const confPercent = Math.round(confidence * 100);
-                confidenceContainer.style.display = 'block';
-                confidenceText.style.display = 'block';
-                confidenceBar.style.width = `${confPercent}%`;
-                confidenceText.innerText = `Độ tin cậy: ${confPercent}%`;
-
-                // Thêm vào Lịch sử và Lưu vào localStorage
-                const now = new Date();
-                const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-                
                 historyData.unshift({
-                    sl, sw, pl, pw,
-                    prediction,
-                    confidence,
-                    timestamp: timeString
+                    sl: sl,
+                    sw: sw,
+                    pl: pl,
+                    pw: pw,
+                    prediction: vnName
                 });
-
-                // Giới hạn lịch sử lưu tối đa 10 dòng gần nhất
-                if (historyData.length > 10) historyData.pop();
-
-                localStorage.setItem('iris_history', JSON.stringify(historyData));
                 updateHistoryTable();
 
             } catch (error) {
-                console.error("Lỗi khi dự đoán:", error);
-                alert("Đã xảy ra lỗi khi kết nối tới máy chủ dự đoán: " + error.message);
+                alert("Lỗi khi dự đoán: " + error.message);
             } finally {
-                // Khôi phục trạng thái Form
                 btn.disabled = false;
                 setFormDisabled(false);
                 btn.innerHTML = originalBtnText;
@@ -602,4 +833,5 @@
         }
     </script>
 </body>
+
 </html>
