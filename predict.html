@@ -316,7 +316,6 @@
             background: var(--primary-hover);
         }
 
-        /* Trạng thái bị khóa khi loading */
         input:disabled, button:disabled {
             opacity: 0.55;
             cursor: not-allowed !important;
@@ -415,7 +414,6 @@
             font-weight: 700;
         }
 
-        /* Hiệu ứng nảy/phóng mượt CHỈ áp dụng cho ảnh */
         #flower-image {
             width: 100%;
             max-width: 360px;
@@ -563,11 +561,11 @@
                 <!-- Card 1 -->
                 <div class="flower-card">
                     <div class="flower-card-img-wrap">
-                        <img src="/photo/setosa.jpg" alt="Iris Setosa" class="flower-card-img">
+                        <img src="/photo/setosa.jpg" alt="Hoa Diên Vĩ Setosa" class="flower-card-img">
                     </div>
                     <div class="flower-card-info">
                         <span class="flower-tag">Setosa</span>
-                        <h2>Iris Setosa</h2>
+                        <h2>Hoa Diên Vĩ Setosa</h2>
                         <p>Kích thước cánh hoa nhỏ và ngắn. Rất dễ phân biệt với hai loài còn lại nhờ đài hoa nổi bật.</p>
                     </div>
                 </div>
@@ -575,11 +573,11 @@
                 <!-- Card 2 -->
                 <div class="flower-card">
                     <div class="flower-card-img-wrap">
-                        <img src="/photo/versicolor.jpg" alt="Iris Versicolor" class="flower-card-img">
+                        <img src="/photo/versicolor.jpg" alt="Hoa Diên Vĩ Versicolor" class="flower-card-img">
                     </div>
                     <div class="flower-card-info">
                         <span class="flower-tag">Versicolor</span>
-                        <h2>Iris Versicolor</h2>
+                        <h2>Hoa Diên Vĩ Versicolor</h2>
                         <p>Kích thước các bộ phận đài hoa và cánh hoa ở mức trung bình, thể hiện sự cân đối hài hòa.</p>
                     </div>
                 </div>
@@ -587,11 +585,11 @@
                 <!-- Card 3 -->
                 <div class="flower-card">
                     <div class="flower-card-img-wrap">
-                        <img src="/photo/virginica.jpg" alt="Iris Virginica" class="flower-card-img">
+                        <img src="/photo/virginica.jpg" alt="Hoa Diên Vĩ Virginica" class="flower-card-img">
                     </div>
                     <div class="flower-card-info">
                         <span class="flower-tag">Virginica</span>
-                        <h2>Iris Virginica</h2>
+                        <h2>Hoa Diên Vĩ Virginica</h2>
                         <p>Thường có kích thước cánh hoa và đài hoa lớn nhất trong cả 3 loài hoa Diên Vĩ.</p>
                     </div>
                 </div>
@@ -648,6 +646,7 @@
                 <!-- CỘT PHẢI -->
                 <div class="result-section">
                     <div id="placeholder" class="placeholder-text">
+                        <div class="placeholder-icon">🌸</div>
                         Nhấn nút <strong>"Dự đoán ngay"</strong><br>để xem kết quả phân loại chi tiết.
                     </div>
 
@@ -725,7 +724,6 @@
             document.getElementById(inputId).value = document.getElementById(rangeId).value;
         }
 
-        // Bật / tắt các ô nhập liệu khi đang load
         function setFormDisabled(disabled) {
             const inputs = document.querySelectorAll('.input-section input');
             inputs.forEach(input => input.disabled = disabled);
@@ -767,7 +765,6 @@
             const btn = document.getElementById("btn-predict");
             const originalBtnText = btn.innerHTML;
 
-            // Vô hiệu hóa nút và toàn bộ ô nhập liệu
             btn.disabled = true;
             setFormDisabled(true);
             btn.innerHTML = `<div class="spinner"></div> Đang phân loại...`;
@@ -795,17 +792,15 @@
                 document.getElementById("placeholder").style.display = "none";
                 document.getElementById("result").style.display = "block";
 
-                // Hiển thị chữ thông thường
                 document.getElementById("prediction").innerText = vnName;
 
-                // Áp dụng hiệu ứng nảy/phóng mượt CHỈ cho ảnh
                 let imageName = rawPrediction.replace("iris-", "");
                 const image = document.getElementById("flower-image");
                 image.src = "/photo/" + imageName + ".jpg";
                 image.alt = vnName;
 
                 image.classList.remove("img-animate");
-                void image.offsetWidth; // Reflow để kích hoạt lại animation
+                void image.offsetWidth;
                 image.classList.add("img-animate");
 
                 const confidenceWrap = document.getElementById("confidence-wrap");
@@ -821,7 +816,6 @@
                     confidenceWrap.style.display = "none";
                 }
 
-                // Lưu kết quả vào lịch sử
                 historyData.unshift({
                     sl: sl,
                     sw: sw,
@@ -834,7 +828,6 @@
             } catch (error) {
                 alert("Lỗi khi dự đoán: " + error.message);
             } finally {
-                // Phục hồi lại trạng thái ban đầu của nút và form
                 btn.disabled = false;
                 setFormDisabled(false);
                 btn.innerHTML = originalBtnText;
