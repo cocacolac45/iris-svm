@@ -50,9 +50,8 @@
             height: 70px;
             z-index: 1000;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 0 8%;
+            padding: 0 3%;
             background: #8B6C5C;
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
@@ -61,28 +60,46 @@
         }
 
         .nav-logo {
-            font-size: 1.25rem;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.8rem;
             font-weight: 800;
+            /* Chữ cong */
+            font-family: Georgia, "Times New Roman", serif;
+            font-style: italic;
+            letter-spacing: 1px;
             color: #EFEBE9;
+            white-space: nowrap;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            z-index: 10;
         }
 
         .nav-menu {
+            position: absolute;
+            left: 3%;
+            top: 50%;
+            transform: translateY(-50%);
             display: flex;
             align-items: center;
-            gap: 6px;
-            background: #DAD4DF;
-            padding: 4px 6px;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            gap: 4px;
+            background: transparent;
+            padding: 0;
+            border: none;
+            border-radius: 0;
+            z-index: 5;
         }
 
         .navbar-right {
+            position: static;
+            width: 100%;
+            height: 100%;
             display: flex;
             align-items: center;
-            gap: 14px;
+            justify-content: space-between;
         }
 
         .auth-area {
@@ -92,20 +109,19 @@
         }
 
         .navbar-divider {
-            width: 1px;
-            height: 32px;
-            background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.55), transparent);
+            display: none;
         }
 
         .nav-link {
             text-decoration: none;
-            color: #8B6C5C;
-            font-size: 0.88rem;
+            color: #EFEBE9;
+            font-size: 0.9rem;
             font-weight: 600;
-            padding: 8px 18px;
+            padding: 9px 15px;
             border-radius: 20px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
             cursor: pointer;
+            white-space: nowrap;
         }
 
         .nav-link:hover {
@@ -116,7 +132,7 @@
         .nav-link.active {
             background: #EFEBE9;
             color: #8B6C5C;
-            box-shadow: 0 4px 14px #8B6C5C;
+            box-shadow: 0 4px 14px rgba(61, 37, 30, 0.18);
         }
 
         .main-wrapper {
@@ -684,46 +700,53 @@
         }
 
         @media (max-width: 600px) {
-            body {
-                padding-top: 110px;
-            }
             .navbar {
-                flex-direction: column;
                 height: auto;
+                min-height: 110px;
                 padding: 10px;
+                display: flex;
+                flex-direction: column;
                 gap: 8px;
             }
+
+            /* Logo trở lại vị trí bình thường trên mobile */
+            .nav-logo {
+                position: static;
+                transform: none;
+                order: 1;
+                font-size: 1.5rem;
+            }
+
+            /* Menu */
             .nav-menu {
+                position: static;
+                transform: none;
+                order: 2;
                 width: 100%;
                 justify-content: center;
+                gap: 2px;
             }
+
             .nav-link {
-                padding: 6px 12px;
-                font-size: 0.8rem;
+                padding: 6px 9px;
+                font-size: 0.75rem;
             }
-            .main-wrapper {
-                padding-left: 18px;
-                padding-right: 18px;
-            }
-            .classification-layout {
-                padding-left: 0;
-                padding-right: 0;
-            }
-            #flower-image {
-                height: 260px;
-            }
-        }
 
-        .auth-area {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+            /* Đăng nhập / đăng ký */
+            .auth-area {
+                position: static;
+                transform: none;
+                order: 3;
+                justify-content: center;
+                width: 100%;
+            }
 
-        #user-info {
-            color: #EFEBE9;
-            font-size: 0.82rem;
-            font-weight: 600;
+            .navbar-right {
+                position: static;
+                width: 100%;
+                height: auto;
+                display: contents;
+            }
         }
 
         .auth-btn {
@@ -736,6 +759,23 @@
             font-weight: 700;
             cursor: pointer;
             transition: all 0.2s ease;
+        }
+
+        #user-info {
+            color: #EFEBE9;
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+
+        .auth-area {
+            position: absolute;
+            right: 3%;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 5;
         }
 
         .auth-btn:hover {
@@ -754,11 +794,26 @@
 
         @media (max-width: 850px) {
             .navbar {
-                padding-left: 4%;
-                padding-right: 4%;
+                padding-left: 2%;
+                padding-right: 2%;
             }
 
-            .auth-area {gap: 5px;}
+            .nav-menu {
+                left: 2%;
+            }
+
+            .auth-area {
+                right: 2%;
+            }
+
+            .nav-link {
+                padding: 8px 10px;
+                font-size: 0.82rem;
+            }
+
+            .nav-logo {
+                font-size: 1.5rem;
+            }
         }
 
         /* ======  AUTH MODAL ======= */
@@ -1247,54 +1302,15 @@
             font-weight: 500;
         }
 
-        /* ===== MŨI TÊN CHUYỂN TRANG ===== */
-        .about-page-arrow {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 48px;
-            height: 48px;
-            border: none;
-            border-radius: 50%;
-            background: rgba(139, 108, 92, 0.12);
-            color: var(--primary);
-            font-size: 28px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 900;
-            transition:
-                background 0.25s ease,
-                color 0.25s ease,
-                transform 0.25s ease,
-                box-shadow 0.25s ease;
-        }
-
-        .about-page-arrow:hover {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 8px 25px rgba(139, 108, 92, 0.25);
-            transform:
-                translateY(-50%)
-                scale(1.08);
-        }
-
-        .about-page-arrow.left {
-            left: 18px;
-        }
-
-        .about-page-arrow.right {
-            right: 18px;
-        }
-
         /* ===== CARD MÔ HÌNH ===== */
         .model-intro-grid {
+            width: 100%;
+            max-width: 1200px;
+            margin: 10px auto 0;
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 24px;
-            margin-top: 10px;
+            align-items: stretch;
         }
 
         .model-intro-card {
@@ -1302,7 +1318,7 @@
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border-radius: 20px;
-            border: 1px sol
+            border: 1px solid var(--card-border);
             padding: 26px;
             box-shadow:
                 0 10px 30px rgba(139, 108, 92, 0.06);
@@ -1311,6 +1327,7 @@
                 box-shadow 0.3s ease;
             min-height: 220px;
         }
+
         .model-intro-card:hover {
             transform: translateY(-6px);
             box-shadow:
@@ -1320,6 +1337,7 @@
         .model-intro-number {
             width: 38px;
             height: 38px;
+            flex-shrink: 0;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -1336,12 +1354,14 @@
             font-size: 1.15rem;
             margin-bottom: 10px;
             font-weight: 800;
+            line-height: 1.4;
         }
 
         .model-intro-card p {
             color: var(--text-muted);
             font-size: 0.86rem;
             line-height: 1.7;
+            margin: 0;
         }
 
         /* ===== INDICATOR ===== */
@@ -1356,67 +1376,557 @@
         .about-page-dot {
             width: 8px;
             height: 8px;
-
             border-radius: 50%;
-
             background: rgba(139, 108, 92, 0.2);
-
             transition: all 0.25s ease;
         }
 
         .about-page-dot.active {
             width: 24px;
-
             border-radius: 10px;
-
             background: var(--primary);
         }
 
         /* ===== ANIMATION ===== */
-
         @keyframes aboutPageSlideIn {
-            from {opacity: 0; transform: translateX(20px);}
-            to {opacity: 1; transform: translateX(0);}
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 1050px) {
             .model-intro-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
-
         }
 
         @media (max-width: 700px) {
             .model-intro-grid {
                 grid-template-columns: 1fr;
             }
-
-            .about-page-arrow {
-                width: 40px;
-                height: 40px;
-                font-size: 23px;
-            }
-
-            .about-page-arrow.left {
-                left: 8px;
-            }
-
-            .about-page-arrow.right {
-                right: 8px;
-            }
-
         }
 
         @media (max-width: 600px) {
             .about-page-title {
                 font-size: 1.8rem;
             }
-
             .about-page-subtitle {
                 font-size: 0.88rem;
             }
+            .model-intro-card {
+                padding: 22px;
+            }
+        }
 
+
+        /* =========================================================
+           REDESIGN TAB GIỚI THIỆU
+           Phong cách editorial / luxury, giữ nguyên màu và font hiện tại
+           ========================================================= */
+        #tab-about {
+            width: 100vw;
+            margin-left: calc(50% - 50vw);
+        }
+
+        #tab-about .about-page {
+            width: 100%;
+            animation: aboutPageSlideIn 0.45s ease;
+        }
+
+        /* Ẩn các thành phần cũ của tab giới thiệu nếu còn được giữ trong CSS */
+        #tab-about .flower-grid,
+        #tab-about .flower-card,
+        #tab-about .model-intro-grid,
+        #tab-about .model-intro-card {
+            display: none;
+        }
+
+        /* HERO */
+        .about-hero {
+            position: relative;
+            display: flex;
+            width: 100%;
+            min-height: calc(100vh - 110px);
+            max-height: 820px;
+            overflow: hidden;
+            background: var(--primary);
+            color: #EFEBE9;
+        }
+        
+        .about-hero-image {
+            position: relative;
+            order: 2;
+            width: 50%;
+            height: calc(100vh - 110px);
+            max-height: 820px;
+            overflow: hidden;
+        }
+
+        .about-hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: saturate(0.86) contrast(0.94);
+            transition: transform 0.8s ease;
+        }
+
+        .about-hero:hover .about-hero-image img {
+            transform: scale(1.025);
+        }
+
+        .about-hero-overlay {
+            background: linear-gradient(
+                90deg,
+                rgba(61, 37, 30, 0.72) 0%,
+                rgba(61, 37, 30, 0.42) 48%,
+                rgba(61, 37, 30, 0.55) 100%
+            );
+        }
+
+        .about-hero-content {
+            position: relative;
+            z-index: 2;
+            order: 1;
+            width: 50%;
+            min-height: calc(100vh - 110px);
+            max-height: 820px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            margin: 0;
+            padding: 70px 6%;
+            box-sizing: border-box;
+        }
+
+        .about-eyebrow,
+        .about-section-label {
+            color: var(--primary);
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .about-hero .about-eyebrow {
+            color: #D8CBC4;
+            margin-bottom: 20px;
+        }
+
+        .about-hero h1 {
+            color: #EFEBE9;
+            text-align: left;
+            font-size: clamp(3rem, 7vw, 6.3rem);
+            line-height: 0.98;
+            letter-spacing: -3px;
+            margin: 0 0 25px;
+            max-width: 760px;
+        }
+
+        .about-hero-content > p:not(.about-eyebrow) {
+            max-width: 570px;
+            color: rgba(239, 235, 233, 0.92);
+            font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .about-scroll-btn,
+        .about-next-section-btn {
+            border: 1px solid rgba(139, 108, 92, 0.35);
+            background: #EFEBE9;
+            color: var(--primary-hover);
+            padding: 13px 19px;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 0.82rem;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 22px;
+            transition: all 0.25s ease;
+        }
+
+        .about-scroll-btn:hover,
+        .about-next-section-btn:hover {
+            background: var(--primary-light);
+            color: var(--purple-dark);
+            transform: translateY(-2px);
+        }
+
+        .about-scroll-btn span,
+        .about-next-section-btn span {
+            font-size: 1.05rem;
+        }
+
+        /* DATASET INTRO */
+        .about-editorial-section {
+            width: min(1180px, 100%);
+            margin: 0 auto;
+            padding: 130px 55px;
+        }
+
+        .about-overview-section {
+            display: grid;
+            grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.75fr);
+            gap: 100px;
+            align-items: end;
+        }
+
+        .about-editorial-text .about-section-label,
+        .about-section-heading .about-section-label,
+        .about-transition-section .about-section-label,
+        .about-model-hero .about-section-label {
+            margin-bottom: 18px;
+        }
+
+        .about-editorial-text h2,
+        .about-section-heading h2,
+        .about-transition-section h2 {
+            color: var(--purple-dark);
+            font-size: clamp(2.2rem, 4.2vw, 4rem);
+            line-height: 1.05;
+            letter-spacing: -1.8px;
+            font-weight: 800;
+            margin-bottom: 28px;
+        }
+
+        .about-editorial-text > p:not(.about-section-label) {
+            max-width: 650px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.9;
+            margin-bottom: 16px;
+        }
+
+        .about-stat-block {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-top: 1px solid rgba(139, 108, 92, 0.28);
+            border-bottom: 1px solid rgba(139, 108, 92, 0.28);
+        }
+
+        .about-stat {
+            padding: 25px 12px;
+            text-align: center;
+            border-left: 1px solid rgba(139, 108, 92, 0.18);
+        }
+
+        .about-stat:first-child {
+            border-left: none;
+        }
+
+        .about-stat strong {
+            display: block;
+            color: var(--purple-dark);
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .about-stat span {
+            color: var(--text-muted);
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* FLOWER GALLERY */
+        .about-flower-section {
+            width: 100%;
+            padding: 115px max(35px, calc((100% - 1180px) / 2));
+            background: rgba(216, 203, 196, 0.27);
+        }
+
+        .about-section-heading {
+            width: min(700px, 100%);
+            margin-bottom: 60px;
+        }
+
+        .about-section-heading > p:last-child {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            line-height: 1.8;
+            max-width: 550px;
+        }
+
+        .about-flower-gallery {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: clamp(20px, 4vw, 55px);
+            align-items: start;
+        }
+
+        .about-flower-item {
+            min-width: 0;
+        }
+
+        .about-flower-item-offset {
+            margin-top: 70px;
+        }
+
+        .about-flower-image-wrap {
+            width: 100%;
+            aspect-ratio: 0.78;
+            overflow: hidden;
+            background: var(--primary-light);
+        }
+
+        .about-flower-image-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.65s ease;
+        }
+
+        .about-flower-item:hover .about-flower-image-wrap img {
+            transform: scale(1.045);
+        }
+
+        .about-flower-caption {
+            display: grid;
+            grid-template-columns: 34px 1fr;
+            gap: 16px;
+            padding: 22px 0 0;
+            border-bottom: 1px solid rgba(139, 108, 92, 0.22);
+            padding-bottom: 24px;
+        }
+
+        .about-flower-caption > span {
+            color: var(--primary);
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .about-flower-caption h3 {
+            color: var(--purple-dark);
+            font-size: 1.35rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .about-flower-caption p {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            line-height: 1.75;
+        }
+
+        /* TRANSITION */
+        .about-transition-section {
+            width: min(850px, 100%);
+            margin: 0 auto;
+            padding: 145px 35px 160px;
+            text-align: center;
+        }
+
+        .about-transition-section h2 {
+            margin-bottom: 18px;
+        }
+
+        .about-transition-section > p:not(.about-section-label) {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        /* TRANG 2 - MODEL EDITORIAL */
+        .about-model-hero {
+            width: min(900px, 100%);
+            margin: 0 auto;
+            padding: 80px 35px 65px;
+            text-align: center;
+        }
+
+        .about-page-title {
+            color: var(--purple-dark);
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            line-height: 1.05;
+            letter-spacing: -2px;
+            margin: 0 0 18px;
+            font-weight: 800;
+        }
+
+        .about-page-subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .about-model-list {
+            width: min(1120px, 100%);
+            margin: 0 auto;
+            border-top: 1px solid rgba(139, 108, 92, 0.28);
+        }
+
+        .about-model-row {
+            display: grid;
+            grid-template-columns: 70px minmax(260px, 0.85fr) minmax(300px, 1.15fr);
+            gap: 35px;
+            align-items: start;
+            padding: 38px 10px;
+            border-bottom: 1px solid rgba(139, 108, 92, 0.22);
+            transition: background 0.25s ease, padding-left 0.25s ease;
+        }
+
+        .about-model-row:hover {
+            background: rgba(216, 203, 196, 0.25);
+            padding-left: 20px;
+        }
+
+        .about-model-number {
+            color: var(--primary);
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            padding-top: 5px;
+        }
+
+        .about-model-name {
+            color: var(--purple-dark);
+            font-size: 1.22rem;
+            line-height: 1.4;
+            font-weight: 800;
+        }
+
+        .about-model-description {
+            color: var(--text-muted);
+            font-size: 0.84rem;
+            line-height: 1.8;
+        }
+
+        .about-model-footer {
+            text-align: center;
+            padding: 90px 35px 120px;
+        }
+
+        .about-model-footer > p {
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            margin-bottom: 18px;
+        }
+
+        .about-page-indicator {
+            margin: 0;
+            padding-bottom: 35px;
+        }
+
+        .about-page-dot {
+            border-radius: 2px;
+        }
+
+        .about-page-dot.active {
+            border-radius: 2px;
+        }
+
+        /* RESPONSIVE TAB GIỚI THIỆU */
+        @media (max-width: 850px) {
+            .about-hero,
+            .about-hero-content {
+                min-height: 650px;
+            }
+
+            .about-hero-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-hero-grid img {
+                display: none;
+            }
+
+            .about-hero-grid img:first-child {
+                display: block;
+            }
+
+            .about-overview-section {
+                grid-template-columns: 1fr;
+                gap: 55px;
+            }
+
+            .about-editorial-section {
+                padding: 90px 35px;
+            }
+
+            .about-flower-gallery {
+                grid-template-columns: 1fr;
+                max-width: 620px;
+                margin: 0 auto;
+            }
+
+            .about-flower-item-offset {
+                margin-top: 20px;
+            }
+
+            .about-model-row {
+                grid-template-columns: 55px 1fr;
+                gap: 18px;
+            }
+
+            .about-model-description {
+                grid-column: 2;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .about-hero-content {
+                padding: 55px 25px;
+            }
+
+            .about-hero h1 {
+                font-size: 3rem;
+                letter-spacing: -1.8px;
+            }
+
+            .about-editorial-section,
+            .about-flower-section {
+                padding-left: 22px;
+                padding-right: 22px;
+            }
+
+            .about-editorial-text h2,
+            .about-section-heading h2,
+            .about-transition-section h2 {
+                font-size: 2.35rem;
+            }
+
+            .about-stat strong {
+                font-size: 1.55rem;
+            }
+
+            .about-model-hero {
+                padding: 60px 22px 45px;
+            }
+
+            .about-page-title {
+                font-size: 2.45rem;
+                letter-spacing: -1px;
+            }
+
+            .about-model-row {
+                padding: 28px 4px;
+            }
+
+            .about-model-name {
+                font-size: 1.05rem;
+            }
+
+            .about-model-description {
+                font-size: 0.8rem;
+            }
         }
 
     </style>
@@ -1479,13 +1989,13 @@
                     <button
                         type="button"
                         onclick="changePassword()">
-                        🔑 Đổi mật khẩu
+                        Đổi mật khẩu
                     </button>
 
                     <button
                         type="button"
                         onclick="logout()">
-                        🚪 Đăng xuất
+                        Đăng xuất
                     </button>
 
                     <button
@@ -1534,265 +2044,223 @@
         <!-- ========== TAB 1: GIỚI THIỆU ========== -->
         <div id="tab-about" class="tab-content active">
 
-            <!-- ======== ĐIỀU HƯỚNG 2 TRANG ======== -->
-            <button
-                id="about-prev-arrow"
-                class="about-page-arrow left"
-                onclick="switchAboutPage(1)"
-                aria-label="Trang trước"
-                style="display: none;"
-            >
-                <
-            </button>
-
-            <button
-                id="about-next-arrow"
-                class="about-page-arrow right"
-                onclick="switchAboutPage(2)"
-                aria-label="Trang tiếp theo"
-            >
-                >
-            </button>
-
-
             <!-- ==================== TRANG 1 ==================== -->
-            <div
-                id="about-page-1"
-                class="about-page active"
-            >
+            <div id="about-page-1" class="about-page active">
 
-                <h1>Các Loài Hoa Diên Vĩ</h1>
-
-                <p class="subtitle">
-                    Khám phá 3 loài hoa chính trong bộ dữ liệu Iris Dataset
-                </p>
-
-
-                <!-- ======= DANH SÁCH 3 LOÀI HOA ======= -->
-                <div class="flower-grid">
-
-                    <!-- SETOSA -->
-                    <div class="flower-card">
-
-                        <div class="flower-card-img-wrap">
-                            <img
-                                src="/photo/setosa.jpg"
-                                alt="Hoa Diên Vĩ Setosa"
-                                class="flower-card-img"
-                            >
-                        </div>
-
-                        <div class="flower-card-info">
-
-                            <h2>Hoa Diên Vĩ Setosa</h2>
-
-                            <p>
-                                Kích thước cánh hoa nhỏ và ngắn.
-                                Rất dễ phân biệt với hai loài còn lại
-                                nhờ đài hoa nổi bật.
-                            </p>
-
-                        </div>
-
+                <!-- HERO -->
+                <section class="about-hero">
+                    <div class="about-hero-image">
+                        <img src="/photo/nen.jpg">
                     </div>
 
+                    <div class="about-hero-overlay"></div>
 
-                    <!-- VERSICOLOR -->
-                    <div class="flower-card">
+                    <div class="about-hero-content">
+                        <p class="about-eyebrow">IRIS DATASET · MACHINE LEARNING</p>
+                        <h1>Các Loài Hoa Diên Vĩ</h1>
+                        <p>
+                            Khám phá ba loài hoa tiêu biểu trong Iris Dataset
+                            và cách Machine Learning nhận diện chúng.
+                        </p>
+                        <button class="about-scroll-btn" type="button" onclick="document.getElementById('about-overview').scrollIntoView({behavior:'smooth'})">
+                            Khám phá
+                            <span>↓</span>
+                        </button>
+                    </div>
+                </section>
 
-                        <div class="flower-card-img-wrap">
-                            <img
-                                src="/photo/versicolor.jpg"
-                                alt="Hoa Diên Vĩ Versicolor"
-                                class="flower-card-img"
-                            >
-                        </div>
-
-                        <div class="flower-card-info">
-
-                            <h2>Hoa Diên Vĩ Versicolor</h2>
-
-                            <p>
-                                Kích thước các bộ phận đài hoa và cánh
-                                hoa ở mức trung bình, thể hiện sự cân đối
-                                hài hòa.
-                            </p>
-
-                        </div>
-
+                <!-- GIỚI THIỆU DATASET -->
+                <section id="about-overview" class="about-editorial-section about-overview-section">
+                    <div class="about-editorial-text">
+                        <p class="about-section-label">01 · IRIS DATASET</p>
+                        <h2>Ba loài hoa.<br>Một bộ dữ liệu kinh điển.</h2>
+                        <p>
+                            Iris Dataset là một bộ dữ liệu kinh điển trong lĩnh vực
+                            Machine Learning, được sử dụng để phân loại hoa dựa trên
+                            các đặc trưng về kích thước của đài hoa và cánh hoa.
+                        </p>
+                        <p>
+                            Trong dự án này, dữ liệu được sử dụng để xây dựng và
+                            so sánh nhiều mô hình phân loại khác nhau.
+                        </p>
                     </div>
 
-
-                    <!-- VIRGINICA -->
-                    <div class="flower-card">
-
-                        <div class="flower-card-img-wrap">
-                            <img
-                                src="/photo/virginica.jpg"
-                                alt="Hoa Diên Vĩ Virginica"
-                                class="flower-card-img"
-                            >
+                    <div class="about-stat-block">
+                        <div class="about-stat">
+                            <strong>03</strong>
+                            <span>Loài hoa</span>
                         </div>
-
-                        <div class="flower-card-info">
-
-                            <h2>Hoa Diên Vĩ Virginica</h2>
-
-                            <p>
-                                Thường có kích thước cánh hoa và đài hoa
-                                lớn nhất trong cả 3 loài hoa Diên Vĩ.
-                            </p>
-
+                        <div class="about-stat">
+                            <strong>04</strong>
+                            <span>Đặc trưng</span>
                         </div>
+                        <div class="about-stat">
+                            <strong>05</strong>
+                            <span>Mô hình</span>
+                        </div>
+                    </div>
+                </section>
 
+                <!-- 3 LOÀI HOA -->
+                <section class="about-flower-section">
+                    <div class="about-section-heading">
+                        <p class="about-section-label">02 · THE FLOWERS</p>
+                        <h2>Khám phá ba loài hoa</h2>
+                        <p>
+                            Mỗi loài mang những đặc điểm hình thái khác nhau,
+                            tạo nên cơ sở cho bài toán phân loại.
+                        </p>
                     </div>
 
-                </div>
-                <!-- END .flower-grid -->
+                    <div class="about-flower-gallery">
+                        <article class="about-flower-item">
+                            <div class="about-flower-image-wrap">
+                                <img src="/photo/setosa.jpg" alt="Hoa Diên Vĩ Setosa">
+                            </div>
+                            <div class="about-flower-caption">
+                                <span>01</span>
+                                <div>
+                                    <h3>Setosa</h3>
+                                    <p>
+                                        Kích thước cánh hoa nhỏ và ngắn, dễ phân biệt
+                                        với hai loài còn lại.
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="about-flower-item about-flower-item-offset">
+                            <div class="about-flower-image-wrap">
+                                <img src="/photo/versicolor.jpg" alt="Hoa Diên Vĩ Versicolor">
+                            </div>
+                            <div class="about-flower-caption">
+                                <span>02</span>
+                                <div>
+                                    <h3>Versicolor</h3>
+                                    <p>
+                                        Các bộ phận đài hoa và cánh hoa có kích thước
+                                        ở mức trung bình và khá cân đối.
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="about-flower-item">
+                            <div class="about-flower-image-wrap">
+                                <img src="/photo/virginica.jpg" alt="Hoa Diên Vĩ Virginica">
+                            </div>
+                            <div class="about-flower-caption">
+                                <span>03</span>
+                                <div>
+                                    <h3>Virginica</h3>
+                                    <p>
+                                        Thường có kích thước cánh hoa và đài hoa lớn
+                                        nhất trong ba loài.
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- CHUYỂN SANG TRANG MÔ HÌNH -->
+                <section class="about-transition-section">
+                    <p class="about-section-label">03 · MACHINE LEARNING</p>
+                    <h2>Từ đặc trưng đến dự đoán.</h2>
+                    <p>
+                        Khám phá các mô hình Machine Learning được sử dụng
+                        để phân loại hoa Iris.
+                    </p>
+                    <button class="about-next-section-btn" type="button" onclick="switchAboutPage(2)">
+                        Xem các mô hình
+                        <span>→</span>
+                    </button>
+                </section>
 
             </div>
-            <!-- END #about-page-1 -->
+
 
             <!-- ==================== TRANG 2 ==================== -->
-            <div
-                id="about-page-2"
-                class="about-page"
-            >
+            <div id="about-page-2" class="about-page">
 
-                <h1 class="about-page-title">
-                    Các Mô Hình Phân Loại
-                </h1>
+                <section class="about-model-hero">
+                    <p class="about-section-label">MACHINE LEARNING</p>
+                    <h1 class="about-page-title">Các Mô Hình Phân Loại</h1>
+                    <p class="about-page-subtitle">
+                        Tìm hiểu các mô hình Machine Learning được sử dụng
+                        để phân loại hoa Iris
+                    </p>
+                </section>
 
-                <p class="about-page-subtitle">
-                    Tìm hiểu các mô hình Machine Learning được sử dụng
-                    để phân loại hoa Iris
-                </p>
+                <section class="about-model-list">
 
-                <div class="model-intro-grid">
-
-                    <!-- SVM -->
-                    <div class="model-intro-card">
-
-                        <div class="model-intro-number">
-                            01
+                    <article class="about-model-row">
+                        <div class="about-model-number">01</div>
+                        <div class="about-model-name">Support Vector Machine (SVM)</div>
+                        <div class="about-model-description">
+                            SVM là thuật toán phân loại tìm kiếm siêu phẳng tối ưu
+                            để phân tách các nhóm dữ liệu. Mô hình đặc biệt hiệu quả
+                            khi dữ liệu có ranh giới phân lớp rõ ràng.
                         </div>
+                    </article>
 
-                        <h2>
-                            Support Vector Machine (SVM)
-                        </h2>
-
-                        <p>
-                            SVM là thuật toán phân loại tìm kiếm
-                            siêu phẳng tối ưu để phân tách các nhóm
-                            dữ liệu. Mô hình đặc biệt hiệu quả khi
-                            dữ liệu có ranh giới phân lớp rõ ràng.
-                        </p>
-
-                    </div>
-
-                    <!-- LOGISTIC REGRESSION -->
-                    <div class="model-intro-card">
-
-                        <div class="model-intro-number">
-                            02
+                    <article class="about-model-row">
+                        <div class="about-model-number">02</div>
+                        <div class="about-model-name">Logistic Regression</div>
+                        <div class="about-model-description">
+                            Logistic Regression là mô hình dùng để dự đoán xác suất
+                            một mẫu thuộc về từng lớp. Đây là một phương pháp phổ biến,
+                            đơn giản và dễ diễn giải trong bài toán phân loại.
                         </div>
+                    </article>
 
-                        <h2>
-                            Logistic Regression
-                        </h2>
-
-                        <p>
-                            Logistic Regression là mô hình dùng để
-                            dự đoán xác suất một mẫu thuộc về từng
-                            lớp. Đây là một phương pháp phổ biến,
-                            đơn giản và dễ diễn giải trong bài toán
-                            phân loại.
-                        </p>
-
-                    </div>
-
-                    <!-- KNN -->
-                    <div class="model-intro-card">
-
-                        <div class="model-intro-number">
-                            03
-                        </div>
-
-                        <h2>
-                            K-Nearest Neighbors (KNN)
-                        </h2>
-
-                        <p>
-                            KNN phân loại một mẫu dựa trên các điểm
-                            dữ liệu gần nó nhất. Kết quả được xác định
-                            dựa trên lớp chiếm ưu thế trong nhóm
+                    <article class="about-model-row">
+                        <div class="about-model-number">03</div>
+                        <div class="about-model-name">K-Nearest Neighbors (KNN)</div>
+                        <div class="about-model-description">
+                            KNN phân loại một mẫu dựa trên các điểm dữ liệu gần nó nhất.
+                            Kết quả được xác định dựa trên lớp chiếm ưu thế trong nhóm
                             các láng giềng được lựa chọn.
-                        </p>
-
-                    </div>
-
-                    <!-- NAIVE BAYES -->
-                    <div class="model-intro-card">
-
-                        <div class="model-intro-number">
-                            04
                         </div>
+                    </article>
 
-                        <h2>
-                            Naive Bayes
-                        </h2>
-
-                        <p>
-                            Naive Bayes sử dụng định lý Bayes để tính
-                            xác suất một mẫu thuộc về từng lớp.
-                            Mô hình giả định các đặc trưng có tính
+                    <article class="about-model-row">
+                        <div class="about-model-number">04</div>
+                        <div class="about-model-name">Naive Bayes</div>
+                        <div class="about-model-description">
+                            Naive Bayes sử dụng định lý Bayes để tính xác suất một mẫu
+                            thuộc về từng lớp. Mô hình giả định các đặc trưng có tính
                             độc lập có điều kiện.
-                        </p>
-
-                    </div>
-
-                    <!-- LDA -->
-                    <div class="model-intro-card">
-
-                        <div class="model-intro-number">
-                            05
                         </div>
+                    </article>
 
-                        <h2>
-                            Linear Discriminant Analysis (LDA)
-                        </h2>
-
-                        <p>
-                            LDA tìm cách xây dựng các hướng chiếu
-                            giúp các lớp dữ liệu tách biệt tốt nhất.
-                            Phương pháp này vừa có thể giảm chiều
+                    <article class="about-model-row">
+                        <div class="about-model-number">05</div>
+                        <div class="about-model-name">Linear Discriminant Analysis (LDA)</div>
+                        <div class="about-model-description">
+                            LDA tìm cách xây dựng các hướng chiếu giúp các lớp dữ liệu
+                            tách biệt tốt nhất. Phương pháp này vừa có thể giảm chiều
                             dữ liệu vừa hỗ trợ bài toán phân loại.
-                        </p>
+                        </div>
+                    </article>
 
-                    </div>
+                </section>
 
-                </div>
+                <section class="about-model-footer">
+                    <p>Quay lại khám phá các loài hoa</p>
+                    <button class="about-next-section-btn" type="button" onclick="switchAboutPage(1)">
+                        <span>←</span>
+                        Quay lại
+                    </button>
+                </section>
 
-                <!-- ======= CHẤM TRANG ======= -->
                 <div class="about-page-indicator">
-
-                    <span
-                        id="about-dot-1"
-                        class="about-page-dot active"
-                    ></span>
-
-                    <span
-                        id="about-dot-2"
-                        class="about-page-dot"
-                    ></span>
-
+                    <span id="about-dot-1" class="about-page-dot active"></span>
+                    <span id="about-dot-2" class="about-page-dot"></span>
                 </div>
 
             </div>
-            <!-- END #about-page-2 -->
-
         </div>
-        <!-- END #tab-about -->
 
         <!-- ============= TAB 2: PHÂN LOẠI ============== -->
         <div id="tab-classify" class="tab-content">
@@ -4548,12 +5016,6 @@ function resetPredictionForm() {
         const page2 =
             document.getElementById("about-page-2");
 
-        const prevArrow =
-            document.getElementById("about-prev-arrow");
-
-        const nextArrow =
-            document.getElementById("about-next-arrow");
-
         const dot1 =
             document.getElementById("about-dot-1");
 
@@ -4580,14 +5042,6 @@ function resetPredictionForm() {
                 page1.classList.add("active");
             }
 
-            if (prevArrow) {
-                prevArrow.style.display = "none";
-            }
-
-            if (nextArrow) {
-                nextArrow.style.display = "flex";
-            }
-
             if (dot1) {
                 dot1.classList.add("active");
             }
@@ -4602,14 +5056,6 @@ function resetPredictionForm() {
 
             if (page2) {
                 page2.classList.add("active");
-            }
-
-            if (prevArrow) {
-                prevArrow.style.display = "flex";
-            }
-
-            if (nextArrow) {
-                nextArrow.style.display = "none";
             }
 
             if (dot1) {
