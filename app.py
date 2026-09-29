@@ -1,4 +1,3 @@
-from fastapi import FastAPI, HTTPException, Header
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
