@@ -9,7 +9,9 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href=
+        "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"
+    >
 
     <style>
         :root {
@@ -21,7 +23,6 @@
             --text-muted: #6b7280;
             --purple-dark: #3D251E;
             --accent-pink: #f472b6;
-
             --card-bg: rgba(255, 255, 255, 0.55);
             --card-border: rgba(255, 255, 255, 0.8);
         }
@@ -40,10 +41,6 @@
             color: var(--text-dark);
             padding-top: 90px;
         }
-
-        /* =========================
-           NAVBAR
-        ========================= */
 
         .navbar {
             position: fixed;
@@ -82,6 +79,24 @@
             border: 1px solid rgba(255, 255, 255, 0.8);
         }
 
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .auth-area {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .navbar-divider {
+            width: 1px;
+            height: 32px;
+            background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.55), transparent);
+        }
+
         .nav-link {
             text-decoration: none;
             color: #8B6C5C;
@@ -103,10 +118,6 @@
             color: #8B6C5C;
             box-shadow: 0 4px 14px #8B6C5C;
         }
-
-        /* =========================
-           MAIN
-        ========================= */
 
         .main-wrapper {
             width: 100%;
@@ -169,7 +180,7 @@
 
         .flower-card-img-wrap {
             width: 100%;
-            height: 280px;
+            height: 360px;
             background: rgba(139, 108, 92, 0.05);
             display: flex;
             align-items: center;
@@ -222,21 +233,15 @@
             line-height: 1.6;
         }
 
-
         /* =========== TAB PHÂN LOẠI ============ */
-
         .classification-layout {
             width: 100%;
             min-height: 620px;
-
             display: grid;
             grid-template-columns: 0.9fr 1.15fr 1fr;
             gap: 55px;
-
             padding: 20px 10px 40px 10px;
-
             align-items: stretch;
-
         }
 
         .classification-part {
@@ -245,7 +250,6 @@
             min-height: 580px;
         }
 
-        /* đường phân cách nhẹ giữa 3 phần */
         .classification-part:not(:last-child)::after {
             content: "";
             position: absolute;
@@ -253,12 +257,7 @@
             right: -28px;
             width: 1px;
             height: 90%;
-            background: linear-gradient(
-                to bottom,
-                transparent,
-                rgba(139, 108, 92, 0.18),
-                transparent
-            );
+            background: linear-gradient(to bottom, transparent, rgba(139, 108, 92, 0.18), transparent);
         }
 
         .part-title {
@@ -284,10 +283,7 @@
             font-weight: 800;
         }
 
-        /* =========================
-           CHỌN MÔ HÌNH
-        ========================= */
-
+        /* ====== CHỌN MÔ HÌNH ======= */
         .model-list {
             display: flex;
             flex-direction: column;
@@ -299,14 +295,10 @@
             display: flex;
             align-items: center;
             gap: 13px;
-
             padding: 14px 16px;
-
             border-radius: 15px;
             background: rgba(255, 255, 255, 0.24);
-
             cursor: pointer;
-
             transition: all 0.25s ease;
         }
 
@@ -325,14 +317,10 @@
             width: 19px;
             height: 19px;
             min-width: 19px;
-
             border-radius: 50%;
-
             border: 2px solid rgba(139, 108, 92, 0.4);
             background: rgba(255, 255, 255, 0.35);
-
             position: relative;
-
             transition: all 0.25s ease;
         }
 
@@ -376,10 +364,7 @@
             line-height: 1.7;
         }
 
-        /* =========================
-           NHẬP KÍCH THƯỚC
-        ========================= */
-
+        /* ======= NHẬP KÍCH THƯỚC ========= */
         .input-section {
             width: 100%;
         }
@@ -404,18 +389,14 @@
         input[type="number"] {
             width: 72px;
             padding: 9px 6px;
-
             border: 1.5px solid rgba(139, 108, 92, 0.25);
             border-radius: 10px;
-
             font-size: 14px;
             font-weight: 700;
             color: var(--primary);
-
             background: rgba(255, 255, 255, 0.6);
             text-align: center;
             outline: none;
-
             transition: all 0.2s;
         }
 
@@ -458,28 +439,16 @@
         .btn-submit {
             width: 100%;
             margin-top: 10px;
-
             padding: 14px;
-
             border: none;
             border-radius: 12px;
-
-            background: linear-gradient(
-                135deg,
-                var(--primary),
-                var(--primary-hover)
-            );
-
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
             color: #ffffff;
             font-size: 0.95rem;
             font-weight: 700;
-
             cursor: pointer;
-
             box-shadow: 0 6px 20px rgba(139, 108, 92, 0.25);
-
             transition: all 0.25s ease;
-
             display: flex;
             justify-content: center;
             align-items: center;
@@ -495,10 +464,7 @@
             transform: scale(0.98);
         }
 
-        /* =========================
-           KẾT QUẢ
-        ========================= */
-
+        /* ======= KẾT QUẢ ========== */
         .result-section {
             width: 100%;
             display: flex;
@@ -511,7 +477,6 @@
             color: var(--text-muted);
             font-size: 0.9rem;
             line-height: 1.6;
-
             margin-top: 50px;
         }
 
@@ -568,29 +533,15 @@
             width: 100%;
             max-width: 350px;
             height: 290px;
-
             object-fit: cover;
-
             margin: 12px auto 0;
-
             border-radius: 20px;
-
             border: 2px solid rgba(139, 108, 92, 0.18);
-
             box-shadow: 0 12px 30px rgba(139, 108, 92, 0.15);
-
-            transition:
-                transform 0.3s ease,
-                box-shadow 0.3s ease;
-        }
+            transition: transform 0.3s ease, box-shadow 0.3s ease;}
 
         #flower-image.img-animate {
-            animation: imgPop 0.5s cubic-bezier(
-                0.175,
-                0.885,
-                0.32,
-                1.275
-            ) forwards;
+            animation: imgPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
         #flower-image:hover {
@@ -599,10 +550,8 @@
         }
 
         /* THỜI GIAN CHẠY */
-
         .execution-time {
             margin-top: 14px;
-
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -621,10 +570,7 @@
             font-weight: 800;
         }
 
-        /* =========================
-           TAB LỊCH SỬ
-        ========================= */
-
+        /* ====== TAB LỊCH SỬ ======= */
         .page-card {
             background: rgba(255, 255, 255, 0.55);
             backdrop-filter: blur(16px);
@@ -667,8 +613,7 @@
             overflow: hidden;
         }
 
-        .history-table th,
-        .history-table td {
+        .history-table th, .history-table td {
             padding: 14px 16px;
             text-align: center;
             border-bottom: 1px solid rgba(139, 108, 92, 0.08);
@@ -695,136 +640,785 @@
             font-weight: 700;
         }
 
-        /* =========================
-           ANIMATION
-        ========================= */
-
+        /* ======= ANIMATION ========= */
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(8px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from {opacity: 0; transform: translateY(8px);}
+            to {opacity: 1; transform: translateY(0);}
         }
 
         @keyframes imgPop {
-            0% {
-                opacity: 0;
-                transform: scale(0.85);
-            }
-
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
+            0% {opacity: 0; transform: scale(0.85);}
+            100% {opacity: 1; transform: scale(1);}
         }
 
         .spinner {
             width: 18px;
             height: 18px;
-
             border: 2px solid rgba(255, 255, 255, 0.3);
             border-top-color: #ffffff;
-
             border-radius: 50%;
-
             animation: spin 0.8s linear infinite;
         }
 
         @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
+            to {transform: rotate(360deg);}
         }
 
-        /* =========================
-           RESPONSIVE
-        ========================= */
-
+        /* ====== RESPONSIVE ======= */
         @media (max-width: 1050px) {
-
-            .classification-layout {
-                grid-template-columns: 0.8fr 1fr 1fr;
-                gap: 35px;
-            }
-
-            .classification-part:not(:last-child)::after {
-                right: -18px;
-            }
+            .classification-layout {grid-template-columns: 0.8fr 1fr 1fr; gap: 35px;}
+            .classification-part:not(:last-child)::after {right: -18px;}
         }
 
         @media (max-width: 850px) {
-
-            .flower-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .classification-layout {
-                grid-template-columns: 1fr;
-                gap: 45px;
-            }
-
+            .flower-grid {grid-template-columns: 1fr;}
+            .classification-layout {grid-template-columns: 1fr;gap: 45px;}
             .classification-part:not(:last-child)::after {
                 top: auto;
                 bottom: -23px;
                 right: 10%;
                 width: 80%;
                 height: 1px;
-
-                background: linear-gradient(
-                    to right,
-                    transparent,
-                    rgba(139, 108, 92, 0.18),
-                    transparent
-                );
-            }
-
-            #flower-image {
-                max-width: 380px;
-            }
+                background: linear-gradient(to right, transparent, rgba(139, 108, 92, 0.18), transparent);}
+            #flower-image {max-width: 380px;}
         }
 
         @media (max-width: 600px) {
-
             body {
                 padding-top: 110px;
             }
-
             .navbar {
                 flex-direction: column;
                 height: auto;
                 padding: 10px;
                 gap: 8px;
             }
-
             .nav-menu {
                 width: 100%;
                 justify-content: center;
             }
-
             .nav-link {
                 padding: 6px 12px;
                 font-size: 0.8rem;
             }
-
             .main-wrapper {
                 padding-left: 18px;
                 padding-right: 18px;
             }
-
             .classification-layout {
                 padding-left: 0;
                 padding-right: 0;
             }
-
             #flower-image {
                 height: 260px;
             }
         }
+
+        .auth-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #user-info {
+            color: #EFEBE9;
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+
+        .auth-btn {
+            border: none;
+            padding: 8px 14px;
+            border-radius: 10px;
+            background: #EFEBE9;
+            color: #8B6C5C;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .auth-btn:hover {
+            background: white;
+            transform: translateY(-1px);
+        }
+
+        .logout-btn {
+            background: #3D251E;
+            color: white;
+        }
+
+        .logout-btn:hover {
+            background: #5a362c;
+        }
+
+        @media (max-width: 850px) {
+            .navbar {
+                padding-left: 4%;
+                padding-right: 4%;
+            }
+
+            .auth-area {gap: 5px;}
+        }
+
+        /* ======  AUTH MODAL ======= */
+        .auth-modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(61, 37, 30, 0.35);
+            backdrop-filter: blur(7px);
+            -webkit-backdrop-filter: blur(7px);
+            padding: 20px;
+        }
+
+        .auth-modal-overlay.show {
+            display: flex;
+            animation: modalFadeIn 0.25s ease;
+        }
+
+        .auth-modal {
+            width: 100%;
+            max-width: 420px;
+            background: rgba(255, 255, 255, 0.94);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow:
+            0 25px 70px rgba(61, 37, 30, 0.25);
+            position: relative;
+            animation: modalScaleIn 0.25s
+            cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .auth-modal-close {
+            position: absolute;
+            top: 14px;
+            right: 16px;
+            width: 34px;
+            height: 34px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(139, 108, 92, 0.1);
+            color: var(--purple-dark);
+            font-size: 22px;
+            line-height: 1;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .auth-modal-close:hover {
+            background: var(--primary);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .auth-modal-icon {
+            width: 55px;
+            height: 55px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            background: rgba(139, 108, 92, 0.12);
+            color: var(--primary);
+            font-size: 25px;
+        }
+
+        .auth-modal h2 {
+            text-align: center;
+            color: var(--purple-dark);
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .auth-modal-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            margin-bottom: 25px;
+        }
+
+        .auth-form-group {
+            margin-bottom: 17px;
+        }
+
+        .auth-form-group label {
+            display: block;
+            margin-bottom: 7px;
+            color: var(--text-dark);
+            font-size: 0.82rem;
+            font-weight: 700;
+        }
+
+        .auth-input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1.5px solid rgba(139, 108, 92, 0.22);
+            border-radius: 12px;
+            background: rgba(239, 235, 233, 0.5);
+            color: var(--text-dark);
+            font-size: 0.9rem;
+            font-weight: 600;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .auth-input:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(139, 108, 92, 0.1);
+        }
+
+        .auth-submit {
+            width: 100%;
+            margin-top: 8px;
+            padding: 13px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(139, 108, 92, 0.22);
+            transition: all 0.2s ease;
+        }
+
+        .auth-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 9px 25px rgba(139, 108, 92, 0.3);
+        }
+
+        .auth-switch {
+            margin-top: 18px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.78rem;
+        }
+
+        .auth-switch button {
+            border: none;
+            background: none;
+            color: var(--primary);
+            font-weight: 800;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .auth-switch button:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== CHANGE PASSWORD MODAL ===== */
+        .change-password-modal {
+            width: 100%;
+            max-width: 420px;
+            background: rgba(255, 255, 255, 0.94);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 25px 70px rgba(61, 37, 30, 0.25);
+            position: relative;
+        }
+
+        .change-password-modal h2 {
+            text-align: center;
+            color: var(--purple-dark);
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .change-password-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            margin-bottom: 25px;
+        }
+
+        .change-password-message {
+            display: none;
+            width: 100%;
+            margin-bottom: 18px;
+            padding: 11px 13px;
+            border-radius: 10px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .change-password-message.success {
+            display: block;
+            color: #166534;
+            background: #dcfce7;
+            border: 1px solid #86efac;
+        }
+
+        .change-password-message.error {
+            display: block;
+            color: #991b1b;
+            background: #fee2e2;
+            border: 1px solid #fca5a5;
+        }
+
+        .change-password-submit {
+            width: 100%;
+            margin-top: 8px;
+            padding: 13px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(139, 108, 92, 0.22);
+        }
+
+        .change-password-submit:hover {
+            transform: translateY(-2px);
+        }
+
+        @keyframes modalFadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        @keyframes modalScaleIn {
+            from {opacity: 0; transform: scale(0.85) translateY(15px);}
+            to {opacity: 1; transform: scale(1) translateY(0);}
+        }
+
+        @media (max-width: 500px) {
+            .auth-modal {padding: 25px 20px; border-radius: 20px;}
+        }
+
+        /* ===== AUTH MESSAGE ===== */
+        .auth-message {
+            display: none;
+            width: 100%;
+            margin-bottom: 18px;
+            padding: 11px 13px;
+            border-radius: 10px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            line-height: 1.5;
+            text-align: center;
+            animation: authMessageIn 0.25s ease;
+        }
+
+        .auth-message.success {
+            display: block;
+            color: #166534;
+            background: #dcfce7;
+            border: 1px solid #86efac;
+        }
+
+        .auth-message.error {
+            display: block;
+            color: #991b1b;
+            background: #fee2e2;
+            border: 1px solid #fca5a5;
+        }
+
+        .auth-message.info {
+            display: block;
+            color: #92400e;
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+        }
+
+        @keyframes authMessageIn {
+            from {opacity: 0; transform: translateY(-5px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        /* ===== TOAST MESSAGE ===== */
+        .auth-toast {
+            position: fixed;
+            top: 90px;
+            right: 30px;
+            z-index: 10000;
+            min-width: 280px;
+            max-width: 380px;
+            padding: 14px 18px;
+            border-radius: 14px;
+            background: #ffffff;
+            color: #166534;
+            border: 1px solid #86efac;
+            box-shadow: 0 12px 35px rgba(61, 37, 30, 0.18);
+            font-size: 0.85rem;
+            font-weight: 700;
+            opacity: 0;
+            transform: translateY(-15px);
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .auth-toast.show {opacity: 1; transform: translateY(0);}
+
+        .auth-toast.error {
+            color: #991b1b;
+            border-color: #fca5a5;
+        }
+
+        .auth-toast.success {
+            color: #166534;
+            border-color: #86efac;
+        }
+
+        @media (max-width: 600px) {
+            .auth-toast {
+                top: 120px;
+                left: 18px;
+                right: 18px;
+                min-width: auto;
+                max-width: none;
+            }
+        }
+
+        /* ===== USER DROPDOWN ===== */
+        .user-dropdown {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .user-dropdown-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            background: transparent;
+            color: #EFEBE9;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 8px 5px;
+            transition: all 0.2s ease;
+        }
+
+        .user-dropdown-btn:hover {
+            opacity: 0.85;
+        }
+
+        .dropdown-arrow {
+            font-size: 10px;
+            transition: transform 0.2s ease;
+        }
+
+        .user-dropdown.open .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        /* MENU */
+        .user-dropdown-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            width: 190px;
+            padding: 7px;
+            background: rgba(255, 255, 255, 0.97);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 14px;
+            box-shadow:
+                0 15px 40px rgba(61, 37, 30, 0.18);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-6px);
+            transition:
+                opacity 0.2s ease,
+                transform 0.2s ease,
+                visibility 0.2s ease;
+            z-index: 2000;
+        }
+
+
+        /* KHI MỞ */
+        .user-dropdown.open .user-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* CÁC NÚT */
+        .user-dropdown-menu button {
+            width: 100%;
+            border: none;
+            background: transparent;
+            text-align: left;
+            padding: 11px 12px;
+            border-radius: 9px;
+            color: var(--text-dark);
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .user-dropdown-menu button:hover {
+            background: rgba(139, 108, 92, 0.1);
+            color: var(--primary);
+        }
+
+        /* XÓA TÀI KHOẢN */
+        .user-dropdown-menu .delete-account-option {
+            color: #dc2626;
+        }
+
+        .user-dropdown-menu .delete-account-option:hover {
+            background: rgba(220, 38, 38, 0.08);
+            color: #b91c1c;
+        }
+
+        @media (max-width: 600px) {
+            .user-dropdown-menu {
+                right: -5px;
+                width: 180px;
+            }
+        }
+
+        /* ===== PASSWORD SHOW / HIDE ===== */
+        .password-input-wrap {
+            position: relative;
+            width: 100%;
+        }
+
+        .password-input-wrap .auth-input {
+            padding-right: 48px;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 18px;
+            color: var(--text-muted);
+            padding: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .password-toggle:hover {
+            color: var(--primary);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        /* ====== TRANG 2 - GIỚI THIỆU CÁC MÔ HÌNH ========= */
+        .about-pages-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .about-page {
+            display: none;
+            animation: aboutPageSlideIn 0.4s ease;
+        }
+
+        .about-page.active {
+            display: block;
+        }
+
+        .about-page-title {
+            text-align: center;
+            color: var(--purple-dark);
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+            font-weight: 800;
+        }
+
+        .about-page-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 35px;
+            font-size: 0.98rem;
+            font-weight: 500;
+        }
+
+        /* ===== MŨI TÊN CHUYỂN TRANG ===== */
+        .about-page-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 48px;
+            height: 48px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(139, 108, 92, 0.12);
+            color: var(--primary);
+            font-size: 28px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 900;
+            transition:
+                background 0.25s ease,
+                color 0.25s ease,
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        .about-page-arrow:hover {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 8px 25px rgba(139, 108, 92, 0.25);
+            transform:
+                translateY(-50%)
+                scale(1.08);
+        }
+
+        .about-page-arrow.left {
+            left: 18px;
+        }
+
+        .about-page-arrow.right {
+            right: 18px;
+        }
+
+        /* ===== CARD MÔ HÌNH ===== */
+        .model-intro-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 10px;
+        }
+
+        .model-intro-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 20px;
+            border: 1px sol
+            padding: 26px;
+            box-shadow:
+                0 10px 30px rgba(139, 108, 92, 0.06);
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+            min-height: 220px;
+        }
+        .model-intro-card:hover {
+            transform: translateY(-6px);
+            box-shadow:
+                0 15px 35px rgba(139, 108, 92, 0.15);
+        }
+
+        .model-intro-number {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(139, 108, 92, 0.12);
+            color: var(--primary);
+            font-size: 0.82rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .model-intro-card h2 {
+            color: var(--purple-dark);
+            font-size: 1.15rem;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .model-intro-card p {
+            color: var(--text-muted);
+            font-size: 0.86rem;
+            line-height: 1.7;
+        }
+
+        /* ===== INDICATOR ===== */
+        .about-page-indicator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 30px;
+        }
+
+        .about-page-dot {
+            width: 8px;
+            height: 8px;
+
+            border-radius: 50%;
+
+            background: rgba(139, 108, 92, 0.2);
+
+            transition: all 0.25s ease;
+        }
+
+        .about-page-dot.active {
+            width: 24px;
+
+            border-radius: 10px;
+
+            background: var(--primary);
+        }
+
+        /* ===== ANIMATION ===== */
+
+        @keyframes aboutPageSlideIn {
+            from {opacity: 0; transform: translateX(20px);}
+            to {opacity: 1; transform: translateX(0);}
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1050px) {
+            .model-intro-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 700px) {
+            .model-intro-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-page-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 23px;
+            }
+
+            .about-page-arrow.left {
+                left: 8px;
+            }
+
+            .about-page-arrow.right {
+                right: 8px;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+            .about-page-title {
+                font-size: 1.8rem;
+            }
+
+            .about-page-subtitle {
+                font-size: 0.88rem;
+            }
+
+        }
+
     </style>
 </head>
 
@@ -832,135 +1426,74 @@
 
     <!-- NAVBAR -->
     <nav class="navbar">
-
         <div class="nav-logo">
             Iris-Svm
         </div>
 
-        <div class="nav-menu">
+        <div class="navbar-right">
+            <!-- PHẦN AUTH -->
+            <div class="auth-area">
 
-            <span
-                class="nav-link active"
-                onclick="switchTab('about', this)">
-                Giới thiệu
-            </span>
+            <!-- HIỂN THỊ KHI CHƯA ĐĂNG NHẬP -->
+            <button
+                id="btn-register"
+                class="auth-btn"
+                onclick="register()">
+                Đăng ký
+            </button>
 
-            <span
-                class="nav-link"
-                onclick="switchTab('classify', this)">
-                Phân loại
-            </span>
+            <button
+                id="btn-login"
+                class="auth-btn"
+                onclick="login()">
+                Đăng nhập
+            </button>
 
-            <span
-                class="nav-link"
-                onclick="switchTab('history', this)">
-                Lịch sử
-            </span>
+            <!-- HIỂN THỊ KHI ĐÃ ĐĂNG NHẬP -->
+            <div
+                id="user-dropdown"
+                class="user-dropdown"
+                style="display:none;">
 
-        </div>
+                <button
+                    id="user-dropdown-btn"
+                    class="user-dropdown-btn"
+                    type="button"
+                    onclick="toggleUserDropdown()">
 
-    </nav>
+                    <span id="user-info">
+                        Xin chào
+                    </span>
 
+                    <span class="dropdown-arrow">
+                        ▼
+                    </span>
 
-    <!-- MAIN CONTENT -->
-    <div class="main-wrapper">
+                </button>
 
+                <!-- MENU -->
+                <div
+                    id="user-dropdown-menu"
+                    class="user-dropdown-menu">
 
-        <!-- ========== TAB 1: GIỚI THIỆU ============= -->
+                    <button
+                        type="button"
+                        onclick="changePassword()">
+                        🔑 Đổi mật khẩu
+                    </button>
 
-        <div id="tab-about" class="tab-content active">
+                    <button
+                        type="button"
+                        onclick="logout()">
+                        🚪 Đăng xuất
+                    </button>
 
-            <h1>Các Loài Hoa Diên Vĩ</h1>
-
-            <p class="subtitle">
-                Khám phá 3 loài hoa chính trong bộ dữ liệu Iris Dataset
-            </p>
-
-
-            <div class="flower-grid">
-
-                <!-- SETOSA -->
-                <div class="flower-card">
-
-                    <div class="flower-card-img-wrap">
-
-                        <img
-                            src="/photo/setosa.jpg"
-                            alt="Hoa Diên Vĩ Setosa"
-                            class="flower-card-img">
-
-                    </div>
-
-                    <div class="flower-card-info">
-
-                        <h2>
-                            Hoa Diên Vĩ Setosa
-                        </h2>
-
-                        <p>
-                            Kích thước cánh hoa nhỏ và ngắn.
-                            Rất dễ phân biệt với hai loài còn lại
-                            nhờ đài hoa nổi bật.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <!-- VERSICOLOR -->
-                <div class="flower-card">
-
-                    <div class="flower-card-img-wrap">
-
-                        <img
-                            src="/photo/versicolor.jpg"
-                            alt="Hoa Diên Vĩ Versicolor"
-                            class="flower-card-img">
-
-                    </div>
-
-                    <div class="flower-card-info">
-
-                        <h2>
-                            Hoa Diên Vĩ Versicolor
-                        </h2>
-
-                        <p>
-                            Kích thước các bộ phận đài hoa và cánh
-                            hoa ở mức trung bình, thể hiện sự cân đối
-                            hài hòa.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <!-- VIRGINICA -->
-                <div class="flower-card">
-
-                    <div class="flower-card-img-wrap">
-
-                        <img
-                            src="/photo/virginica.jpg"
-                            alt="Hoa Diên Vĩ Virginica"
-                            class="flower-card-img">
-
-                    </div>
-
-                    <div class="flower-card-info">
-
-                        <h2>
-                            Hoa Diên Vĩ Virginica
-                        </h2>
-
-                        <p>
-                            Thường có kích thước cánh hoa và đài hoa
-                            lớn nhất trong cả 3 loài hoa Diên Vĩ.
-                        </p>
-
-                    </div>
+                    <button
+                        type="button"
+                        class="delete-account-option"
+                        onclick="deleteAccount()">
+                        🗑️ Xóa tài khoản
+                    </button>
 
                 </div>
 
@@ -969,22 +1502,307 @@
         </div>
 
 
+            <!-- THANH NGĂN -->
+            <div class="navbar-divider"></div>
+
+            <!-- PHẦN MENU -->
+            <div class="nav-menu">
+                <span
+                    class="nav-link active"
+                    onclick="switchTab('about', this)">
+                    Giới thiệu
+                </span>
+
+                <span
+                    class="nav-link"
+                    onclick="switchTab('classify', this)">
+                    Phân loại
+                </span>
+
+                <span
+                    class="nav-link"
+                    onclick="switchTab('history', this)">
+                    Lịch sử
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-wrapper">
+
+        <!-- ========== TAB 1: GIỚI THIỆU ========== -->
+        <div id="tab-about" class="tab-content active">
+
+            <!-- ======== ĐIỀU HƯỚNG 2 TRANG ======== -->
+            <button
+                id="about-prev-arrow"
+                class="about-page-arrow left"
+                onclick="switchAboutPage(1)"
+                aria-label="Trang trước"
+                style="display: none;"
+            >
+                <
+            </button>
+
+            <button
+                id="about-next-arrow"
+                class="about-page-arrow right"
+                onclick="switchAboutPage(2)"
+                aria-label="Trang tiếp theo"
+            >
+                >
+            </button>
+
+
+            <!-- ==================== TRANG 1 ==================== -->
+            <div
+                id="about-page-1"
+                class="about-page active"
+            >
+
+                <h1>Các Loài Hoa Diên Vĩ</h1>
+
+                <p class="subtitle">
+                    Khám phá 3 loài hoa chính trong bộ dữ liệu Iris Dataset
+                </p>
+
+
+                <!-- ======= DANH SÁCH 3 LOÀI HOA ======= -->
+                <div class="flower-grid">
+
+                    <!-- SETOSA -->
+                    <div class="flower-card">
+
+                        <div class="flower-card-img-wrap">
+                            <img
+                                src="/photo/setosa.jpg"
+                                alt="Hoa Diên Vĩ Setosa"
+                                class="flower-card-img"
+                            >
+                        </div>
+
+                        <div class="flower-card-info">
+
+                            <h2>Hoa Diên Vĩ Setosa</h2>
+
+                            <p>
+                                Kích thước cánh hoa nhỏ và ngắn.
+                                Rất dễ phân biệt với hai loài còn lại
+                                nhờ đài hoa nổi bật.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- VERSICOLOR -->
+                    <div class="flower-card">
+
+                        <div class="flower-card-img-wrap">
+                            <img
+                                src="/photo/versicolor.jpg"
+                                alt="Hoa Diên Vĩ Versicolor"
+                                class="flower-card-img"
+                            >
+                        </div>
+
+                        <div class="flower-card-info">
+
+                            <h2>Hoa Diên Vĩ Versicolor</h2>
+
+                            <p>
+                                Kích thước các bộ phận đài hoa và cánh
+                                hoa ở mức trung bình, thể hiện sự cân đối
+                                hài hòa.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- VIRGINICA -->
+                    <div class="flower-card">
+
+                        <div class="flower-card-img-wrap">
+                            <img
+                                src="/photo/virginica.jpg"
+                                alt="Hoa Diên Vĩ Virginica"
+                                class="flower-card-img"
+                            >
+                        </div>
+
+                        <div class="flower-card-info">
+
+                            <h2>Hoa Diên Vĩ Virginica</h2>
+
+                            <p>
+                                Thường có kích thước cánh hoa và đài hoa
+                                lớn nhất trong cả 3 loài hoa Diên Vĩ.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- END .flower-grid -->
+
+            </div>
+            <!-- END #about-page-1 -->
+
+            <!-- ==================== TRANG 2 ==================== -->
+            <div
+                id="about-page-2"
+                class="about-page"
+            >
+
+                <h1 class="about-page-title">
+                    Các Mô Hình Phân Loại
+                </h1>
+
+                <p class="about-page-subtitle">
+                    Tìm hiểu các mô hình Machine Learning được sử dụng
+                    để phân loại hoa Iris
+                </p>
+
+                <div class="model-intro-grid">
+
+                    <!-- SVM -->
+                    <div class="model-intro-card">
+
+                        <div class="model-intro-number">
+                            01
+                        </div>
+
+                        <h2>
+                            Support Vector Machine (SVM)
+                        </h2>
+
+                        <p>
+                            SVM là thuật toán phân loại tìm kiếm
+                            siêu phẳng tối ưu để phân tách các nhóm
+                            dữ liệu. Mô hình đặc biệt hiệu quả khi
+                            dữ liệu có ranh giới phân lớp rõ ràng.
+                        </p>
+
+                    </div>
+
+                    <!-- LOGISTIC REGRESSION -->
+                    <div class="model-intro-card">
+
+                        <div class="model-intro-number">
+                            02
+                        </div>
+
+                        <h2>
+                            Logistic Regression
+                        </h2>
+
+                        <p>
+                            Logistic Regression là mô hình dùng để
+                            dự đoán xác suất một mẫu thuộc về từng
+                            lớp. Đây là một phương pháp phổ biến,
+                            đơn giản và dễ diễn giải trong bài toán
+                            phân loại.
+                        </p>
+
+                    </div>
+
+                    <!-- KNN -->
+                    <div class="model-intro-card">
+
+                        <div class="model-intro-number">
+                            03
+                        </div>
+
+                        <h2>
+                            K-Nearest Neighbors (KNN)
+                        </h2>
+
+                        <p>
+                            KNN phân loại một mẫu dựa trên các điểm
+                            dữ liệu gần nó nhất. Kết quả được xác định
+                            dựa trên lớp chiếm ưu thế trong nhóm
+                            các láng giềng được lựa chọn.
+                        </p>
+
+                    </div>
+
+                    <!-- NAIVE BAYES -->
+                    <div class="model-intro-card">
+
+                        <div class="model-intro-number">
+                            04
+                        </div>
+
+                        <h2>
+                            Naive Bayes
+                        </h2>
+
+                        <p>
+                            Naive Bayes sử dụng định lý Bayes để tính
+                            xác suất một mẫu thuộc về từng lớp.
+                            Mô hình giả định các đặc trưng có tính
+                            độc lập có điều kiện.
+                        </p>
+
+                    </div>
+
+                    <!-- LDA -->
+                    <div class="model-intro-card">
+
+                        <div class="model-intro-number">
+                            05
+                        </div>
+
+                        <h2>
+                            Linear Discriminant Analysis (LDA)
+                        </h2>
+
+                        <p>
+                            LDA tìm cách xây dựng các hướng chiếu
+                            giúp các lớp dữ liệu tách biệt tốt nhất.
+                            Phương pháp này vừa có thể giảm chiều
+                            dữ liệu vừa hỗ trợ bài toán phân loại.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- ======= CHẤM TRANG ======= -->
+                <div class="about-page-indicator">
+
+                    <span
+                        id="about-dot-1"
+                        class="about-page-dot active"
+                    ></span>
+
+                    <span
+                        id="about-dot-2"
+                        class="about-page-dot"
+                    ></span>
+
+                </div>
+
+            </div>
+            <!-- END #about-page-2 -->
+
+        </div>
+        <!-- END #tab-about -->
+
         <!-- ============= TAB 2: PHÂN LOẠI ============== -->
-
         <div id="tab-classify" class="tab-content">
-
             <h1>Phân Loại Hoa Diên Vĩ</h1>
 
-
             <!-- 3 PHẦN TRÊN BACKGROUND -->
-
             <div class="classification-layout">
 
-
                 <!-- ========= PHẦN 1: CHỌN MÔ HÌNH ============= -->
-
                 <div class="classification-part">
-
                     <div class="part-title">
 
                         <span class="part-number">
@@ -995,9 +1813,7 @@
 
                     </div>
 
-
                     <div class="model-list">
-
 
                         <!-- SVM -->
                         <label
@@ -1018,7 +1834,6 @@
 
                         </label>
 
-
                         <!-- LOGISTIC -->
                         <label
                             class="model-option"
@@ -1036,7 +1851,6 @@
                             </span>
 
                         </label>
-
 
                         <!-- KNN -->
                         <label
@@ -1056,7 +1870,6 @@
 
                         </label>
 
-
                         <!-- NAIVE BAYES -->
                         <label
                             class="model-option"
@@ -1074,7 +1887,6 @@
                             </span>
 
                         </label>
-
 
                         <!-- LDA -->
                         <label
@@ -1098,9 +1910,7 @@
 
                 </div>
 
-
                 <!-- ======== PHẦN 2: NHẬP KÍCH THƯỚC ======== -->
-
                 <div class="classification-part">
 
                     <div class="part-title">
@@ -1113,9 +1923,7 @@
 
                     </div>
 
-
                     <div class="input-section">
-
 
                         <!-- SEPAL LENGTH -->
                         <div class="form-group">
@@ -1158,7 +1966,6 @@
 
                         </div>
 
-
                         <!-- SEPAL WIDTH -->
                         <div class="form-group">
 
@@ -1199,7 +2006,6 @@
                             </div>
 
                         </div>
-
 
                         <!-- PETAL LENGTH -->
                         <div class="form-group">
@@ -1242,7 +2048,6 @@
 
                         </div>
 
-
                         <!-- PETAL WIDTH -->
                         <div class="form-group">
 
@@ -1284,122 +2089,66 @@
 
                         </div>
 
-
                         <!-- BUTTON -->
                         <button
                             id="btn-predict"
                             class="btn-submit"
-                            onclick="predict()">
-
-                            Dự đoán ngay
-
+                            onclick="predict()"
+                            disabled>
+                            Đăng nhập để dự đoán
                         </button>
 
                     </div>
 
                 </div>
 
-
-                <!-- =================================================
-                     PHẦN 3: KẾT QUẢ
-                ================================================== -->
-
+                <!-- ======== PHẦN 3: KẾT QUẢ =========== -->
                 <div class="classification-part">
-
                     <div class="part-title">
-
                         <span class="part-number">
                             03
                         </span>
-
                         Kết quả dự đoán
-
                     </div>
-
-
                     <div class="result-section">
 
-
                         <!-- PLACEHOLDER -->
-
                         <div
                             id="placeholder"
                             class="placeholder-text">
-
                             Nhấn nút
                             <strong>"Dự đoán ngay"</strong>
                             <br>
                             để xem kết quả phân loại.
-
                         </div>
 
-
                         <!-- RESULT -->
-
                         <div id="result">
-
                             <div id="prediction"></div>
 
-
-                            <!-- CONFIDENCE -->
-
-                            <div
-                                id="confidence-wrap"
-                                style="display: none;">
-
-                                <div id="confidence">
-                                    Độ tin cậy: 0%
-                                </div>
-
-                                <div class="progress-bar-wrap">
-
-                                    <div
-                                        id="progress-bar"
-                                        class="progress-bar-fill">
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-
                             <!-- FLOWER IMAGE -->
-
                             <img
                                 id="flower-image"
                                 src=""
                                 alt="Hoa Diên Vĩ">
 
-
                             <!-- EXECUTION TIME -->
-
                             <div class="execution-time">
-
                                 <div class="execution-label">
                                     Thời gian chạy mô hình
                                 </div>
-
                                 <div id="execution-time">
                                     --
                                 </div>
-
                             </div>
 
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-
         </div>
 
-
-        <!-- =====================================================
-             TAB 3: LỊCH SỬ
-        ====================================================== -->
-
+        <!-- ======== TAB 3: LỊCH SỬ ============== -->
         <div id="tab-history" class="tab-content">
 
             <h1>Lịch Sử Dự Đoán</h1>
@@ -1423,7 +2172,7 @@
                         class="btn-clear"
                         onclick="clearHistory()">
 
-                        🗑️ Xóa lịch sử
+                        Xóa lịch sử
 
                     </button>
 
@@ -1493,264 +2242,823 @@
     </div>
 
 
-    <!-- =========================================================
-         JAVASCRIPT
-    ========================================================== -->
+    <!-- ======= AUTH MODAL ========== -->
+    <div
+        id="auth-modal-overlay"
+        class="auth-modal-overlay"
+        onclick="closeAuthModalOutside(event)"
+    >
+        <div
+            class="auth-modal"
+            onclick="event.stopPropagation()"
+        >
+            <!-- NÚT ĐÓNG -->
+            <button
+                class="auth-modal-close"
+                onclick="closeAuthModal()"
+                type="button"
+            >
+                ×
+            </button>
 
+            <!-- ICON -->
+            <div
+                id="auth-modal-icon"
+                class="auth-modal-icon"
+            >
+                🔐
+            </div>
+            <!-- TIÊU ĐỀ -->
+            <h2 id="auth-modal-title">
+                Đăng nhập
+            </h2>
+
+            <p
+                id="auth-modal-subtitle"
+                class="auth-modal-subtitle"
+            >
+                Đăng nhập để sử dụng chức năng dự đoán
+            </p>
+
+            <div id="auth-message" class="auth-message"></div>
+
+            <!-- ====== FORM ĐĂNG NHẬP ========= -->
+            <form
+                id="login-form"
+                onsubmit="submitLogin(event)"
+            >
+                <div class="auth-form-group">
+                    <label for="login-username">
+                        Tên tài khoản
+                    </label>
+                    <input
+                        id="login-username"
+                        class="auth-input"
+                        type="text"
+                        placeholder="Nhập tên tài khoản"
+                        autocomplete="username"
+                        required
+                    >
+                </div>
+                <div class="auth-form-group">
+                    <label for="login-password">
+                        Mật khẩu
+                    </label>
+
+                    <div class="password-input-wrap">
+                        <input
+                            id="login-password"
+                            class="auth-input"
+                            type="password"
+                            placeholder="Nhập mật khẩu"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            onclick="togglePassword('login-password', this)"
+                            aria-label="Hiện mật khẩu"
+                        >
+                            🙉
+                        </button>
+
+                    </div>
+                </div>
+
+                <button
+                    class="auth-submit"
+                    type="submit"
+                >
+                    Đăng nhập
+                </button>
+
+                <div class="auth-switch">
+                    Chưa có tài khoản?
+
+                    <button
+                        type="button"
+                        onclick="switchAuthModal('register')"
+                    >
+                        Đăng ký ngay
+                    </button>
+                </div>
+            </form>
+            <!-- ====== FORM ĐĂNG KÝ ====== -->
+            <form
+                id="register-form"
+                onsubmit="submitRegister(event)"
+                style="display: none;"
+            >
+                <div class="auth-form-group">
+                    <label for="register-username">
+                        Tên tài khoản
+                    </label>
+
+                    <input
+                        id="register-username"
+                        class="auth-input"
+                        type="text"
+                        placeholder="Nhập tên tài khoản"
+                        autocomplete="username"
+                        required
+                    >
+                </div>
+
+                <div class="auth-form-group">
+                    <label for="register-password">
+                        Mật khẩu
+                    </label>
+
+                    <div class="password-input-wrap">
+                        <input
+                            id="register-password"
+                            class="auth-input"
+                            type="password"
+                            placeholder="Nhập mật khẩu"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            onclick="togglePassword('register-password', this)"
+                            aria-label="Hiện mật khẩu"
+                        >
+                            🙉
+                        </button>
+
+                    </div>
+                </div>
+
+                <div class="auth-form-group">
+                    <label for="register-confirm-password">
+                        Nhập lại mật khẩu
+                    </label>
+
+                    <div class="password-input-wrap">
+                        <input
+                            id="register-confirm-password"
+                            class="auth-input"
+                            type="password"
+                            placeholder="Nhập lại mật khẩu"
+                            autocomplete="new-password"
+                            required
+                        >
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            onclick="togglePassword('register-confirm-password', this)"
+                            aria-label="Hiện mật khẩu"
+                        >
+                            🙉
+                        </button>
+                    </div>
+                </div>
+
+                <button
+                    class="auth-submit"
+                    type="submit"
+                >
+                    Tạo tài khoản
+                </button>
+
+                <div class="auth-switch">
+                    Đã có tài khoản?
+
+                    <button
+                        type="button"
+                        onclick="switchAuthModal('login')"
+                    >
+                        Đăng nhập
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- ======== JAVASCRIPT ======== -->
     <script>
-
-        const flowerNamesVN = {
-
-            "setosa":
-                "Hoa Diên Vĩ Setosa",
-
-            "versicolor":
-                "Hoa Diên Vĩ Versicolor",
-
-            "virginica":
-                "Hoa Diên Vĩ Virginica",
-
-            "iris-setosa":
-                "Hoa Diên Vĩ Setosa",
-
-            "iris-versicolor":
-                "Hoa Diên Vĩ Versicolor",
-
-            "iris-virginica":
-                "Hoa Diên Vĩ Virginica"
-
-        };
-
-
+        // ====== AUTHENTICATION ========
+        let token = localStorage.getItem("iris_token");
+        let currentUser = null;
         let historyData = [];
-
-
-        /* =========================
-           MODEL ĐANG CHỌN
-        ========================= */
-
         let selectedModel = "SVM";
 
+        // ====== HIỆN / ẨN MẬT KHẨU =======
+        function togglePassword(inputId, button) {
+            const input =
+                document.getElementById(inputId);
 
-        /* =========================
-           CHUYỂN TAB
-        ========================= */
+            if (!input) return;
 
-        function switchTab(tabName, element) {
+            if (input.type === "password") {
 
-            document
-                .querySelectorAll('.tab-content')
-                .forEach(tab =>
-                    tab.classList.remove('active')
+                input.type = "text";
+
+                button.innerText = "🙈";
+
+                button.setAttribute(
+                    "aria-label",
+                    "Ẩn mật khẩu"
                 );
 
-            document
-                .querySelectorAll('.nav-link')
-                .forEach(link =>
-                    link.classList.remove('active')
+            } else {
+
+                input.type = "password";
+
+                button.innerText = "🙉";
+
+                button.setAttribute(
+                    "aria-label",
+                    "Hiện mật khẩu"
                 );
 
-            document
-                .getElementById('tab-' + tabName)
-                .classList.add('active');
-
-            element.classList.add('active');
-
-        }
-
-
-        /* =========================
-           CHỌN MODEL
-        ========================= */
-
-        function selectModel(modelName, element) {
-
-            selectedModel = modelName;
-
-            document
-                .querySelectorAll('.model-option')
-                .forEach(option =>
-                    option.classList.remove('selected')
-                );
-
-            element.classList.add('selected');
-
-            const radio =
-                element.querySelector('input[type="radio"]');
-
-            if (radio) {
-                radio.checked = true;
             }
-
         }
 
 
-        /* =========================
-           ĐỒNG BỘ RANGE → NUMBER
-        ========================= */
+        // ======= AUTH MODAL ==========
+        function openAuthModal(type = "login") {
+            const overlay = document.getElementById("auth-modal-overlay");
+            if (!overlay) return;
+            overlay.classList.add("show");
+            switchAuthModal(type);
+        }
 
-        function syncRange(inputId, rangeId) {
+        function closeAuthModal() {
+            const overlay = document.getElementById("auth-modal-overlay");
+               if (!overlay) return;
+               overlay.classList.remove("show");
+        }
 
-            document.getElementById(rangeId).value =
-                document.getElementById(inputId).value;
+        function closeAuthModalOutside(event) {
+            if (event.target.id === "auth-modal-overlay") {
+            closeAuthModal();
+            }
+        }
 
+        function switchAuthModal(type) {
+            const loginForm = document.getElementById("login-form");
+            const registerForm = document.getElementById("register-form");
+            const title = document.getElementById("auth-modal-title");
+            const subtitle = document.getElementById("auth-modal-subtitle");
+            const icon = document.getElementById("auth-modal-icon");
+
+            hideAuthMessage();
+
+
+            if (type === "register") {
+                loginForm.style.display = "none";
+                registerForm.style.display = "block";
+                title.innerText = "Đăng ký";
+                subtitle.innerText = "Tạo tài khoản để sử dụng chức năng dự đoán";
+                icon.innerText = "📝";
+            } else {
+                loginForm.style.display = "block";
+                registerForm.style.display = "none";
+                title.innerText = "Đăng nhập";
+                subtitle.innerText = "Đăng nhập để sử dụng chức năng dự đoán";
+                icon.innerText = "🔐";
+            }
+        }
+
+        // ======== AUTH MESSAGE =============
+        function showAuthMessage(message, type = "info") {
+
+            const messageBox =
+                document.getElementById("auth-message");
+
+            if (!messageBox) return;
+
+            messageBox.className =
+                "auth-message " + type;
+
+            messageBox.innerText = message;
+
+            messageBox.style.display = "block";
         }
 
 
-        /* =========================
-           ĐỒNG BỘ NUMBER → RANGE
-        ========================= */
+        function hideAuthMessage() {
 
-        function syncInput(inputId, rangeId) {
+            const messageBox =
+                document.getElementById("auth-message");
 
-            document.getElementById(inputId).value =
-                document.getElementById(rangeId).value;
+            if (!messageBox) return;
 
+            messageBox.innerText = "";
+            messageBox.className = "auth-message";
+            messageBox.style.display = "none";
+        }
+
+        // ======== AUTH TOAST =============
+        function showAuthToast(message, type = "success") {
+
+            const toast =
+                document.getElementById("auth-toast");
+
+            if (!toast) return;
+
+            toast.className =
+                "auth-toast " + type;
+
+            toast.innerText = message;
+
+            // Hiện toast
+            requestAnimationFrame(() => {
+                toast.classList.add("show");
+            });
+
+            // Tự ẩn sau 2.5 giây
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, 2500);
         }
 
 
-        /* =========================
-           DISABLE FORM
-        ========================= */
+        // ======= SUBMIT LOGIN ==========
+        async function submitLogin(event) {
+            event.preventDefault();
 
-        function setFormDisabled(disabled) {
+            const username =
+                document.getElementById("login-username").value.trim();
 
-            const inputs =
-                document.querySelectorAll(
-                    '.input-section input'
+            const password =
+                document.getElementById("login-password").value;
+
+            hideAuthMessage();
+
+            try {
+
+                const response =
+                    await fetch("/login", {
+                    method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Accept": "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            username: username,
+                            password: password
+                        })
+                    });
+
+                const result =
+                    await response.json();
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        result.detail ||
+                        "Đăng nhập thất bại"
+                    );
+                }
+
+                // Lưu token
+                token = result.token;
+
+                localStorage.setItem(
+                    "iris_token",
+                    token
                 );
 
-            inputs.forEach(input =>
-                input.disabled = disabled
-            );
+                // Kiểm tra tài khoản
+                const loggedIn =
+                    await checkLogin();
 
+                if (!loggedIn) {
+
+                    throw new Error(
+                        "Không thể xác nhận tài khoản."
+                    );
+                }
+
+                // Reset form
+                document
+                    .getElementById("login-form")
+                    .reset();
+
+                // ĐÓNG MODEL ĐĂNG NHẬP NGAY KHI ĐĂNG NHẬP THÀNH CÔNG
+                closeAuthModal();
+
+                // CHỈ HIỆN TOAST THÀNH CÔNG
+                showAuthToast(
+                    "✓ Đăng nhập thành công!",
+                    "success"
+                );
+
+            }
+            catch (error) {
+                showAuthMessage(
+                    "✕ " + error.message,
+                    "error"
+                );
+            }
         }
 
+        // ====== SUBMIT REGISTER ============
+        async function submitRegister(event) {
 
-        /* =========================
-           HISTORY
-        ========================= */
+            event.preventDefault();
 
-        function updateHistoryTable() {
+            const username =
+                document
+                    .getElementById("register-username")
+                    .value
+                    .trim();
 
-            const tbody =
-                document.getElementById("history-list");
+            const password =
+                document
+                    .getElementById("register-password")
+                    .value;
 
+            const confirmPassword =
+                document
+                    .getElementById("register-confirm-password")
+                    .value;
 
-            if (historyData.length === 0) {
+            // Xóa thông báo cũ
+            hideAuthMessage();
 
-                tbody.innerHTML = `
-                    <tr>
-                        <td
-                            colspan="6"
-                            style="
-                                color: var(--text-muted);
-                                opacity: 0.7;
-                            ">
+            // Kiểm tra mật khẩu
+            if (password !== confirmPassword) {
 
-                            Chưa có lịch sử dự đoán nào.
-
-                        </td>
-                    </tr>
-                `;
+                showAuthMessage(
+                    "✕ Mật khẩu nhập lại không khớp.",
+                    "error"
+                );
 
                 return;
             }
 
+            try {
 
-            tbody.innerHTML =
-                historyData.map((item, index) => `
+                const response =
+                    await fetch("/register", {
+                        method: "POST",
 
-                    <tr>
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Accept": "application/json"
+                        },
 
-                        <td>
-                            <strong>
-                                ${index + 1}
-                            </strong>
-                        </td>
+                        body: JSON.stringify({
+                            username: username,
+                            password: password
+                        })
+                    });
 
-                        <td>
-                            <span class="badge-flower">
-                                ${item.model}
-                            </span>
-                        </td>
+                const result =
+                    await response.json();
 
-                        <td>
-                            ${item.sl} × ${item.sw} cm
-                        </td>
+                if (!response.ok) {
 
-                        <td>
-                            ${item.pl} × ${item.pw} cm
-                        </td>
+                    throw new Error(
+                        result.detail ||
+                        "Đăng ký thất bại"
+                    );
+                }
 
-                        <td>
-                            <span class="badge-flower">
-                                ${item.prediction}
-                            </span>
-                        </td>
+                document
+                    .getElementById("register-form")
+                    .reset();
 
-                        <td>
-                            ${item.executionTime}
-                        </td>
+                // ĐÓNG MODEL ĐĂNG KÝ KHI ĐĂNG KÝ THÀNH CÔNG
+                closeAuthModal();
 
-                    </tr>
+                // CHỈ HIỆN TOAST THÀNH CÔNG
+                showAuthToast(
+                    "✓ Đăng ký thành công!",
+                    "success"
+                );
 
-                `).join('');
+            }
+            catch (error) {
 
+                showAuthMessage(
+                    "✕ " + error.message,
+                    "error"
+                );
+            }
+        }
+
+        // ==== FLOWER NAME =====
+        const flowerNamesVN = {
+            "setosa":
+                "Hoa Diên Vĩ Setosa",
+            "versicolor":
+                "Hoa Diên Vĩ Versicolor",
+            "virginica":
+                "Hoa Diên Vĩ Virginica",
+            "iris-setosa":
+                "Hoa Diên Vĩ Setosa",
+            "iris-versicolor":
+                "Hoa Diên Vĩ Versicolor",
+            "iris-virginica":
+                "Hoa Diên Vĩ Virginica"
+        };
+
+        // ====== AUTH HEADER =========
+        function getAuthHeaders() {
+            if (!token) {
+                return {};
+            }
+
+            return {
+                "Authorization": "Bearer " + token
+            };
+        }
+
+        // ====== REGISTER ========
+        function register() {
+            openAuthModal("register");
+
+            // Xóa dữ liệu đã nhập trước đó
+            const registerForm =
+                document.getElementById("register-form");
+
+            if (registerForm) {
+                registerForm.reset();
+            }
+
+            // Reset trạng thái hiện / ẩn mật khẩu
+            const passwordInputs = [
+                "register-password",
+                "register-confirm-password"
+            ];
+
+            passwordInputs.forEach(inputId => {
+                const input =
+                    document.getElementById(inputId);
+
+                if (input) {
+                    input.type = "password";
+                }
+            });
+
+            const passwordToggles =
+                document.querySelectorAll(
+                    '#register-form .password-toggle'
+                );
+
+            passwordToggles.forEach(button => {
+                button.innerText = "🙉";
+                button.setAttribute(
+                    "aria-label",
+                    "Hiện mật khẩu"
+                );
+            });
+
+            // Xóa thông báo lỗi cũ
+            hideAuthMessage();
+        }
+
+        // ======== LOGIN ========
+        function login() {
+            openAuthModal("login");
+
+            // Reset form đăng nhập
+            const loginForm =
+                document.getElementById("login-form");
+
+            if (loginForm) {
+                loginForm.reset();
+            }
+
+            // Reset trạng thái mật khẩu
+            const passwordInput =
+                document.getElementById("login-password");
+
+            if (passwordInput) {
+                passwordInput.type = "password";
+            }
+
+            // Reset icon xem mật khẩu
+            const passwordToggle =
+                document.querySelector(
+                    '#login-form .password-toggle'
+                );
+
+            if (passwordToggle) {
+                passwordToggle.innerText = "🙉";
+                passwordToggle.setAttribute(
+                    "aria-label",
+                 "Hiện mật khẩu"
+                );
+            }
+
+            // Xóa thông báo lỗi cũ
+            hideAuthMessage();
+        }
+
+        // ====== CHANGE PASSWORD ========
+        function changePassword() {
+
+            const dropdown =
+                document.getElementById(
+                    "user-dropdown"
+                );
+
+            if (dropdown) {
+                dropdown.classList.remove("open");
+            }
+
+            if (!token || !currentUser) {
+
+                showAuthToast(
+                    "Vui lòng đăng nhập trước.",
+                    "error"
+                );
+
+                return;
+            }
+
+            const overlay =
+                document.getElementById(
+                    "change-password-overlay"
+                );
+
+            if (!overlay) return;
+
+            document
+                .getElementById(
+                    "current-password"
+                )
+                .value = "";
+
+            document
+                .getElementById(
+                    "new-password"
+                )
+                .value = "";
+
+            document
+                .getElementById(
+                    "confirm-new-password"
+                )
+                .value = "";
+
+            // Reset kiểu input về password
+            const passwordInputs = [
+                "current-password",
+                "new-password",
+                "confirm-new-password"
+            ];
+
+            passwordInputs.forEach(inputId => {
+
+                const input =
+                    document.getElementById(inputId);
+
+                if (input) {
+                    input.type = "password";
+                }
+
+            });
+
+            // Reset toàn bộ icon xem mật khẩu
+            const passwordToggles =
+                document.querySelectorAll(
+                    "#change-password-overlay .password-toggle"
+                );
+
+            passwordToggles.forEach(button => {
+
+                button.innerText = "🙉";
+
+                button.setAttribute(
+                    "aria-label",
+                    "Hiện mật khẩu"
+                );
+
+            });
+
+            // Xóa thông báo lỗi cũ
+            hideChangePasswordMessage();
+            overlay.classList.add("show");
         }
 
 
-        /* =========================
-           CLEAR HISTORY
-        ========================= */
+        function closeChangePasswordModal() {
 
-        function clearHistory() {
+            const overlay =
+                document.getElementById(
+                    "change-password-overlay"
+                );
 
-            historyData = [];
+            if (!overlay) return;
 
-            updateHistoryTable();
-
+            overlay.classList.remove("show");
         }
 
 
-        /* =========================
-           PREDICT
-        ========================= */
-
-        async function predict() {
-
-            const rawSepalLength =
-                document.getElementById(
-                    "sepal_length"
-                ).value;
-
-            const rawSepalWidth =
-                document.getElementById(
-                    "sepal_width"
-                ).value;
-
-            const rawPetalLength =
-                document.getElementById(
-                    "petal_length"
-                ).value;
-
-            const rawPetalWidth =
-                document.getElementById(
-                    "petal_width"
-                ).value;
-
-
-            /* KIỂM TRA INPUT */
+        function closeChangePasswordOutside(event) {
 
             if (
-                !rawSepalLength ||
-                !rawSepalWidth ||
-                !rawPetalLength ||
-                !rawPetalWidth
+                event.target.id ===
+                "change-password-overlay"
             ) {
 
-                alert(
-                    "Vui lòng nhập đầy đủ cả 4 thông số!"
+                closeChangePasswordModal();
+
+            }
+
+        }
+
+
+        function showChangePasswordMessage(
+            message,
+            type = "error"
+        ) {
+
+            const box =
+                document.getElementById(
+                    "change-password-message"
+                );
+
+            if (!box) return;
+
+            box.className =
+                "change-password-message " +
+                type;
+
+            box.innerText =
+                message;
+
+        }
+
+
+        function hideChangePasswordMessage() {
+
+            const box =
+                document.getElementById(
+                "change-password-message"
+                );
+
+            if (!box) return;
+
+            box.innerText = "";
+
+            box.className =
+                "change-password-message";
+
+        }
+
+
+        async function submitChangePassword(event) {
+
+            event.preventDefault();
+
+            if (!token || !currentUser) {
+
+                showChangePasswordMessage(
+                    "Phiên đăng nhập không hợp lệ. Vui lòng đăng nhập lại.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+            const currentPassword =
+                document
+                   .getElementById(
+                        "current-password"
+                   )
+                   .value;
+
+            const newPassword =
+                document
+                    .getElementById(
+                        "new-password"
+                    )
+                    .value;
+
+            const confirmNewPassword =
+                document
+                    .getElementById(
+                        "confirm-new-password"
+                    )
+                    .value;
+
+            hideChangePasswordMessage();
+
+
+            // Kiểm tra mật khẩu mới
+            if (
+                newPassword !==
+                confirmNewPassword
+            ) {
+
+                showChangePasswordMessage(
+                    "Mật khẩu mới nhập lại không khớp.",
+                    "error"
                 );
 
                 return;
@@ -1758,65 +3066,46 @@
             }
 
 
-            const btn =
-                document.getElementById(
-                    "btn-predict"
-                );
+            if (newPassword.length < 6) {
 
+                showChangePasswordMessage(
+                    "Mật khẩu mới phải có ít nhất 6 ký tự.",
+                    "error"
+            );
 
-            const originalBtnText =
-                btn.innerHTML;
+                return;
 
-
-            btn.disabled = true;
-
-            setFormDisabled(true);
-
-
-            btn.innerHTML = `
-                <div class="spinner"></div>
-                Đang phân loại...
-            `;
-
-
-            const sl = Number(rawSepalLength);
-            const sw = Number(rawSepalWidth);
-            const pl = Number(rawPetalLength);
-            const pw = Number(rawPetalWidth);
-
-
-            /* GỬI MODEL ĐƯỢC CHỌN */
-
-            const data = {
-
-                sepal_length: sl,
-
-                sepal_width: sw,
-
-                petal_length: pl,
-
-                petal_width: pw,
-
-                model_name: selectedModel
-
-            };
+            }
 
 
             try {
 
                 const response =
                     await fetch(
-                        "/predict",
+                        "/change-password",
                         {
-                            method: "POST",
+                            method: "PUT",
 
                             headers: {
-                                "Content-Type":
-                                    "application/json"
+
+                            "Content-Type":
+                                    "application/json",
+
+                                "Accept":
+                                    "application/json",
+
+                                ...getAuthHeaders()
+
                             },
 
                             body:
-                                JSON.stringify(data)
+                                JSON.stringify({
+                                    current_password:
+                                        currentPassword,
+
+                                    new_password:
+                                        newPassword
+                                })
                         }
                     );
 
@@ -1825,231 +3114,1682 @@
                     await response.json();
 
 
+                if (response.status === 401) {
+
+                    token = null;
+
+                    currentUser = null;
+
+                    localStorage.removeItem(
+                        "iris_token"
+                    );
+
+                    updateAuthUI();
+
+                    closeChangePasswordModal();
+
+                    showAuthToast(
+                        "Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
                 if (!response.ok) {
 
                     throw new Error(
                         result.detail ||
-                        "Có lỗi từ máy chủ"
+                        "Đổi mật khẩu thất bại"
                     );
 
                 }
 
 
-                /* =========================
-                   TÊN HOA
-                ========================= */
+                closeChangePasswordModal();
 
-                const rawPrediction =
-                    result.prediction.toLowerCase();
-
-
-                const vnName =
-                    flowerNamesVN[
-                        rawPrediction
-                    ] ||
-                    result.prediction;
-
-
-                /* =========================
-                   HIỆN RESULT
-                ========================= */
-
-                document
-                    .getElementById("placeholder")
-                    .style.display = "none";
-
-
-                document
-                    .getElementById("result")
-                    .style.display = "block";
-
-
-                document
-                    .getElementById("prediction")
-                    .innerText = vnName;
-
-
-                /* =========================
-                   ẢNH
-                ========================= */
-
-                let imageName =
-                    rawPrediction.replace(
-                        "iris-",
-                        ""
-                    );
-
-
-                const image =
-                    document.getElementById(
-                        "flower-image"
-                    );
-
-
-                image.src =
-                    "/photo/" +
-                    imageName +
-                    ".jpg";
-
-
-                image.alt = vnName;
-
-
-                image.classList.remove(
-                    "img-animate"
+                showAuthToast(
+                    "✓ Đổi mật khẩu thành công!",
+                    "success"
                 );
-
-
-                void image.offsetWidth;
-
-
-                image.classList.add(
-                    "img-animate"
-                );
-
-
-                /* =========================
-                   CONFIDENCE
-                ========================= */
-
-                const confidenceWrap =
-                    document.getElementById(
-                        "confidence-wrap"
-                    );
-
-
-                const confidenceText =
-                    document.getElementById(
-                        "confidence"
-                    );
-
-
-                const progressBar =
-                    document.getElementById(
-                        "progress-bar"
-                    );
-
-
-                if (
-                    result.confidence !== undefined &&
-                    result.confidence !== null
-                ) {
-
-                    const percent =
-                        (
-                            result.confidence * 100
-                        ).toFixed(1);
-
-
-                    confidenceWrap.style.display =
-                        "block";
-
-
-                    confidenceText.innerText =
-                        "Độ tin cậy: " +
-                        percent +
-                        "%";
-
-
-                    progressBar.style.width =
-                        percent +
-                        "%";
-
-                }
-
-                else {
-
-                    confidenceWrap.style.display =
-                        "none";
-
-                }
-
-
-                /* =========================
-                   THỜI GIAN CHẠY MÔ HÌNH
-                ========================= */
-
-                const executionTime =
-                    document.getElementById(
-                        "execution-time"
-                    );
-
-
-                if (
-                    result.execution_time !== undefined &&
-                    result.execution_time !== null
-                ) {
-
-                    const timeValue =
-                        Number(result.execution_time);
-
-                    executionTime.innerText =
-                        (timeValue * 1000).toFixed(3) + " ms";
-
-                }
-
-                else {executionTime.innerText = "--";}
-
-                /* ======= HISTORY ======= */
-
-                historyData.unshift({
-
-                    model:
-                        selectedModel,
-
-                    sl:
-                        sl,
-
-                    sw:
-                        sw,
-
-                    pl:
-                        pl,
-
-                    pw:
-                        pw,
-
-                    prediction:
-                        vnName,
-
-                    executionTime:
-                        result.execution_time !== undefined &&
-                        result.execution_time !== null
-                            ? (Number(result.execution_time) * 1000).toFixed(3) + " ms"
-                            : "--"
-
-                });
-
-
-                updateHistoryTable();
-
 
             }
-
             catch (error) {
 
-                alert(
-                    "Lỗi khi dự đoán: " +
-                    error.message
+                showChangePasswordMessage(
+                    "✕ " + error.message,
+                    "error"
                 );
-
-            }
-
-            finally {
-
-                btn.disabled = false;
-
-                setFormDisabled(false);
-
-                btn.innerHTML =
-                    originalBtnText;
 
             }
 
         }
 
-    </script>
+        // ======= LOGOUT =========
+        async function logout() {
+            const dropdown =
+                document.getElementById("user-dropdown");
 
+            if (dropdown) {
+                dropdown.classList.remove("open");
+            }
+
+            if (!token) {return;}
+            try {
+                await fetch("/logout", {method: "POST", headers: {...getAuthHeaders()}});
+            } catch (error) {
+                console.error("Logout error:", error);
+            }
+    // XÓA PHIÊN ĐĂNG NHẬP
+    token = null;
+    currentUser = null;
+
+    localStorage.removeItem("iris_token");
+
+
+    // RESET GIAO DIỆN
+    resetPredictionForm();
+
+
+    // CẬP NHẬT AUTH UI
+    updateAuthUI();
+
+
+    // QUAY VỀ TAB GIỚI THIỆU
+    const aboutTab =
+        document.querySelector(
+            '.nav-link[onclick*="about"]'
+        );
+
+    if (aboutTab) {
+
+        switchTab(
+            "about",
+            aboutTab
+        );
+
+    }
+    // CHỈ HIỆN TOAST SAU KHI ĐĂNG XUẤT
+    closeAuthModal();
+
+    showAuthToast(
+        "✓ Đã đăng xuất tài khoản.",
+        "success"
+    );
+}
+
+
+// =========================================================
+// RESET TOÀN BỘ FORM DỰ ĐOÁN
+// =========================================================
+
+function resetPredictionForm() {
+
+    // =====================================================
+    // RESET MODEL VỀ SVM
+    // =====================================================
+
+    selectedModel = "SVM";
+
+    document
+        .querySelectorAll(".model-option")
+        .forEach(option => {
+
+            option.classList.remove(
+                "selected"
+            );
+
+        });
+
+
+    const svmOption =
+        document.querySelector(
+            '.model-option input[value="SVM"]'
+        );
+
+
+    if (svmOption) {
+
+        svmOption.checked = true;
+
+
+        const svmParent =
+            svmOption.closest(
+                ".model-option"
+            );
+
+
+        if (svmParent) {
+
+            svmParent.classList.add(
+                "selected"
+            );
+
+        }
+
+    }
+
+
+    // =====================================================
+    // RESET KẾT QUẢ
+    // =====================================================
+
+    const placeholder =
+        document.getElementById(
+            "placeholder"
+        );
+
+
+    const result =
+        document.getElementById(
+            "result"
+        );
+
+
+    if (placeholder) {
+
+        placeholder.style.display =
+            "block";
+
+    }
+
+
+    if (result) {
+
+        result.style.display =
+            "none";
+
+    }
+
+
+    // =====================================================
+    // RESET TÊN DỰ ĐOÁN
+    // =====================================================
+
+    const prediction =
+        document.getElementById(
+            "prediction"
+        );
+
+
+    if (prediction) {
+
+        prediction.innerText = "";
+
+    }
+
+
+    // =====================================================
+    // RESET ĐỘ TIN CẬY
+    // =====================================================
+
+    const confidenceWrap =
+        document.getElementById(
+            "confidence-wrap"
+        );
+
+
+    const confidence =
+        document.getElementById(
+            "confidence"
+        );
+
+
+    const progressBar =
+        document.getElementById(
+            "progress-bar"
+        );
+
+
+    if (confidenceWrap) {
+
+        confidenceWrap.style.display =
+            "none";
+
+    }
+
+
+    if (confidence) {
+
+        confidence.innerText =
+            "Độ tin cậy: 0%";
+
+    }
+
+
+    if (progressBar) {
+
+        progressBar.style.width =
+            "0%";
+
+    }
+
+
+    // =====================================================
+    // RESET ẢNH
+    // =====================================================
+
+    const flowerImage =
+        document.getElementById(
+            "flower-image"
+        );
+
+
+    if (flowerImage) {
+
+        flowerImage.src = "";
+
+        flowerImage.alt =
+            "Hoa Diên Vĩ";
+
+        flowerImage.classList.remove(
+            "img-animate"
+        );
+
+    }
+
+
+    // =====================================================
+    // RESET THỜI GIAN CHẠY
+    // =====================================================
+
+    const executionTime =
+        document.getElementById(
+            "execution-time"
+        );
+
+
+    if (executionTime) {
+
+        executionTime.innerText =
+            "--";
+
+    }
+
+
+    // =====================================================
+    // RESET LỊCH SỬ TRÊN GIAO DIỆN
+    // =====================================================
+
+    historyData = [];
+
+    updateHistoryTable();
+
+}
+
+    // ======== UPDATE AUTH UI ============
+    function updateAuthUI() {
+
+        const userInfo =
+            document.getElementById("user-info");
+
+        const loginButton =
+            document.getElementById("btn-login");
+
+        const registerButton =
+            document.getElementById("btn-register");
+
+        const userDropdown =
+            document.getElementById("user-dropdown");
+
+        const predictButton =
+            document.getElementById("btn-predict");
+
+        // === ĐÃ ĐĂNG NHẬP ===
+        if (token && currentUser) {
+
+            userInfo.innerText =
+                "Xin chào, " + currentUser.username;
+
+
+            // ẨN ĐĂNG NHẬP / ĐĂNG KÝ
+            loginButton.style.display =
+                "none";
+
+            registerButton.style.display =
+                "none";
+
+
+            // HIỆN USER DROPDOWN
+            userDropdown.style.display =
+                "flex";
+
+
+            // CHO PHÉP DỰ ĐOÁN
+            if (predictButton) {
+
+                predictButton.disabled =
+                    false;
+
+                predictButton.innerText =
+                    "Dự đoán ngay";
+            }
+
+
+            setFormDisabled(false);
+        }
+
+
+        // ========= CHƯA ĐĂNG NHẬP ===========
+
+        else {
+
+            loginButton.style.display =
+                "block";
+
+            registerButton.style.display =
+                "block";
+
+
+            // ẨN USER DROPDOWN
+            userDropdown.style.display =
+                "none";
+
+
+            // KHÓA DỰ ĐOÁN
+            if (predictButton) {
+
+                predictButton.disabled =
+                    true;
+
+                predictButton.innerText =
+                    "Đăng nhập để dự đoán";
+            }
+
+
+            setFormDisabled(true);
+        }
+    }
+
+    // ========= USER DROPDOWN ================
+
+    function toggleUserDropdown() {
+
+        const dropdown =
+            document.getElementById(
+                "user-dropdown"
+            );
+
+        if (!dropdown) return;
+
+        dropdown.classList.toggle("open");
+    }
+
+
+    // Click ra bên ngoài thì đóng menu
+    document.addEventListener(
+        "click",
+        function(event) {
+
+            const dropdown =
+                document.getElementById(
+                    "user-dropdown"
+                );
+
+            if (!dropdown) return;
+
+            if (!dropdown.contains(event.target)) {
+
+                dropdown.classList.remove(
+                    "open"
+                );
+            }
+        }
+    );
+
+
+    // =========================================================
+    // CHECK CURRENT USER
+    // =========================================================
+
+    async function checkLogin() {
+
+        if (!token) {
+
+            updateAuthUI();
+
+            return false;
+        }
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/me",
+                    {
+                        method: "GET",
+
+                        headers: {
+                            ...getAuthHeaders()
+                        }
+                    }
+                );
+
+
+            if (!response.ok) {
+
+                token = null;
+
+                localStorage.removeItem(
+                    "iris_token"
+                );
+
+                currentUser = null;
+
+                updateAuthUI();
+
+                return false;
+            }
+
+
+            const result =
+                await response.json();
+
+
+            currentUser = {
+                user_id:
+                    result.user_id,
+
+                username:
+                    result.username
+            };
+
+
+            updateAuthUI();
+
+            return true;
+
+        }
+        catch (error) {
+
+            console.error(
+                "Check login error:",
+                error
+            );
+
+            return false;
+
+        }
+
+    }
+
+
+    // =========================================================
+    // SWITCH TAB
+    // =========================================================
+
+    function switchTab(
+        tabName,
+        element
+    ) {
+
+        document
+            .querySelectorAll(
+                ".tab-content"
+            )
+            .forEach(
+                tab =>
+                    tab.classList.remove(
+                        "active"
+                    )
+            );
+
+
+        document
+            .querySelectorAll(
+                ".nav-link"
+            )
+            .forEach(
+                link =>
+                    link.classList.remove(
+                        "active"
+                    )
+            );
+
+
+        document
+            .getElementById(
+                "tab-" + tabName
+            )
+            .classList.add(
+                "active"
+            );
+
+
+        element.classList.add(
+            "active"
+        );
+
+
+        // Khi mở lịch sử thì lấy lại từ SQL Server
+        if (tabName === "history") {
+            if (!token || !currentUser) {
+                historyData = [];
+                updateHistoryTable();
+                return;
+            }
+            loadHistory();
+        }
+
+    }
+
+
+    // =========================================================
+    // SELECT MODEL
+    // =========================================================
+
+    function selectModel(
+        modelName,
+        element
+    ) {
+
+        selectedModel =
+            modelName;
+
+
+        document
+            .querySelectorAll(
+                ".model-option"
+            )
+            .forEach(
+                option =>
+                    option.classList.remove(
+                        "selected"
+                    )
+            );
+
+
+        element.classList.add(
+            "selected"
+        );
+
+
+        const radio =
+            element.querySelector(
+                'input[type="radio"]'
+            );
+
+
+        if (radio) {
+
+            radio.checked = true;
+
+        }
+
+    }
+
+
+    // =========================================================
+    // RANGE / NUMBER
+    // =========================================================
+
+    function syncRange(
+        inputId,
+        rangeId
+    ) {
+
+        document.getElementById(
+            rangeId
+        ).value =
+            document.getElementById(
+                inputId
+            ).value;
+
+    }
+
+
+    function syncInput(
+        inputId,
+        rangeId
+    ) {
+
+        document.getElementById(
+            inputId
+        ).value =
+            document.getElementById(
+                rangeId
+            ).value;
+
+    }
+
+
+    // =========================================================
+    // DISABLE FORM
+    // =========================================================
+    function setFormDisabled(disabled) {
+    document
+        .querySelectorAll(".input-section input")
+        .forEach(input => {
+            input.disabled = disabled;
+        });
+
+    document
+        .querySelectorAll(".model-option")
+        .forEach(option => {
+            option.style.pointerEvents =
+                disabled ? "none" : "auto";
+            option.style.opacity =
+                disabled ? "0.55" : "1";
+        });
+
+    const btn =
+        document.getElementById("btn-predict");
+
+    if (btn) {
+        btn.disabled = disabled;
+    }
+}
+
+    // =========================================================
+    // LOAD HISTORY FROM DATABASE
+    // =========================================================
+
+    async function loadHistory() {
+
+        if (!token) {
+
+            historyData = [];
+
+            updateHistoryTable();
+
+            return;
+
+        }
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/history",
+                    {
+                        method: "GET",
+
+                        headers: {
+                            "Accept":
+                                "application/json",
+
+                            ...getAuthHeaders()
+                        }
+                    }
+                );
+
+
+            const result =
+                await response.json();
+
+
+            if (response.status === 401) {
+
+                alert(
+                    "Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại."
+                );
+
+
+                token = null;
+
+                currentUser = null;
+
+                localStorage.removeItem(
+                    "iris_token"
+                );
+
+                updateAuthUI();
+
+                historyData = [];
+
+                updateHistoryTable();
+
+                return;
+
+            }
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    result.detail ||
+                    "Không thể tải lịch sử"
+                );
+
+            }
+
+
+            // API trả:
+            //
+            // {
+            //     user_id: 2,
+            //     history: [...]
+            // }
+
+            historyData =
+                result.history || [];
+
+
+            updateHistoryTable();
+
+        }
+        catch (error) {
+
+            console.error(
+                "Load history error:",
+                error
+            );
+
+            alert(
+                "Lỗi tải lịch sử: " +
+                error.message
+            );
+
+        }
+
+    }
+
+
+    // =========================================================
+    // UPDATE HISTORY TABLE
+    // =========================================================
+
+    function updateHistoryTable() {
+
+        const tbody =
+            document.getElementById(
+                "history-list"
+            );
+
+
+        if (
+            !historyData ||
+            historyData.length === 0
+        ) {
+
+            tbody.innerHTML = `
+                <tr>
+                    <td
+                        colspan="6"
+                        style="
+                            color: var(--text-muted);
+                            opacity: 0.7;
+                        "
+                    >
+                        Chưa có lịch sử dự đoán nào.
+                    </td>
+                </tr>
+            `;
+
+            return;
+
+        }
+
+
+        tbody.innerHTML =
+            historyData
+                .map(
+                    (item, index) => {
+
+                        const executionTime =
+                            item.execution_time !== null &&
+                            item.execution_time !== undefined
+                                ? (
+                                    Number(
+                                        item.execution_time
+                                    ) * 1000
+                                ).toFixed(3) + " ms"
+                                : "--";
+
+
+                        return `
+
+                            <tr>
+
+                                <td>
+                                    <strong>
+                                        ${index + 1}
+                                    </strong>
+                                </td>
+
+
+                                <td>
+                                    <span class="badge-flower">
+                                        ${item.model}
+                                    </span>
+                                </td>
+
+
+                                <td>
+                                    ${item.sl}
+                                    ×
+                                    ${item.sw}
+                                    cm
+                                </td>
+
+
+                                <td>
+                                    ${item.pl}
+                                    ×
+                                    ${item.pw}
+                                    cm
+                                </td>
+
+
+                                <td>
+                                    <span class="badge-flower">
+                                        ${item.prediction}
+                                    </span>
+                                </td>
+
+
+                                <td>
+                                    ${executionTime}
+                                </td>
+
+                            </tr>
+
+                        `;
+
+                    }
+                )
+                .join("");
+
+    }
+
+
+    // =========================================================
+    // CLEAR HISTORY FROM DATABASE
+    // =========================================================
+
+    async function clearHistory() {
+
+        if (!token) {
+
+            alert(
+                "Bạn chưa đăng nhập."
+            );
+
+            return;
+
+        }
+
+
+        const confirmed =
+            confirm(
+                "Bạn có chắc muốn xóa toàn bộ lịch sử dự đoán?"
+            );
+
+
+        if (!confirmed) {
+
+            return;
+
+        }
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/history",
+                    {
+                        method: "DELETE",
+
+                        headers: {
+                            "Accept":
+                                "application/json",
+
+                            ...getAuthHeaders()
+                        }
+                    }
+                );
+
+
+            const result =
+                await response.json();
+
+
+            if (response.status === 401) {
+
+                alert(
+                    "Phiên đăng nhập đã hết hạn."
+                );
+
+                token = null;
+
+                currentUser = null;
+
+                localStorage.removeItem(
+                    "iris_token"
+                );
+
+                updateAuthUI();
+
+                return;
+
+            }
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    result.detail ||
+                    "Không thể xóa lịch sử"
+                );
+
+            }
+
+
+            historyData = [];
+
+            updateHistoryTable();
+
+
+            alert(
+                "Đã xóa " +
+                result.deleted_count +
+                " bản ghi lịch sử."
+            );
+
+        }
+        catch (error) {
+
+            alert(
+                "Lỗi xóa lịch sử: " +
+                error.message
+            );
+
+        }
+
+    }
+
+
+    // =========================================================
+    // PREDICT
+    // =========================================================
+
+    async function predict() {
+
+        // Kiểm tra đăng nhập trước
+        if (!token) {
+
+            alert(
+                "Bạn cần đăng nhập trước khi dự đoán."
+            );
+
+            return;
+
+        }
+
+
+        // Kiểm tra session thực tế
+        const loggedIn =
+            await checkLogin();
+
+
+        if (!loggedIn) {
+
+            alert(
+                "Phiên đăng nhập không hợp lệ. Vui lòng đăng nhập lại."
+            );
+
+            return;
+
+        }
+
+
+        const rawSepalLength =
+            document.getElementById(
+                "sepal_length"
+            ).value;
+
+
+        const rawSepalWidth =
+            document.getElementById(
+                "sepal_width"
+            ).value;
+
+
+        const rawPetalLength =
+            document.getElementById(
+                "petal_length"
+            ).value;
+
+
+        const rawPetalWidth =
+            document.getElementById(
+                "petal_width"
+            ).value;
+
+
+        // Kiểm tra input
+        if (
+            !rawSepalLength ||
+            !rawSepalWidth ||
+            !rawPetalLength ||
+            !rawPetalWidth
+        ) {
+
+            alert(
+                "Vui lòng nhập đầy đủ cả 4 thông số!"
+            );
+
+            return;
+
+        }
+
+
+        const sl =
+            Number(rawSepalLength);
+
+
+        const sw =
+            Number(rawSepalWidth);
+
+
+        const pl =
+            Number(rawPetalLength);
+
+
+        const pw =
+            Number(rawPetalWidth);
+
+
+        const data = {
+
+            sepal_length:
+                sl,
+
+            sepal_width:
+                sw,
+
+            petal_length:
+                pl,
+
+            petal_width:
+                pw,
+
+            model_name:
+                selectedModel
+
+        };
+
+
+        const btn =
+            document.getElementById(
+                "btn-predict"
+            );
+
+
+        const originalBtnText =
+            btn.innerHTML;
+
+
+        btn.disabled = true;
+
+        setFormDisabled(true);
+
+
+        btn.innerHTML = `
+            <div class="spinner"></div>
+            Đang phân loại...
+        `;
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/predict",
+                    {
+                        method: "POST",
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/json",
+
+                            "Accept":
+                                "application/json",
+
+                            ...getAuthHeaders()
+
+                        },
+
+                        body:
+                            JSON.stringify(
+                                data
+                            )
+
+                    }
+                );
+
+
+            const result =
+                await response.json();
+
+
+            // Token hết hạn
+            if (
+                response.status === 401
+            ) {
+
+                token = null;
+
+                currentUser = null;
+
+                localStorage.removeItem(
+                    "iris_token"
+                );
+
+                updateAuthUI();
+
+
+                throw new Error(
+                    "Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại."
+                );
+
+            }
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    result.detail ||
+                    "Có lỗi từ máy chủ"
+                );
+
+            }
+
+
+            // ======== TÊN HOA ===========
+            const rawPrediction =     String(result.prediction ).toLowerCase();
+
+            const vnName =
+                flowerNamesVN[
+                    rawPrediction
+                ] ||
+                result.prediction;
+
+            // ====== HIỆN RESULT ==========
+            document
+                .getElementById("placeholder")
+                .style.display = "none";
+
+            document
+                .getElementById("result")
+                .style.display = "block";
+
+            document
+                .getElementById("prediction")
+                .innerText = vnName;
+
+
+            // ====== IMAGE =======
+            let imageName =
+                rawPrediction.replace(
+                    "iris-",
+                    ""
+                );
+
+
+            const image =
+                document.getElementById(
+                    "flower-image"
+                );
+
+
+            image.src =
+                "/photo/" +
+                imageName +
+                ".jpg";
+
+
+            image.alt =
+                vnName;
+
+
+            image.classList.remove(
+                "img-animate"
+            );
+
+
+            void image.offsetWidth;
+
+
+            image.classList.add(
+                "img-animate"
+            );
+
+            // ====== EXECUTION TIME =========
+
+            const executionTime =
+                document.getElementById(
+                    "execution-time"
+                );
+
+
+            if (
+                result.execution_time !== null &&
+                result.execution_time !== undefined
+            ) {
+
+                const timeValue =
+                    Number(
+                        result.execution_time
+                    );
+
+
+                executionTime.innerText =
+                    (
+                        timeValue * 1000
+                    ).toFixed(3) +
+                    " ms";
+
+            }
+            else {
+
+                executionTime.innerText =
+                    "--";
+
+            }
+
+            await loadHistory();
+
+        }
+        catch (error) {
+
+            alert(
+                "Lỗi khi dự đoán: " +
+                error.message
+            );
+
+        }
+        finally {
+
+            btn.disabled =
+                false;
+
+            setFormDisabled(
+                false
+            );
+
+            btn.innerHTML =
+                originalBtnText;
+
+        }
+
+    }
+
+    async function deleteAccount() {
+        const dropdown = document.getElementById("user-dropdown");
+
+        if (dropdown) {
+            dropdown.classList.remove("open");
+        }
+
+        // Dùng đúng key đang được sử dụng khi đăng nhập
+        if (!token || !currentUser) {
+            showAuthToast(
+                "Vui lòng đăng nhập trước.",
+                "error"
+            );
+            return;
+        }
+
+        const confirmed = confirm(
+            "Bạn có chắc chắn muốn xóa tài khoản không?\n" +
+            "Tất cả lịch sử dự đoán cũng sẽ bị xóa."
+        );
+
+        if (!confirmed) {
+            return;
+        }
+
+        try {
+            const response = await fetch("/account", {
+                method: "DELETE",
+                headers: {
+                    "Accept": "application/json",
+                    ...getAuthHeaders()
+                }
+            });
+
+            const result = await response.json();
+
+            if (response.status === 401) {
+                token = null;
+                currentUser = null;
+
+                localStorage.removeItem("iris_token");
+
+                updateAuthUI();
+
+                showAuthToast(
+                    "Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.",
+                    "error"
+                );
+
+                return;
+            }
+
+            if (!response.ok) {
+                throw new Error(
+                    result.detail ||
+                    "Không thể xóa tài khoản."
+                );
+            }
+
+            // Xóa session phía frontend
+            token = null;
+            currentUser = null;
+
+            localStorage.removeItem("iris_token");
+
+            // Reset giao diện
+            resetPredictionForm();
+            updateAuthUI();
+
+            // Chuyển về tab Giới thiệu
+            const aboutTab = document.querySelector(
+                '.nav-link[onclick*="about"]'
+            );
+
+            if (aboutTab) {
+                switchTab("about", aboutTab);
+            }
+
+            showAuthToast(
+                "✓ Tài khoản đã được xóa thành công.",
+                "success"
+            );
+
+        } catch (error) {
+            console.error("Delete account error:", error);
+
+            showAuthToast(
+                "✕ " + error.message,
+                "error"
+            );
+        }
+    }
+
+    // =========================================================
+    // START APPLICATION
+    // =========================================================
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        async function () {
+            updateAuthUI();
+            await checkLogin();
+        }
+    );
+
+    // ======== CHUYỂN TRANG TRONG TAB GIỚI THIỆU ==================
+
+    let currentAboutPage = 1;
+
+    function switchAboutPage(page) {
+
+        if (page < 1) {
+            page = 1;
+        }
+
+        if (page > 2) {
+            page = 2;
+        }
+
+        currentAboutPage = page;
+
+        const page1 =
+            document.getElementById("about-page-1");
+
+        const page2 =
+            document.getElementById("about-page-2");
+
+        const prevArrow =
+            document.getElementById("about-prev-arrow");
+
+        const nextArrow =
+            document.getElementById("about-next-arrow");
+
+        const dot1 =
+            document.getElementById("about-dot-1");
+
+        const dot2 =
+            document.getElementById("about-dot-2");
+
+
+        // RESET TRANG
+
+        if (page1) {
+            page1.classList.remove("active");
+        }
+
+        if (page2) {
+            page2.classList.remove("active");
+        }
+
+
+        // HIỆN TRANG ĐƯỢC CHỌN
+
+        if (page === 1) {
+
+            if (page1) {
+                page1.classList.add("active");
+            }
+
+            if (prevArrow) {
+                prevArrow.style.display = "none";
+            }
+
+            if (nextArrow) {
+                nextArrow.style.display = "flex";
+            }
+
+            if (dot1) {
+                dot1.classList.add("active");
+            }
+
+            if (dot2) {
+                dot2.classList.remove("active");
+            }
+
+        }
+
+        else if (page === 2) {
+
+            if (page2) {
+                page2.classList.add("active");
+            }
+
+            if (prevArrow) {
+                prevArrow.style.display = "flex";
+            }
+
+            if (nextArrow) {
+                nextArrow.style.display = "none";
+            }
+
+            if (dot1) {
+                dot1.classList.remove("active");
+            }
+
+            if (dot2) {
+                dot2.classList.add("active");
+            }
+
+        }
+
+    }
+
+    // ======== PHÍM MŨI TÊN TRÁI / PHẢI =========
+    document.addEventListener(
+        "keydown",
+        function(event) {
+            const aboutTab =
+                document.getElementById("tab-about");
+            if (
+                !aboutTab ||
+                !aboutTab.classList.contains("active")
+            ) {
+                return;
+            }
+            const tagName =
+                document.activeElement
+                    ? document.activeElement.tagName
+                    : "";
+            if (
+                tagName === "INPUT" ||
+                tagName === "TEXTAREA" ||
+                tagName === "SELECT"
+            ) {
+                return;
+            }
+
+            // Mũi tên phải
+            if (event.key === "ArrowRight") {
+                event.preventDefault();
+                switchAboutPage(2);
+            }
+            // Mũi tên trái
+            else if (event.key === "ArrowLeft") {
+                event.preventDefault();
+                switchAboutPage(1);
+            }
+        }
+    );
+
+</script>
+<!-- ===== CHANGE PASSWORD MODAL ===== -->
+<div
+    id="change-password-overlay"
+    class="auth-modal-overlay"
+    onclick="closeChangePasswordOutside(event)"
+>
+    <div
+        class="change-password-modal"
+        onclick="event.stopPropagation()"
+    >
+        <button
+            class="auth-modal-close"
+            onclick="closeChangePasswordModal()"
+            type="button"
+        >
+            ×
+        </button>
+
+        <div class="auth-modal-icon">
+            🔑
+        </div>
+
+        <h2>
+            Đổi mật khẩu
+        </h2>
+
+        <p class="change-password-subtitle">
+            Nhập mật khẩu hiện tại và mật khẩu mới
+        </p>
+
+        <div
+            id="change-password-message"
+            class="change-password-message">
+        </div>
+
+        <form
+            onsubmit="submitChangePassword(event)"
+        >
+
+            <div class="auth-form-group">
+
+                <label for="current-password">
+                    Mật khẩu hiện tại
+                </label>
+
+                <div class="password-input-wrap">
+                    <input
+                        id="current-password"
+                        class="auth-input"
+                        type="password"
+                        placeholder="Nhập mật khẩu hiện tại"
+                        autocomplete="current-password"
+                        required
+                    >
+                    <button
+                        type="button"
+                        class="password-toggle"
+                        onclick="togglePassword('current-password', this)"
+                        aria-label="Hiện mật khẩu"
+                    >
+                        🙉
+                    </button>
+                </div>
+            </div>
+
+            <div class="auth-form-group">
+
+                <label for="new-password">
+                    Mật khẩu mới
+                </label>
+
+                <div class="password-input-wrap">
+                    <input
+                        id="new-password"
+                        class="auth-input"
+                        type="password"
+                        placeholder="Nhập mật khẩu mới"
+                        autocomplete="new-password"
+                        required
+                    >
+                    <button
+                        type="button"
+                        class="password-toggle"
+                        onclick="togglePassword('new-password', this)"
+                        aria-label="Hiện mật khẩu"
+                    >
+                        🙉
+                    </button>
+                </div>
+            </div>
+
+            <div class="auth-form-group">
+
+                <label for="confirm-new-password">
+                    Nhập lại mật khẩu mới
+                </label>
+
+                <div class="password-input-wrap">
+                    <input
+                        id="confirm-new-password"
+                        class="auth-input"
+                        type="password"
+                        placeholder="Nhập lại mật khẩu mới"
+                        autocomplete="new-password"
+                        required
+                    >
+                    <button
+                        type="button"
+                        class="password-toggle"
+                        onclick="togglePassword('confirm-new-password', this)"
+                        aria-label="Hiện mật khẩu"
+                    >
+                        🙉
+                    </button>
+                </div>
+            </div>
+
+            <button
+                class="change-password-submit"
+                type="submit"
+            >
+                Đổi mật khẩu
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- ===== AUTH TOAST ===== -->
+<div id="auth-toast" class="auth-toast"></div>
 </body>
-
 </html>
